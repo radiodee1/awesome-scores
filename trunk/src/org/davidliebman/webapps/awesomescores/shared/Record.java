@@ -1,6 +1,7 @@
 package org.davidliebman.webapps.awesomescores.shared;
 
 import javax.jdo.annotations.*;
+import com.google.appengine.api.datastore.Key;
 
 @PersistenceCapable
 public  class Record  {
@@ -15,20 +16,38 @@ public  class Record  {
 	public static int RADIO_PLAYERS_FIVE = 5;
 	public static int RADIO_PLAYERS_FIFTY = 50;
 	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	
+	@Persistent
 	private boolean mNewRecord;
+	@Persistent
 	private int mRecordIdNum;
+	@Persistent
 	private int mLevel;
+	@Persistent
 	private int mScore;
+	@Persistent
 	private int mLives;
+	@Persistent
 	private int mCycles;//not used much
+	@Persistent
 	private int mSave1;//not used much
+	@Persistent
 	private String mName = new String();
 	
+	@Persistent
 	private int mGameSpeed;
+	@Persistent
 	private int mNumRecords;
+	@Persistent
 	private boolean mSound;
+	@Persistent
 	private boolean mEnableJNI;
+	@Persistent
 	private Boolean mEnableMonsters;
+	@Persistent
 	private Boolean mEnableCollision;
 	
 	
