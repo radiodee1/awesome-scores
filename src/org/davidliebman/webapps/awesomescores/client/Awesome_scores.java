@@ -1,6 +1,8 @@
 package org.davidliebman.webapps.awesomescores.client;
 
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
+import org.davidliebman.webapps.awesomescores.shared.Record;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -44,15 +46,20 @@ public class Awesome_scores implements EntryPoint {
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
 
+		final Button scoresButton = new Button("scores");
+		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
-
+		scoresButton.addStyleName("sendButton");
+		
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
+		RootPanel.get("highScoreButton").add(scoresButton);
+		
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();
@@ -80,8 +87,10 @@ public class Awesome_scores implements EntryPoint {
 		closeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogBox.hide();
-				sendButton.setEnabled(true);
-				sendButton.setFocus(true);
+				//sendButton.setEnabled(true);
+				//sendButton.setFocus(true);
+				scoresButton.setEnabled(true);
+				scoresButton.setFocus(true);
 			}
 		});
 
@@ -115,11 +124,14 @@ public class Awesome_scores implements EntryPoint {
 					return;
 				}
 
+				Record highScore = new Record();
+				highScore.setName(textToServer);
+				
 				// Then, we send the input to the server.
 				sendButton.setEnabled(false);
 				textToServerLabel.setText(textToServer);
 				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
+				greetingService.greetServer(highScore,
 						new AsyncCallback<String>() {
 							public void onFailure(Throwable caught) {
 								// Show the RPC error message to the user
@@ -146,7 +158,8 @@ public class Awesome_scores implements EntryPoint {
 
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
+		//sendButton.addClickHandler(handler);
+		scoresButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
 	}
 }

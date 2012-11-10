@@ -2,6 +2,8 @@ package org.davidliebman.webapps.awesomescores.server;
 
 import org.davidliebman.webapps.awesomescores.client.GreetingService;
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
+import org.davidliebman.webapps.awesomescores.shared.Record;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -11,8 +13,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
-	public String greetServer(String input) throws IllegalArgumentException {
-		// Verify that the input is valid. 
+	//public String greetServer(String input) throws IllegalArgumentException {
+	public String greetServer(Record highScore) throws IllegalArgumentException {
+	// Verify that the input is valid. 
+		String input = new String( highScore.getName());
 		if (!FieldVerifier.isValidName(input)) {
 			// If the input is not valid, throw an IllegalArgumentException back to
 			// the client.
@@ -30,7 +34,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return "Hello, " + input + "!<br><br>I am running " + serverInfo
 				+ ".<br><br>It looks like you are using:<br>" + userAgent;
 	}
-
+//	public String greetServer(Record highscore) throws IllegalArgumentException {
+//		return "Here goes list information <br>";
+//		
+//	}
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.
