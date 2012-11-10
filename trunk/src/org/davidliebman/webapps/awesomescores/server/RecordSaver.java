@@ -1,12 +1,12 @@
-package org.davidliebman.webapps.awesomescores.shared;
+package org.davidliebman.webapps.awesomescores.server;
 
 import javax.jdo.annotations.*;
-//import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Key;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
+//import com.google.gwt.user.client.rpc.IsSerializable;
 
 @PersistenceCapable
-public  class Record implements IsSerializable {
+public  class RecordSaver  {
 	
 	public final static int SPEED_SLOW = 	16;
 	public final static int SPEED_MEDIUM = 	20;
@@ -18,62 +18,62 @@ public  class Record implements IsSerializable {
 	public static int RADIO_PLAYERS_FIVE = 5;
 	public static int RADIO_PLAYERS_FIFTY = 50;
 	
-//	@PrimaryKey
-//	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-//	private Key key;
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
 	
-	//@Persistent
+	@Persistent
 	private String mAndroidAppname;
 	
-	//@Persistent
+	@Persistent
 	private boolean mNewRecord;
-	//@Persistent
+	@Persistent
 	private int mRecordIdNum;
-	//@Persistent
+	@Persistent
 	private int mLevel;
-	//@Persistent
+	@Persistent
 	private int mScore;
-	//@Persistent
+	@Persistent
 	private int mLives;
-	//@Persistent
+	@Persistent
 	private int mCycles;//not used much
-	//@Persistent
+	@Persistent
 	private int mSave1;//not used much
-	//@Persistent
+	@Persistent
 	private String mName = new String();
 	
-	//@Persistent
+	@Persistent
 	private int mGameSpeed;
-	//@Persistent
+	@Persistent
 	private int mNumRecords;
-	//@Persistent
+	@Persistent
 	private boolean mSound;
-	//@Persistent
+	@Persistent
 	private boolean mEnableJNI;
-	//@Persistent
+	@Persistent
 	private boolean mEnableMonsters;
-	//@Persistent
+	@Persistent
 	private boolean mEnableCollision;
 	
 	
-	public Record() {
+	public RecordSaver() {
 		
-//		mName = new String("anonymous");
-//		
-//		mNewRecord = false;
-//		mRecordIdNum = 0;
-//		
-//		mLevel = 1;
-//		mScore = 10;
-//		mLives = 3;
-//		mCycles = 0;
-//		mSave1 = 0;
-//		mGameSpeed = Record.SPEED_SYSTEM;
-//		mNumRecords = RADIO_PLAYERS_FIFTY;
-//		mSound = true;
-//		mEnableJNI = true;
-//		mEnableMonsters = true;
-//		mEnableCollision = true;
+		mName = new String("anonymous");
+		
+		mNewRecord = false;
+		mRecordIdNum = 0;
+		
+		mLevel = 1;
+		mScore = 10;
+		mLives = 3;
+		mCycles = 0;
+		mSave1 = 0;
+		mGameSpeed = RecordSaver.SPEED_SYSTEM;
+		mNumRecords = RADIO_PLAYERS_FIFTY;
+		mSound = true;
+		mEnableJNI = true;
+		mEnableMonsters = true;
+		mEnableCollision = true;
 	}
 	
 /*
@@ -141,13 +141,13 @@ public  class Record implements IsSerializable {
 	public boolean isNewRecord() {
 		return mNewRecord;
 	}
-//	public Key getKey() {
-//		return key;
-//	}
-//
-//	public void setKey(Key key) {
-//		this.key = key;
-//	}
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
 
 	public String getAndroidAppname() {
 		return mAndroidAppname;
