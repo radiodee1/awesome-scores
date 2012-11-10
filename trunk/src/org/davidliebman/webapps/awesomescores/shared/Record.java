@@ -21,6 +21,9 @@ public  class Record  {
 	private Key key;
 	
 	@Persistent
+	private String mAndroidAppname;
+	
+	@Persistent
 	private boolean mNewRecord;
 	@Persistent
 	private int mRecordIdNum;
@@ -136,6 +139,22 @@ public  class Record  {
 	public boolean isNewRecord() {
 		return mNewRecord;
 	}
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public String getAndroidAppname() {
+		return mAndroidAppname;
+	}
+
+	public void setAndroidAppname(String mAndroidAppname) {
+		this.mAndroidAppname = mAndroidAppname;
+	}
+
 	public void setNewRecord(boolean mNewRecord) {
 		this.mNewRecord = mNewRecord;
 	}
