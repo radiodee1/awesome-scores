@@ -39,8 +39,8 @@ public class Awesome_scores implements EntryPoint {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
-	private final ListServiceAsync listService = GWT
-			.create(ListService.class);
+//	private final ListServiceAsync listService = GWT
+//			.create(ListService.class);
 	
 	/**
 	 * This is the entry point method.
@@ -183,7 +183,7 @@ public class Awesome_scores implements EntryPoint {
 							}
 						});
 				
-				listService.listServer("test", 
+				greetingService.listServer("test", 
 						new AsyncCallback<ArrayList<Record>>() {
 
 							@Override
