@@ -1,5 +1,7 @@
 package org.davidliebman.webapps.awesomescores.client;
 
+import java.util.ArrayList;
+
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -12,4 +14,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GreetingService extends RemoteService {
 	//String greetServer(String name) throws IllegalArgumentException;
 	String greetServer( Record highScore) throws IllegalArgumentException;
+	ArrayList<Record> listServer( String input) throws IllegalArgumentException;
 }
