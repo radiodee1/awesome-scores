@@ -1,0 +1,2 @@
+serviceClass: org.davidliebman.webapps.awesomescores.client.ListService
+path: 2D97F4B13573840A3D2EF6EF5805F818.gwt.rpc
