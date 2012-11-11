@@ -19,6 +19,9 @@ public  class Record implements IsSerializable {
 	
 
 	private String mAndroidAppname;
+	private String mEmail;
+	private String mName = new String();
+	private String mCountry;
 	
 	private boolean mNewRecord;
 	private int mRecordIdNum;
@@ -27,7 +30,7 @@ public  class Record implements IsSerializable {
 	private int mLives;
 	private int mCycles;//not used much
 	private int mSave1;//not used much
-	private String mName = new String();
+	
 	
 	private int mGameSpeed;
 	private int mNumRecords;
@@ -36,11 +39,14 @@ public  class Record implements IsSerializable {
 	private boolean mEnableMonsters;
 	private boolean mEnableCollision;
 	
-	private String mCountry;
+	
 	
 	public Record() {
 		
 		mName = new String("anonymous");
+		mEmail = new String("");
+		mCountry = new String("");
+		mAndroidAppname = new String("");
 		
 		mNewRecord = false;
 		mRecordIdNum = 0;
@@ -57,7 +63,7 @@ public  class Record implements IsSerializable {
 		mEnableMonsters = true;
 		mEnableCollision = true;
 		
-		mCountry = new String("");
+		
 	}
 	
 
@@ -73,6 +79,18 @@ public  class Record implements IsSerializable {
 	public void setAndroidAppname(String mAndroidAppname) {
 		this.mAndroidAppname = mAndroidAppname;
 	}
+
+	
+	
+	public String getEmail() {
+		return mEmail;
+	}
+
+
+	public void setEmail(String mEmail) {
+		this.mEmail = mEmail;
+	}
+
 
 	public void setNewRecord(boolean mNewRecord) {
 		this.mNewRecord = mNewRecord;
