@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import java.util.*;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
@@ -37,18 +39,21 @@ public class Awesome_scores implements EntryPoint {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
+	private final ListServiceAsync listService = GWT
+			.create(ListService.class);
+	
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
-		nameField.setText("GWT User");
+		nameField.setText("user@gmail.com");
 		final Label errorLabel = new Label();
 
 		final Button scoresButton = new Button("Submit Scores");
 		final TextBox gameplayerName = new TextBox();
-		gameplayerName.setText("");
+		gameplayerName.setText("user");
 		final TextBox gameplayerScore = new TextBox();
 		gameplayerScore.setText("30");
 		final TextBox gameplayerLevel = new TextBox();
@@ -77,7 +82,8 @@ public class Awesome_scores implements EntryPoint {
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();
-
+		sendButton.setVisible(false);
+		
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
 		dialogBox.setText("Remote Procedure Call");
@@ -87,12 +93,14 @@ public class Awesome_scores implements EntryPoint {
 		closeButton.getElement().setId("closeButton");
 		final Label textToServerLabel = new Label();
 		final HTML serverResponseLabel = new HTML();
+		final HTML serverListLabel = new HTML();
 		VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
 		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
 		dialogVPanel.add(textToServerLabel);
 		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
 		dialogVPanel.add(serverResponseLabel);
+		dialogVPanel.add(serverListLabel);
 		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 		dialogVPanel.add(closeButton);
 		dialogBox.setWidget(dialogVPanel);
@@ -168,11 +176,30 @@ public class Awesome_scores implements EntryPoint {
 								dialogBox.setText("Remote Procedure Call");
 								serverResponseLabel
 										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result);
+								serverResponseLabel.setHTML(result
+										+ "<br>----------------<br>");
 								dialogBox.center();
 								closeButton.setFocus(true);
 							}
 						});
+				
+				listService.listServer("test", 
+						new AsyncCallback<ArrayList<Record>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								serverListLabel.setHTML("fail");
+							}
+
+							@Override
+							public void onSuccess(ArrayList<Record> result) {
+								// TODO Auto-generated method stub
+								serverListLabel.setHTML(result.get(0).getName());
+							}
+					
+				});
+				
 			}
 		}
 

@@ -1,3 +1,2 @@
 # Module awesome_scores
 # RPC service class, partial path of RPC policy file
-org.davidliebman.webapps.awesomescores.client.GreetingService, CE48FDEC6883162A56546500BCCD1A2C.gwt.rpc

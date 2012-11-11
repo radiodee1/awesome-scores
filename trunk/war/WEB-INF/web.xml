@@ -11,6 +11,16 @@
     <url-pattern>/awesome_scores/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>ListServiceImpl</servlet-name>
+    <servlet-class>org.davidliebman.webapps.awesomescores.server.ListServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ListServiceImpl</servlet-name>
+    <url-pattern>/awesome_scores/greet</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Awesome_scores.html</welcome-file>

@@ -1,5 +1,7 @@
 package org.davidliebman.webapps.awesomescores.server;
 
+import java.util.ArrayList;
+
 import org.davidliebman.webapps.awesomescores.client.GreetingService;
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
 import org.davidliebman.webapps.awesomescores.shared.Record;
@@ -10,40 +12,45 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class GreetingServiceImpl extends RemoteServiceServlet implements
-		GreetingService {
+public class ListServiceImpl extends RemoteServiceServlet  {
 
 	//public String greetServer(String input) throws IllegalArgumentException {
-	public String greetServer(Record highScore) throws IllegalArgumentException {
+	public ArrayList<Record> listServer(String input) throws IllegalArgumentException {
 		// Verify that the input is valid. 
-		String input =  highScore.getEmail();
+		//String input =  highScore.getEmail();
 		if (!FieldVerifier.isValidName(input)) {
 			// If the input is not valid, throw an IllegalArgumentException back to
 			// the client.
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
 		}
-		String inputName =  highScore.getName();
-		int inputScore =  highScore.getScore();
-		int inputLives =  highScore.getLives();
-		int inputLevel =  highScore.getLevel();
-		int inputSpeed =  highScore.getGameSpeed();
+		Record highScore = new Record();
+		highScore.setName(input);
+//		String inputName =  highScore.getName();
+//		int inputScore =  highScore.getScore();
+//		int inputLives =  highScore.getLives();
+//		int inputLevel =  highScore.getLevel();
+//		int inputSpeed =  highScore.getGameSpeed();
 
-		String serverInfo = getServletContext().getServerInfo();
-		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
+//		String serverInfo = getServletContext().getServerInfo();
+//		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
 
 		// Escape data from the client to avoid cross-site script vulnerabilities.
-		input = escapeHtml(input);
-		inputName = escapeHtml(inputName);
-		userAgent = escapeHtml(userAgent);
+//		input = escapeHtml(input);
+//		inputName = escapeHtml(inputName);
+//		userAgent = escapeHtml(userAgent);
 
-		return "Hello, " + input + "!<br><br>I am running " + serverInfo
-				+ ".<br><br>It looks like you are using:<br>" + userAgent
-				+ "<br><br> Game Name:" + inputName.toString() 
-				+ "<br> Score: " + inputScore 
-				+ "<br> Lives: " + inputLives
-				+ "<br> Level: " + inputLevel
-				+ "<br> Game Speed " + inputSpeed;
+		ArrayList<Record> list = new ArrayList<Record>();
+		list.add(highScore);
+		
+		return list;
+//		return "Hello, " + input + "!<br><br>I am running " + serverInfo
+//				+ ".<br><br>It looks like you are using:<br>" + userAgent
+//				+ "<br><br> Game Name:" + inputName.toString() 
+//				+ "<br> Score: " + inputScore 
+//				+ "<br> Lives: " + inputLives
+//				+ "<br> Level: " + inputLevel
+//				+ "<br> Game Speed " + inputSpeed;
 	}
 
 	/**
