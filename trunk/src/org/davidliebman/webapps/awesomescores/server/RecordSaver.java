@@ -1,6 +1,9 @@
 package org.davidliebman.webapps.awesomescores.server;
 
 import javax.jdo.annotations.*;
+
+import org.davidliebman.webapps.awesomescores.shared.Record;
+
 import com.google.appengine.api.datastore.Key;
 
 //import com.google.gwt.user.client.rpc.IsSerializable;
@@ -54,7 +57,8 @@ public  class RecordSaver  {
 	private boolean mEnableMonsters;
 	@Persistent
 	private boolean mEnableCollision;
-	
+	@Persistent
+	private String mCountry;
 	
 	public RecordSaver() {
 		
@@ -63,78 +67,42 @@ public  class RecordSaver  {
 		mNewRecord = false;
 		mRecordIdNum = 0;
 		
-		mLevel = 1;
-		mScore = 10;
-		mLives = 3;
+		mLevel = 0;
+		mScore = 0;
+		mLives = 0;
 		mCycles = 0;
 		mSave1 = 0;
-		mGameSpeed = RecordSaver.SPEED_SYSTEM;
-		mNumRecords = RADIO_PLAYERS_FIFTY;
+		mGameSpeed = 0;
+		mNumRecords = 0;
 		mSound = true;
 		mEnableJNI = true;
 		mEnableMonsters = true;
 		mEnableCollision = true;
+		mCountry = new String("");
 	}
 	
-/*
-     public void addToPreferences( SharedPreferences preferences) {
-    	 SharedPreferences.Editor out = preferences.edit();
-    	 out.putString("mNewRecord",new Boolean(mNewRecord).toString());
-    	 out.putInt("mRecordIdNum", mRecordIdNum);
-    	 out.putString("mName",mName);
-         out.putInt("mLevel",mLevel);
-         out.putInt("mScore",mScore);
-         out.putInt("mLives",mLives);
-         out.putInt("mCycles",mCycles);
-         out.putInt("mSave1",mSave1);
-         out.putInt("mGameSpeed",mGameSpeed);
-         out.putInt("mNumRecords",mNumRecords);
-         out.putString("mSound",new Boolean(mSound).toString());
-         out.putString("mEnableJNI",new Boolean(mEnableJNI).toString());
-         out.putString("mEnableMonsters",new Boolean(mEnableMonsters).toString());
-         out.putString("mEnableCollision",new Boolean(mEnableCollision).toString());
-         out.commit();
-         
-     }
-     
-     public void getFromPreferences(SharedPreferences in) {
-    	 mNewRecord = new Boolean(in.getString("mNewRecord","false")).booleanValue();
-    	 mRecordIdNum = in.getInt("mRecordIdNum", 0);
-    	 mName = in.getString("mName","anonymous");
-         mLevel = in.getInt("mLevel",1);
-         mScore = in.getInt("mScore",10);
-         mLives = in.getInt("mLives",3);
-         mCycles = in.getInt("mCycles",0);
-         mSave1 = in.getInt("mSave1",0);
-         mGameSpeed = in.getInt("mGameSpeed",Record.SPEED_SYSTEM);
-         mNumRecords= in.getInt("mNumRecords",RADIO_PLAYERS_FIFTY);
-         mSound = new Boolean(in.getString("mSound","")).booleanValue();
-         mEnableJNI = new Boolean(in.getString("mEnableJNI","")).booleanValue();
-         mEnableMonsters = new Boolean(in.getString("mEnableMonsters","")).booleanValue();
-         mEnableCollision = new Boolean(in.getString("mEnableCollision","")).booleanValue();
-     }
-     
-*/
-     /*
-     public void listInLog() {
-		Log.i("Record", "Is New Record : " + new Boolean(mNewRecord).toString());
-		Log.i("Record", "Record Database Num : "+ mRecordIdNum);
-		Log.i("Record", "Player Name : " + mName);
-		Log.i("Record", "Player Level : "+ mLevel);
-		Log.i("Record", "Player Score : " + mScore);
-		Log.i("Record", "Player Lives : " + mLives);
-		Log.i("Record", "Player Cycles : " + mCycles);
-		Log.i("Record", "Player Save1 : " + mSave1);
-		Log.i("Record", "Game Speed : " + mGameSpeed);
-		Log.i("Record", "High Score Number : " + mNumRecords);
-		Log.i("Record", "Sound Enabled : " + new Boolean(mSound).toString());
-		Log.i("Record", "JNI Enabled : " + new Boolean(mEnableJNI).toString());
-		Log.i("Record", "Monsters Enabled : " + new Boolean(mEnableMonsters).toString());
-		Log.i("Record", "Collision Enabled : " + new Boolean(mEnableCollision).toString());
-	}
-     */
 
-    
+public RecordSaver(Record mIn) {
+		
+		mName = mIn.getName();
+		
+		mNewRecord = mIn.getNewRecord();
+		mRecordIdNum = mIn.getRecordIdNum();
+		
+		mLevel = mIn.getLevel();
+		mScore = mIn.getScore();
+		mLives = mIn.getLives();
+		mCycles = mIn.getCycles();
+		mSave1 = mIn.getSave1();
+		mGameSpeed = mIn.getGameSpeed();
+		mNumRecords = mIn.getNumRecords();
+		mSound = mIn.isSound();
+		mEnableJNI = mIn.isEnableJNI();
+		mEnableMonsters = mIn.isEnableMonsters();
+		mEnableCollision = mIn.isEnableCollision();
+		mCountry = mIn.getCountry();
+	}
+	
 	
 	
     
@@ -256,6 +224,14 @@ public  class RecordSaver  {
 	}
 	public void setRecordIdNum(int mRecordIdNum) {
 		this.mRecordIdNum = mRecordIdNum;
+	}
+
+	public String getCountry() {
+		return mCountry;
+	}
+
+	public void setCountry(String mCountry) {
+		this.mCountry = mCountry;
 	}
 	
 
