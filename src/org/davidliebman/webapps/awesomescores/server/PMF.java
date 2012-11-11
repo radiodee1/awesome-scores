@@ -1,4 +1,4 @@
-package org.davidliebman.webapps.awesomescores.shared;
+package org.davidliebman.webapps.awesomescores.server;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
