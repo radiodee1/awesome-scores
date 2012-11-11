@@ -46,7 +46,17 @@ public class Awesome_scores implements EntryPoint {
 		nameField.setText("GWT User");
 		final Label errorLabel = new Label();
 
-		final Button scoresButton = new Button("scores");
+		final Button scoresButton = new Button("Submit Scores");
+		final TextBox gameplayerName = new TextBox();
+		gameplayerName.setText("");
+		final TextBox gameplayerScore = new TextBox();
+		gameplayerScore.setText("30");
+		final TextBox gameplayerLevel = new TextBox();
+		gameplayerLevel.setText("1");
+		final TextBox gameplayerLives = new TextBox();
+		gameplayerLives.setText("3");
+		final TextBox gameplayerSpeed = new TextBox();
+		gameplayerSpeed.setText("40");
 		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
@@ -58,8 +68,12 @@ public class Awesome_scores implements EntryPoint {
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
+		RootPanel.get("highScoreName").add(gameplayerName);
+		RootPanel.get("highScoreScore").add(gameplayerScore);
+		RootPanel.get("highScoreLevel").add(gameplayerLevel);
+		RootPanel.get("highScoreLives").add(gameplayerLives);
+		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
 		RootPanel.get("highScoreButton").add(scoresButton);
-		
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();
@@ -125,7 +139,13 @@ public class Awesome_scores implements EntryPoint {
 				}
 
 				Record highScore = new Record();
-				highScore.setName(textToServer);
+				highScore.setEmail(textToServer);
+				highScore.setName(gameplayerName.getText());
+				highScore.setScore(Integer.parseInt(gameplayerScore.getText()));
+				highScore.setLevel(Integer.parseInt(gameplayerLevel.getText()));
+				highScore.setLives(Integer.parseInt(gameplayerLives.getText()));
+				highScore.setGameSpeed(Integer.parseInt(gameplayerSpeed.getText()));
+				
 				
 				// Then, we send the input to the server.
 				sendButton.setEnabled(false);
