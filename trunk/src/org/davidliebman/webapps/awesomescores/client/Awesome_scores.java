@@ -190,12 +190,14 @@ public class Awesome_scores implements EntryPoint {
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
 								serverListLabel.setHTML("fail");
+								//dialogBox.center();
 							}
 
 							@Override
 							public void onSuccess(ArrayList<Record> result) {
 								// TODO Auto-generated method stub
 								serverListLabel.setHTML(result.get(0).getName());
+								//dialogBox.center();
 							}
 					
 				});

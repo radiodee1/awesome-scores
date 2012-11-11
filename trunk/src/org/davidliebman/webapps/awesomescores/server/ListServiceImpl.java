@@ -3,6 +3,7 @@ package org.davidliebman.webapps.awesomescores.server;
 import java.util.ArrayList;
 
 import org.davidliebman.webapps.awesomescores.client.GreetingService;
+import org.davidliebman.webapps.awesomescores.client.ListService;
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
@@ -12,7 +13,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class ListServiceImpl extends RemoteServiceServlet  {
+public class ListServiceImpl extends RemoteServiceServlet implements ListService {
 
 	//public String greetServer(String input) throws IllegalArgumentException {
 	public ArrayList<Record> listServer(String input) throws IllegalArgumentException {
