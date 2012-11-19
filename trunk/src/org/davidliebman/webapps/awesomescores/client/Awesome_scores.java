@@ -25,6 +25,8 @@ import java.util.*;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Awesome_scores implements EntryPoint {
+	private String testHtml = new String();
+	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
@@ -195,8 +197,12 @@ public class Awesome_scores implements EntryPoint {
 
 							@Override
 							public void onSuccess(ArrayList<Record> result) {
-								// TODO Auto-generated method stub
-								serverListLabel.setHTML(result.get(0).getName());
+								testHtml = new String();
+								for (int x = 0; x < result.size(); x ++ ) {
+									testHtml = testHtml + result.get(x).getName() + "<br>\n";
+								}
+
+								serverListLabel.setHTML(testHtml);
 								//dialogBox.center();
 							}
 					

@@ -59,31 +59,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		Record highScore = new Record();
 		highScore.setName(input);
-//		String inputName =  highScore.getName();
-//		int inputScore =  highScore.getScore();
-//		int inputLives =  highScore.getLives();
-//		int inputLevel =  highScore.getLevel();
-//		int inputSpeed =  highScore.getGameSpeed();
 
-//		String serverInfo = getServletContext().getServerInfo();
-//		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
+		Record highScore2 = new Record();
+		highScore2.setName("name 2");
+		Record highScore3 = new Record();
+		highScore3.setName("name 3");
+		Record highScore4 = new Record();
+		highScore4.setName("name 4");
 
-		// Escape data from the client to avoid cross-site script vulnerabilities.
-//		input = escapeHtml(input);
-//		inputName = escapeHtml(inputName);
-//		userAgent = escapeHtml(userAgent);
+		
+		
 
 		ArrayList<Record> list = new ArrayList<Record>();
 		list.add(highScore);
+		list.add(highScore2);
+		list.add(highScore3);
+		list.add(highScore4);
 		
 		return list;
-//		return "Hello, " + input + "!<br><br>I am running " + serverInfo
-//				+ ".<br><br>It looks like you are using:<br>" + userAgent
-//				+ "<br><br> Game Name:" + inputName.toString() 
-//				+ "<br> Score: " + inputScore 
-//				+ "<br> Lives: " + inputLives
-//				+ "<br> Level: " + inputLevel
-//				+ "<br> Game Speed " + inputSpeed;
+
+
 	}
 	
 	/**
