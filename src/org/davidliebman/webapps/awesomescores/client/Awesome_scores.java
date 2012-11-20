@@ -68,7 +68,7 @@ public class Awesome_scores  implements EntryPoint {
 		final TextBox gameplayerSpeed = new TextBox();
 		gameplayerSpeed.setText("40");
 		
-		final TaskPickerComposite taskPicker = new TaskPickerComposite(game, console);
+		final TaskPickerComposite taskPicker = new TaskPickerComposite();
 		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
@@ -89,7 +89,7 @@ public class Awesome_scores  implements EntryPoint {
 		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
 		RootPanel.get("highScoreButton").add(scoresButton);
 		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
+		//nameField.setFocus(true);
 		nameField.selectAll();
 		sendButton.setVisible(false);
 		
@@ -128,9 +128,10 @@ public class Awesome_scores  implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
 				gameplayerName.setText(event.toDebugString() + 
-						taskPicker.getConsole().toString() + " " + 
-						taskPicker.getGame().toString());
+						taskPicker.getConsole() + " " + 
+						taskPicker.getGame());
 			}
 			
 		});
