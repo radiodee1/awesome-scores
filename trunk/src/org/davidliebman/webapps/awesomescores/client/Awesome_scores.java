@@ -24,8 +24,11 @@ import java.util.*;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Awesome_scores implements EntryPoint {
+public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
+	
+	private Integer game = new Integer(0);
+	private Integer console = new Integer(0);
 	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -65,12 +68,16 @@ public class Awesome_scores implements EntryPoint {
 		final TextBox gameplayerSpeed = new TextBox();
 		gameplayerSpeed.setText("40");
 		
+		final TaskPickerComposite taskPicker = new TaskPickerComposite(game, console);
+		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 		scoresButton.addStyleName("sendButton");
+		taskPicker.addStyleName("sendButton");
 		
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
+		RootPanel.get("taskPicker").add(taskPicker);
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
@@ -117,7 +124,17 @@ public class Awesome_scores implements EntryPoint {
 				scoresButton.setFocus(true);
 			}
 		});
+		taskPicker.addClickHandler(new ClickHandler () {
 
+			@Override
+			public void onClick(ClickEvent event) {
+				gameplayerName.setText(event.toDebugString() + 
+						taskPicker.getConsole().toString() + " " + 
+						taskPicker.getGame().toString());
+			}
+			
+		});
+		
 		// Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler, KeyUpHandler {
 			/**
