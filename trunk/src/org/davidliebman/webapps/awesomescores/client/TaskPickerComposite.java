@@ -16,12 +16,15 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	public static final int GAME_AWESOMEGUY = 3;
 	public static final int GAME_AWESOMEFLYER = 4;
 	
+	public Button btnNewButton, btnNewButton_1, btnNewButton_2, btnNewButton_3;
+	
 	private Integer game, console;
 	
-	public TaskPickerComposite(Integer mGame, Integer mConsole) {
+	public TaskPickerComposite() {
 		
-		game = mGame;
-		console = mConsole;
+		game = 0;
+		console = 0;
+		
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		initWidget(verticalPanel);
@@ -30,62 +33,33 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
 		
-		Button btnNewButton = new Button("New button");
+		btnNewButton = new Button("New button");
 		btnNewButton.setText("Admin Console");
 		horizontalPanel.add(btnNewButton);
 		
-		Button btnNewButton_1 = new Button("New button");
+		btnNewButton_1 = new Button("New button");
 		btnNewButton_1.setText("User Scores");
 		horizontalPanel.add(btnNewButton_1);
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_1);
 		
-		Button btnNewButton_2 = new Button("New button");
+		btnNewButton_2 = new Button("New button");
 		btnNewButton_2.setText("Awesomeguy");
 		horizontalPanel_1.add(btnNewButton_2);
 		
-		Button btnNewButton_3 = new Button("New button");
+		btnNewButton_3 = new Button("New button");
 		btnNewButton_3.setText("AwesomeFlyer");
 		horizontalPanel_1.add(btnNewButton_3);
 		
-		btnNewButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				console = TaskPickerComposite.CONSOLE_ADMIN;
-			}
-			
-		});
-		btnNewButton_1.addClickHandler(new ClickHandler () {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				console = TaskPickerComposite.CONSLOLE_USER;
-			}
-			
-		});
-		btnNewButton_2.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				game = TaskPickerComposite.GAME_AWESOMEGUY;
-			}
-			
-		});
-		btnNewButton_3.addClickHandler(new ClickHandler () {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				game = TaskPickerComposite.GAME_AWESOMEFLYER;
-			}
-			
-		});
 		MyHandler handler = new MyHandler();
+		btnNewButton.addClickHandler(handler);
+		btnNewButton_1.addClickHandler(handler);
+		btnNewButton_2.addClickHandler(handler);
 		btnNewButton_3.addClickHandler(handler);
+		
 	}
 
-	
-	
 	public Integer getGame() {
 		return game;
 	}
@@ -117,10 +91,27 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	}
 	
 	class MyHandler implements ClickHandler {
-
+		
 		@Override
 		public void onClick(ClickEvent event) {
-//			System.out.println(event.getSource().toString());
+			if (event.getSource() == btnNewButton) {
+				console = TaskPickerComposite.CONSOLE_ADMIN;
+
+			}
+			if (event.getSource() == btnNewButton_1) {
+				console = TaskPickerComposite.CONSLOLE_USER;
+
+			}
+			if (event.getSource() == btnNewButton_2) {
+				game = TaskPickerComposite.GAME_AWESOMEGUY;
+
+			}
+			if (event.getSource() == btnNewButton_3) {
+				game = TaskPickerComposite.GAME_AWESOMEFLYER;
+
+			}
+			System.out.println(event.getSource().toString());
+			
 			
 		}
 		
