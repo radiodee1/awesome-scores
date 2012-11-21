@@ -44,8 +44,6 @@ public class Awesome_scores  implements EntryPoint {
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
 
-//	private final ListServiceAsync listService = GWT
-//			.create(ListService.class);
 	
 	/**
 	 * This is the entry point method.
@@ -89,7 +87,7 @@ public class Awesome_scores  implements EntryPoint {
 		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
 		RootPanel.get("highScoreButton").add(scoresButton);
 		// Focus the cursor on the name field when the app loads
-		//nameField.setFocus(true);
+		//nameField.setFocus(true); <-- do not setFocus(true) !!
 		nameField.selectAll();
 		sendButton.setVisible(false);
 		
