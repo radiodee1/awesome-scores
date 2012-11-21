@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
-
+	private Label gameTarget = new Label("What Game!!??");
 	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
 	
 	private Integer game = new Integer(0);
@@ -56,23 +56,14 @@ public class Awesome_scores  implements EntryPoint {
 		nameField.setText("user@gmail.com");
 		final Label errorLabel = new Label();
 
-		final Button scoresButton = new Button("Submit Scores");
-		final TextBox gameplayerName = new TextBox();
-		gameplayerName.setText("user");
-		final TextBox gameplayerScore = new TextBox();
-		gameplayerScore.setText("30");
-		final TextBox gameplayerLevel = new TextBox();
-		gameplayerLevel.setText("1");
-		final TextBox gameplayerLives = new TextBox();
-		gameplayerLives.setText("3");
-		final TextBox gameplayerSpeed = new TextBox();
-		gameplayerSpeed.setText("40");
+//		final Button scoresButton = new Button("Submit Scores");
+
 		
 		final TaskPickerComposite taskPicker = new TaskPickerComposite();
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
-		scoresButton.addStyleName("sendButton");
+		//scoresButton.addStyleName("sendButton");
 		taskPicker.addStyleName("sendButton");
 		
 		// Add the nameField and sendButton to the RootPanel
@@ -81,13 +72,8 @@ public class Awesome_scores  implements EntryPoint {
 		//RootPanel.get("nameFieldContainer").add(nameField);
 //		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
+		RootPanel.get("gameTarget").add(gameTarget);
 
-//		RootPanel.get("highScoreName").add(gameplayerName);
-//		RootPanel.get("highScoreScore").add(gameplayerScore);
-//		RootPanel.get("highScoreLevel").add(gameplayerLevel);
-//		RootPanel.get("highScoreLives").add(gameplayerLives);
-//		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
-//		RootPanel.get("highScoreButton").add(scoresButton);
 		// Focus the cursor on the name field when the app loads
 		//nameField.setFocus(true); <-- do not setFocus(true) !!
 		nameField.selectAll();
@@ -120,8 +106,8 @@ public class Awesome_scores  implements EntryPoint {
 				dialogBox.hide();
 				//sendButton.setEnabled(true);
 				//sendButton.setFocus(true);
-				scoresButton.setEnabled(true);
-				scoresButton.setFocus(true);
+				//scoresButton.setEnabled(true);
+				//scoresButton.setFocus(true);
 			}
 		});
 		taskPicker.addClickHandler(new ClickHandler () {
@@ -129,9 +115,9 @@ public class Awesome_scores  implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				
-				gameplayerName.setText(event.toDebugString() + 
-						taskPicker.getConsole() + " " + 
-						taskPicker.getGame());
+//				gameplayerName.setText(event.toDebugString() + 
+//						taskPicker.getConsole() + " " + 
+//						taskPicker.getGame());
 				game = taskPicker.getGame();
 				console = taskPicker.getConsole();
 				modifyPage();
@@ -171,11 +157,11 @@ public class Awesome_scores  implements EntryPoint {
 
 				Record highScore = new Record();
 				highScore.setEmail(textToServer);
-				highScore.setName(gameplayerName.getText());
-				highScore.setScore(Integer.parseInt(gameplayerScore.getText()));
-				highScore.setLevel(Integer.parseInt(gameplayerLevel.getText()));
-				highScore.setLives(Integer.parseInt(gameplayerLives.getText()));
-				highScore.setGameSpeed(Integer.parseInt(gameplayerSpeed.getText()));
+//				highScore.setName(gameplayerName.getText());
+//				highScore.setScore(Integer.parseInt(gameplayerScore.getText()));
+//				highScore.setLevel(Integer.parseInt(gameplayerLevel.getText()));
+//				highScore.setLives(Integer.parseInt(gameplayerLives.getText()));
+//				highScore.setGameSpeed(Integer.parseInt(gameplayerSpeed.getText()));
 				
 				
 				// Then, we send the input to the server.
@@ -234,8 +220,7 @@ public class Awesome_scores  implements EntryPoint {
 
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
-		//sendButton.addClickHandler(handler);
-		scoresButton.addClickHandler(handler);
+		//scoresButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
 	}
 	
