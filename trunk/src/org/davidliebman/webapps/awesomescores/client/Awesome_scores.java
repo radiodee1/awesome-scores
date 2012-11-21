@@ -130,6 +130,9 @@ public class Awesome_scores  implements EntryPoint {
 				gameplayerName.setText(event.toDebugString() + 
 						taskPicker.getConsole() + " " + 
 						taskPicker.getGame());
+				game = taskPicker.getGame();
+				console = taskPicker.getConsole();
+				modifyPage();
 			}
 			
 		});
@@ -232,5 +235,14 @@ public class Awesome_scores  implements EntryPoint {
 		//sendButton.addClickHandler(handler);
 		scoresButton.addClickHandler(handler);
 		nameField.addKeyUpHandler(handler);
+	}
+	
+	public void modifyPage() {
+		if (console == TaskPickerComposite.CONSOLE_ADMIN) {
+			
+		}
+		else {
+			
+		}
 	}
 }
