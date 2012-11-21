@@ -26,6 +26,8 @@ import java.util.*;
  */
 public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
+
+	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
 	
 	private Integer game = new Integer(0);
 	private Integer console = new Integer(0);
@@ -67,7 +69,7 @@ public class Awesome_scores  implements EntryPoint {
 		gameplayerSpeed.setText("40");
 		
 		final TaskPickerComposite taskPicker = new TaskPickerComposite();
-		
+
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 		scoresButton.addStyleName("sendButton");
@@ -76,16 +78,16 @@ public class Awesome_scores  implements EntryPoint {
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("taskPicker").add(taskPicker);
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
+		//RootPanel.get("nameFieldContainer").add(nameField);
+//		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
-		RootPanel.get("highScoreName").add(gameplayerName);
-		RootPanel.get("highScoreScore").add(gameplayerScore);
-		RootPanel.get("highScoreLevel").add(gameplayerLevel);
-		RootPanel.get("highScoreLives").add(gameplayerLives);
-		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
-		RootPanel.get("highScoreButton").add(scoresButton);
+//		RootPanel.get("highScoreName").add(gameplayerName);
+//		RootPanel.get("highScoreScore").add(gameplayerScore);
+//		RootPanel.get("highScoreLevel").add(gameplayerLevel);
+//		RootPanel.get("highScoreLives").add(gameplayerLives);
+//		RootPanel.get("highScoreSpeed").add(gameplayerSpeed);
+//		RootPanel.get("highScoreButton").add(scoresButton);
 		// Focus the cursor on the name field when the app loads
 		//nameField.setFocus(true); <-- do not setFocus(true) !!
 		nameField.selectAll();
@@ -239,10 +241,14 @@ public class Awesome_scores  implements EntryPoint {
 	
 	public void modifyPage() {
 		if (console == TaskPickerComposite.CONSOLE_ADMIN) {
-			
+			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
+				RootPanel.get("consoleContainer").remove(0);
+			}
+			RootPanel.get("consoleContainer").add(adminConsole);
+
 		}
 		else {
-			
+			RootPanel.get("consoleContainer").remove(0);
 		}
 	}
 }
