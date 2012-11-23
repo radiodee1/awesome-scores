@@ -27,6 +27,7 @@ import java.util.*;
 public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
 	private Label gameTarget = new Label("What Game!!??");
+	private String gameTargetString = new String("none");
 	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
 	
 	private Integer game = new Integer(0);
@@ -120,6 +121,7 @@ public class Awesome_scores  implements EntryPoint {
 //						taskPicker.getGame());
 				game = taskPicker.getGame();
 				console = taskPicker.getConsole();
+				modifyTargetString();
 				modifyPage();
 			}
 			
@@ -234,6 +236,17 @@ public class Awesome_scores  implements EntryPoint {
 		}
 		else {
 			RootPanel.get("consoleContainer").remove(0);
+		}
+	}
+	
+	public void modifyTargetString() {
+		if (game == TaskPickerComposite.GAME_AWESOMEGUY) {
+			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
+			gameTargetString = new String(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
+		}
+		else if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
+			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
+			gameTargetString = new String (TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
 	}
 }

@@ -16,6 +16,12 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	public static final int GAME_AWESOMEGUY = 3;
 	public static final int GAME_AWESOMEFLYER = 4;
 	
+	public static final String GAME_STRING_AWESOMEGUY = 
+			new String ("org.davidliebman.android.awesomeguy");
+	
+	public static final String GAME_STRING_AWESOMEFLYER =
+			new String ("org.davidliebman.android.flyer");
+	
 	public Button btnNewButton, btnNewButton_1, btnNewButton_2, btnNewButton_3;
 	
 	private Integer game, console;
