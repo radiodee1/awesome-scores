@@ -133,7 +133,12 @@ public class Awesome_scores  implements EntryPoint {
 			 * Fired when the user clicks on the sendButton.
 			 */
 			public void onClick(ClickEvent event) {
-				sendNameToServer();
+				if(console == TaskPickerComposite.CONSOLE_ADMIN) {
+					sendNameToServer();
+					//adminConsole.setButtonPressed(false);
+					
+				}
+				//sendNameToServer();
 			}
 
 			/**
@@ -150,25 +155,26 @@ public class Awesome_scores  implements EntryPoint {
 			 */
 			private void sendNameToServer() {
 				// First, we validate the input.
-				errorLabel.setText("");
-				String textToServer = nameField.getText();
-				if (!FieldVerifier.isValidName(textToServer)) {
+				
+				if (!FieldVerifier.isValidName(adminConsole.getGameEmail())) {
 					errorLabel.setText("Please enter at least four characters");
 					return;
 				}
 
+				errorLabel.setText("text");
+				
 				Record highScore = new Record();
-				highScore.setEmail(textToServer);
-//				highScore.setName(gameplayerName.getText());
-//				highScore.setScore(Integer.parseInt(gameplayerScore.getText()));
-//				highScore.setLevel(Integer.parseInt(gameplayerLevel.getText()));
-//				highScore.setLives(Integer.parseInt(gameplayerLives.getText()));
-//				highScore.setGameSpeed(Integer.parseInt(gameplayerSpeed.getText()));
+				highScore.setEmail(adminConsole.getGameEmail());
+				highScore.setName(adminConsole.getGameName());
+				highScore.setScore(Integer.parseInt(adminConsole.getGameScore()));
+				highScore.setLevel(Integer.parseInt(adminConsole.getGameLevel()));
+				highScore.setLives(Integer.parseInt(adminConsole.getGameLives()));
+				highScore.setGameSpeed(Integer.parseInt(adminConsole.getGameSpeed()));
 				
 				
 				// Then, we send the input to the server.
-				sendButton.setEnabled(false);
-				textToServerLabel.setText(textToServer);
+				//sendButton.setEnabled(false);
+				//textToServerLabel.setText(textToServer);
 				serverResponseLabel.setText("");
 				greetingService.greetServer(highScore,
 						new AsyncCallback<String>() {
@@ -194,14 +200,14 @@ public class Awesome_scores  implements EntryPoint {
 							}
 						});
 				
-				greetingService.listServer("test", 
+				greetingService.listServer(gameTargetString, 
 						new AsyncCallback<ArrayList<Record>>() {
 
 							@Override
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
 								serverListLabel.setHTML("fail");
-								//dialogBox.center();
+								dialogBox.center();
 							}
 
 							@Override
@@ -212,7 +218,7 @@ public class Awesome_scores  implements EntryPoint {
 								}
 
 								serverListLabel.setHTML(testHtml);
-								//dialogBox.center();
+								dialogBox.center();
 							}
 					
 				});
@@ -223,7 +229,8 @@ public class Awesome_scores  implements EntryPoint {
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
 		//scoresButton.addClickHandler(handler);
-		nameField.addKeyUpHandler(handler);
+		//nameField.addKeyUpHandler(handler);
+		adminConsole.getGameButton().addClickHandler(handler);
 	}
 	
 	public void modifyPage() {
