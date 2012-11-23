@@ -29,6 +29,8 @@ public class Awesome_scores  implements EntryPoint {
 	private Label gameTarget = new Label("What Game!!??");
 	private String gameTargetString = new String("none");
 	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
+	private RecordListerComposite resultsVPanel = new RecordListerComposite();
+	private ArrayList<Record> mList = new ArrayList<Record>();
 	
 	private Integer game = new Integer(0);
 	private Integer console = new Integer(0);
@@ -74,7 +76,8 @@ public class Awesome_scores  implements EntryPoint {
 //		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 		RootPanel.get("gameTarget").add(gameTarget);
-
+		//RootPanel.get("resultsPanel").add(resultsVPanel);
+		
 		// Focus the cursor on the name field when the app loads
 		//nameField.setFocus(true); <-- do not setFocus(true) !!
 		nameField.selectAll();
@@ -90,7 +93,7 @@ public class Awesome_scores  implements EntryPoint {
 		final Label textToServerLabel = new Label();
 		final HTML serverResponseLabel = new HTML();
 		final HTML serverListLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
+		final VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
 		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
 		dialogVPanel.add(textToServerLabel);
@@ -205,18 +208,22 @@ public class Awesome_scores  implements EntryPoint {
 
 							@Override
 							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
 								serverListLabel.setHTML("fail");
 								dialogBox.center();
 							}
 
 							@Override
 							public void onSuccess(ArrayList<Record> result) {
+								
+								mList = result;
+								//resultsVPanel = new RecordListerComposite();
+								//resultsVPanel.fill(result);
 								testHtml = new String();
 								for (int x = 0; x < result.size(); x ++ ) {
 									testHtml = testHtml + result.get(x).getName() + "<br>\n";
+									//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
 								}
-
+								
 								serverListLabel.setHTML(testHtml);
 								dialogBox.center();
 							}
@@ -243,6 +250,16 @@ public class Awesome_scores  implements EntryPoint {
 		}
 		else {
 			RootPanel.get("consoleContainer").remove(0);
+			//RootPanel.get("resultsPanel").add(new Label("hello"));
+			VerticalPanel resultsV = new VerticalPanel();
+			RootPanel.get("resultsPanel").add(resultsV);
+			for (int x = 0; x < mList.size(); x ++ ) {
+				resultsV.add(new DisplayRecordComposite(mList.get(x), x));
+				//resultsV.add(new Label("test " + x));
+			}
+			//RootPanel.get("resultsPanel").add(resultsVPanel);
+			//resultsVPanel = new RecordListerComposite();
+			//resultsVPanel.fill(mList);
 		}
 	}
 	
