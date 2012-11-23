@@ -3,6 +3,8 @@ package org.davidliebman.webapps.awesomescores.shared;
 //import javax.jdo.annotations.*;
 //import com.google.appengine.api.datastore.Key;
 
+import java.util.Date;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public  class Record implements IsSerializable {
@@ -39,7 +41,7 @@ public  class Record implements IsSerializable {
 	private boolean mEnableMonsters;
 	private boolean mEnableCollision;
 	
-	
+	private Date mDate;
 	
 	public Record() {
 		
@@ -62,7 +64,7 @@ public  class Record implements IsSerializable {
 		mEnableJNI = true;
 		mEnableMonsters = true;
 		mEnableCollision = true;
-		
+		mDate = new Date();
 		
 	}
 	
@@ -205,9 +207,19 @@ public  class Record implements IsSerializable {
 	public void setCountry(String mCountry) {
 		this.mCountry = mCountry;
 	}
+
+
+	public Date getDate() {
+		return mDate;
+	}
+
+
+	public void setDate(Date mDate) {
+		this.mDate = mDate;
+	}
 	
 
-
+	
 	
 
 
