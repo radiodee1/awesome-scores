@@ -19,23 +19,24 @@ public class DisplayRecordComposite extends Composite {
 	private DateLabel dateLabel;
 	private Button btnSeeMore;
 	
+	
 	public DisplayRecordComposite(Record r, int num) {
-		super();
+		
 		this.setRecord(r);
 		lblNum.setText(new Integer(num + 1).toString());
-	}
 	
-	public DisplayRecordComposite() {
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		initWidget(horizontalPanel);
-		horizontalPanel.setHeight("62px");
+		this.initWidget(horizontalPanel);
+		setHeight("62px");
 		
-		image = new Image((String) null);
+		image = new Image("ic_guy_0.png");
 		horizontalPanel.add(image);
+		image.setHeight("58px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
+		verticalPanel.setWidth("208px");
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_1);
