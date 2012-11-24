@@ -255,7 +255,7 @@ public class Awesome_scores  implements EntryPoint {
 			RootPanel.get("resultsPanel").add(resultsV);
 			for (int x = 0; x < mList.size(); x ++ ) {
 				resultsV.add(new DisplayRecordComposite(mList.get(x), x));
-				//resultsV.add(new Label("test " + x));
+				//resultsV.add(new Label(mList.get(x).getName() + " " + x));
 			}
 			//RootPanel.get("resultsPanel").add(resultsVPanel);
 			//resultsVPanel = new RecordListerComposite();
