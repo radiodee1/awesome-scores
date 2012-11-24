@@ -90,6 +90,12 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 
 
 
+	public Button getButtonUserScores() {
+		return btnNewButton_1;
+	}
+
+	
+
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		// TODO Auto-generated method stub

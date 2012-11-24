@@ -5,23 +5,29 @@ import java.util.ArrayList;
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.InsertPanel.ForIsWidget;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.Cell.Context;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 
 
-public class RecordListerComposite extends VerticalPanel {
+public class RecordListerComposite extends Composite {
 	ArrayList<Record> mList = new ArrayList<Record>();
 	VerticalPanel mPanel = new VerticalPanel();
+	//ListBox scrollPanel = new ListBox();
 	
 	public RecordListerComposite() {
-		//this.initWidget(mPanel);
 		
+		ScrollPanel scrollPanel = new ScrollPanel();
+		mPanel.setBorderWidth(1);
+		//scrollPanel.setAlwaysShowScrollBars(true);
+		
+		scrollPanel.add(mPanel);
+		mPanel.setSize("450", "300");
+		this.initWidget(scrollPanel);
+		scrollPanel.setSize("450", "300");
+		//((ForIsWidget) scrollPanel).add(mPanel);
 		//fill(new ArrayList<Record> ());
 		
 	}
@@ -30,8 +36,13 @@ public class RecordListerComposite extends VerticalPanel {
 	
 	public void fill(ArrayList <Record> mL) {
 		mList = mL;
+		while (mPanel.getWidgetCount() > 0) {
+			mPanel.remove(0);
+		}
+		//mPanel = new VerticalPanel();
+		
 		for(int x = 0; x < mList.size(); x ++ ) {
-			this.add(new DisplayRecordComposite(mList.get(x), x));
+			mPanel.add(new DisplayRecordComposite(mList.get(x), x));
 		}
 	}
 }
