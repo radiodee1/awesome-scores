@@ -22,9 +22,6 @@ public class DisplayRecordComposite extends Composite {
 	
 	public DisplayRecordComposite(Record r, int num) {
 		
-		this.setRecord(r);
-		lblNum.setText(new Integer(num + 1).toString());
-	
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		this.initWidget(horizontalPanel);
@@ -73,9 +70,14 @@ public class DisplayRecordComposite extends Composite {
 		
 		btnSeeMore = new Button("See More");
 		horizontalPanel_3.add(btnSeeMore);
+		
+		setRecord(r, num);
 	}
 
-	public void setRecord(Record mRec) {
+	public void setRecord(Record mRec, int n) {
+		
+		lblNum.setText(new Integer(n + 1).toString());
+		
 		lblName.setText(mRec.getName());
 		lblScore.setText(new Integer(mRec.getScore()).toString());
 		dateLabel.setValue(mRec.getDate());
