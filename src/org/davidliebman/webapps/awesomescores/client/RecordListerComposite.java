@@ -20,6 +20,7 @@ public class RecordListerComposite extends Composite {
 	public RecordListerComposite() {
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
+		mPanel.setStyleName("recordDisplay");
 		mPanel.setBorderWidth(1);
 		//scrollPanel.setAlwaysShowScrollBars(true);
 		
