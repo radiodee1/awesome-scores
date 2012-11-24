@@ -1,5 +1,7 @@
 package org.davidliebman.webapps.awesomescores.server;
 
+import java.util.Date;
+
 import javax.jdo.annotations.*;
 
 import org.davidliebman.webapps.awesomescores.shared.Record;
@@ -59,9 +61,12 @@ public  class RecordSaver  {
 	private boolean mEnableCollision;
 	@Persistent
 	private String mCountry;
+	@Persistent
+	private Date mDate;
 	
 	public RecordSaver() {
 		
+		mAndroidAppname = new String("none");
 		mName = new String("anonymous");
 		
 		mNewRecord = false;
@@ -79,11 +84,14 @@ public  class RecordSaver  {
 		mEnableMonsters = true;
 		mEnableCollision = true;
 		mCountry = new String("");
+		mDate = new Date();
 	}
 	
 
 public RecordSaver(Record mIn) {
 		
+		mAndroidAppname = mIn.getAndroidAppname();
+	
 		mName = mIn.getName();
 		
 		mNewRecord = mIn.getNewRecord();
@@ -101,6 +109,7 @@ public RecordSaver(Record mIn) {
 		mEnableMonsters = mIn.isEnableMonsters();
 		mEnableCollision = mIn.isEnableCollision();
 		mCountry = mIn.getCountry();
+		mDate = mIn.getDate();
 	}
 	
 	
@@ -232,6 +241,14 @@ public RecordSaver(Record mIn) {
 
 	public void setCountry(String mCountry) {
 		this.mCountry = mCountry;
+	}
+
+	public Date getDate() {
+		return mDate;
+	}
+
+	public void setDate(Date mDate) {
+		this.mDate = mDate;
 	}
 	
 
