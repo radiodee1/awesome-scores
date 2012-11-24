@@ -1,5 +1,6 @@
 package org.davidliebman.webapps.awesomescores.server;
 
+
 import java.util.Date;
 
 import javax.jdo.annotations.*;
@@ -25,7 +26,7 @@ public  class RecordSaver  {
 	
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Key key;
+	private Long key;
 	
 	@Persistent
 	private String mAndroidAppname;
@@ -62,9 +63,14 @@ public  class RecordSaver  {
 	@Persistent
 	private String mCountry;
 	@Persistent
-	private Date mDate;
+	private long mDate;
+	
+	@Persistent
+	private String mEmail;
 	
 	public RecordSaver() {
+		
+		key = null;
 		
 		mAndroidAppname = new String("none");
 		mName = new String("anonymous");
@@ -84,12 +90,15 @@ public  class RecordSaver  {
 		mEnableMonsters = true;
 		mEnableCollision = true;
 		mCountry = new String("");
-		mDate = new Date();
+		mDate =new Date(0).getTime();
+		mEmail = new String("");
 	}
 	
 
 public RecordSaver(Record mIn) {
 		
+		key = null;
+	
 		mAndroidAppname = mIn.getAndroidAppname();
 	
 		mName = mIn.getName();
@@ -109,7 +118,8 @@ public RecordSaver(Record mIn) {
 		mEnableMonsters = mIn.isEnableMonsters();
 		mEnableCollision = mIn.isEnableCollision();
 		mCountry = mIn.getCountry();
-		mDate = mIn.getDate();
+		mDate = mIn.getDate().getTime();
+		mEmail = mIn.getEmail();
 	}
 	
 	
@@ -118,11 +128,11 @@ public RecordSaver(Record mIn) {
 	public boolean isNewRecord() {
 		return mNewRecord;
 	}
-	public Key getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(Key key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -244,15 +254,28 @@ public RecordSaver(Record mIn) {
 	}
 
 	public Date getDate() {
-		return mDate;
+		return new Date(mDate);
 	}
 
 	public void setDate(Date mDate) {
-		this.mDate = mDate;
+		this.mDate = mDate.getTime();
 	}
 	
 
-
+	public Record getRecord() {
+		Record mRec = new Record();
+		
+		mRec.setName(mName);
+		mRec.setScore(mScore);
+		mRec.setLives(mLives);
+		mRec.setLevel(mLevel);
+		mRec.setDate(new Date (mDate));
+		mRec.setEmail(mEmail);
+		mRec.setCountry(mCountry);
+		
+		
+		return mRec;
+	}
 	
 
 
