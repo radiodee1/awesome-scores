@@ -204,32 +204,32 @@ public class Awesome_scores  implements EntryPoint {
 							}
 						});
 				
-				greetingService.listServer(gameTargetString, 
-						new AsyncCallback<ArrayList<Record>>() {
-
-							@Override
-							public void onFailure(Throwable caught) {
-								serverListLabel.setHTML("fail");
-								dialogBox.center();
-							}
-
-							@Override
-							public void onSuccess(ArrayList<Record> result) {
-								
-								mList = result;
-								//resultsVPanel = new RecordListerComposite();
-								//resultsVPanel.fill(result);
-								testHtml = new String();
-								for (int x = 0; x < result.size(); x ++ ) {
-									testHtml = testHtml + result.get(x).getName() + "<br>\n";
-									//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
-								}
-								
-								serverListLabel.setHTML(testHtml);
-								dialogBox.center();
-							}
-					
-				});
+//				greetingService.listServer(gameTargetString, 
+//						new AsyncCallback<ArrayList<Record>>() {
+//
+//							@Override
+//							public void onFailure(Throwable caught) {
+//								serverListLabel.setHTML("fail");
+//								dialogBox.center();
+//							}
+//
+//							@Override
+//							public void onSuccess(ArrayList<Record> result) {
+//								
+//								mList = result;
+//								//resultsVPanel = new RecordListerComposite();
+//								//resultsVPanel.fill(result);
+//								testHtml = new String();
+//								for (int x = 0; x < result.size(); x ++ ) {
+//									testHtml = testHtml + result.get(x).getName() + "<br>\n";
+//									//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
+//								}
+//								
+//								serverListLabel.setHTML(testHtml);
+//								dialogBox.center();
+//							}
+//					
+//				});
 				
 			}
 		}
