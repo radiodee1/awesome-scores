@@ -90,7 +90,7 @@ public  class RecordSaver  {
 		mEnableMonsters = true;
 		mEnableCollision = true;
 		mCountry = new String("");
-		mDate =new Date(0).getTime();
+		mDate =new Date().getTime();
 		mEmail = new String("");
 	}
 	
