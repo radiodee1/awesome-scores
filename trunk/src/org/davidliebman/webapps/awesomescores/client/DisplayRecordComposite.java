@@ -18,6 +18,7 @@ public class DisplayRecordComposite extends Composite {
 	private Label label, lblNum, lblName,lblScore, lblScoreNum, lblDate ;
 	private DateLabel dateLabel;
 	private Button btnSeeMore;
+	private Label label_1;
 	
 	
 	public DisplayRecordComposite(Record r, int num) {
@@ -68,7 +69,12 @@ public class DisplayRecordComposite extends Composite {
 		horizontalPanel_3.add(dateLabel);
 		horizontalPanel_3.setCellVerticalAlignment(dateLabel, HasVerticalAlignment.ALIGN_MIDDLE);
 		
+		label_1 = new Label("   ");
+		horizontalPanel_3.add(label_1);
+		label_1.setSize("10", "10");
+		
 		btnSeeMore = new Button("See More");
+		btnSeeMore.setStyleName("recordButton");
 		horizontalPanel_3.add(btnSeeMore);
 		
 		setRecord(r, num);
@@ -79,7 +85,6 @@ public class DisplayRecordComposite extends Composite {
 		lblNum.setText(new Integer(n + 1).toString());
 		
 		lblName.setText(mRec.getName());
-		lblScore.setText(new Integer(mRec.getScore()).toString());
 		dateLabel.setValue(mRec.getDate());
 	}
 	

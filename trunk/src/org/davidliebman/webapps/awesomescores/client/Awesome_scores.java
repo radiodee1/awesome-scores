@@ -114,14 +114,24 @@ public class Awesome_scores  implements EntryPoint {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				int oldgame,oldconsole;
+				oldgame = game;
+				oldconsole = console;	
 				
-//				gameplayerName.setText(event.toDebugString() + 
-//						taskPicker.getConsole() + " " + 
-//						taskPicker.getGame());
 				game = taskPicker.getGame();
 				console = taskPicker.getConsole();
 				modifyTargetString();
+				
+				if (oldgame != game ) {
+					getListFromServer();
+				}
+				if (oldconsole != console ) {
+					
+				}
+				
 				modifyPage();
+				
+				
 			}
 			
 		});
