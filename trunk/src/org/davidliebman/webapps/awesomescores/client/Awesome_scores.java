@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import java.util.*;
 
@@ -31,6 +32,9 @@ public class Awesome_scores  implements EntryPoint {
 	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();
 	private ArrayList<Record> mList = new ArrayList<Record>();
+	private final TaskPickerComposite taskPicker = new TaskPickerComposite();
+
+	
 	
 	private Integer game = new Integer(0);
 	private Integer console = new Integer(0);
@@ -59,11 +63,6 @@ public class Awesome_scores  implements EntryPoint {
 		nameField.setText("user@gmail.com");
 		final Label errorLabel = new Label();
 
-//		final Button scoresButton = new Button("Submit Scores");
-
-		
-		final TaskPickerComposite taskPicker = new TaskPickerComposite();
-
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 		//scoresButton.addStyleName("sendButton");
@@ -72,11 +71,8 @@ public class Awesome_scores  implements EntryPoint {
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel.get("taskPicker").add(taskPicker);
-		//RootPanel.get("nameFieldContainer").add(nameField);
-//		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 		RootPanel.get("gameTarget").add(gameTarget);
-		//RootPanel.get("resultsPanel").add(resultsVPanel);
 		
 		// Focus the cursor on the name field when the app loads
 		//nameField.setFocus(true); <-- do not setFocus(true) !!
@@ -131,27 +127,24 @@ public class Awesome_scores  implements EntryPoint {
 		});
 		
 		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler, KeyUpHandler {
+		class MyHandler implements ClickHandler {
 			/**
 			 * Fired when the user clicks on the sendButton.
 			 */
 			public void onClick(ClickEvent event) {
-				if(console == TaskPickerComposite.CONSOLE_ADMIN) {
+				Widget source = (Widget) event.getSource();
+				if(source == adminConsole.getGameButton()) {
 					sendNameToServer();
 					//adminConsole.setButtonPressed(false);
 					
 				}
-				//sendNameToServer();
+				else if (source == taskPicker.getButtonUserScores()) {
+					getListFromServer();
+				}
+				
 			}
 
-			/**
-			 * Fired when the user types in the nameField.
-			 */
-			public void onKeyUp(KeyUpEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					sendNameToServer();
-				}
-			}
+		
 
 			/**
 			 * Send the name from the nameField to the server and wait for a response.
@@ -163,8 +156,6 @@ public class Awesome_scores  implements EntryPoint {
 					errorLabel.setText("Please enter at least four characters");
 					return;
 				}
-
-				errorLabel.setText("text");
 				
 				Record highScore = new Record();
 				highScore.setEmail(adminConsole.getGameEmail());
@@ -236,8 +227,39 @@ public class Awesome_scores  implements EntryPoint {
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
 		//scoresButton.addClickHandler(handler);
-		//nameField.addKeyUpHandler(handler);
+		taskPicker.getButtonUserScores().addClickHandler(handler);
 		adminConsole.getGameButton().addClickHandler(handler);
+		
+	}
+	
+	public void getListFromServer() {
+		greetingService.listServer(gameTargetString, 
+				new AsyncCallback<ArrayList<Record>>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						//serverListLabel.setHTML("fail");
+						//dialogBox.center();
+					}
+
+					@Override
+					public void onSuccess(ArrayList<Record> result) {
+						
+						mList = result;
+						modifyPage();
+						//resultsVPanel = new RecordListerComposite();
+						//resultsVPanel.fill(result);
+//						testHtml = new String();
+//						for (int x = 0; x < result.size(); x ++ ) {
+//							testHtml = testHtml + result.get(x).getName() + "<br>\n";
+//							//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
+//						}
+						
+						//serverListLabel.setHTML(testHtml);
+						//dialogBox.center();
+					}
+			
+		});
 	}
 	
 	public void modifyPage() {
@@ -245,21 +267,20 @@ public class Awesome_scores  implements EntryPoint {
 			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
 			}
+			while (RootPanel.get("resultsPanel").getWidgetCount() > 0 ) {
+				RootPanel.get("resultsPanel").remove(0);
+			}
+			
 			RootPanel.get("consoleContainer").add(adminConsole);
 
 		}
 		else {
-			RootPanel.get("consoleContainer").remove(0);
-			//RootPanel.get("resultsPanel").add(new Label("hello"));
-			VerticalPanel resultsV = new VerticalPanel();
-			RootPanel.get("resultsPanel").add(resultsV);
-			for (int x = 0; x < mList.size(); x ++ ) {
-				resultsV.add(new DisplayRecordComposite(mList.get(x), x));
-				//resultsV.add(new Label(mList.get(x).getName() + " " + x));
+			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
+				RootPanel.get("consoleContainer").remove(0);
 			}
-			//RootPanel.get("resultsPanel").add(resultsVPanel);
+			RootPanel.get("resultsPanel").add(resultsVPanel);
 			//resultsVPanel = new RecordListerComposite();
-			//resultsVPanel.fill(mList);
+			resultsVPanel.fill(mList);
 		}
 	}
 	

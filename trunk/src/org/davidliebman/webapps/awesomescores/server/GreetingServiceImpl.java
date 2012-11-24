@@ -67,6 +67,20 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		Record highScore4 = new Record();
 		highScore4.setName("name 4");
 
+		Record highScore5 = new Record();
+		highScore5.setName("name 2");
+		Record highScore6 = new Record();
+		highScore6.setName("name 3");
+		Record highScore7 = new Record();
+		highScore7.setName("name 4");
+
+		Record highScore8 = new Record();
+		highScore8.setName("name 2");
+		Record highScore9 = new Record();
+		highScore9.setName("name 3");
+		Record highScore10 = new Record();
+		highScore10.setName("name 4");
+
 		
 		
 
@@ -75,7 +89,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		list.add(highScore2);
 		list.add(highScore3);
 		list.add(highScore4);
-		
+		list.add(highScore5);
+		list.add(highScore6);
+		list.add(highScore7);
+		list.add(highScore8);
+		list.add(highScore9);
+		list.add(highScore10);
+		//list.add(highScore3);
+		//list.add(highScore4);
 		return list;
 
 
