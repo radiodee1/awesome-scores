@@ -14,6 +14,8 @@ public class ScoreManagerJDO {
 
 	PersistenceManager pm ;
 	
+	public static final int STORE_LIMIT = 10;
+	
 	public ScoreManagerJDO() {
 		pm = PMF.get().getPersistenceManager();
 	}
@@ -43,10 +45,20 @@ public class ScoreManagerJDO {
 		try {
 			  List<RecordSaver> results = (List<RecordSaver>) q.execute(mGame);
 			  if (!results.isEmpty()) {
-			    for (RecordSaver p : results) {
-			      // Process result p
-			    	mRecList.add(p.getRecord());
-			    }
+				for (int x = 0; x < results.size(); x ++ ) {
+					if (x < STORE_LIMIT) {
+						mRecList.add(results.get(x).getRecord());
+					}
+					else {
+						// remove record
+						pm.deletePersistent(results.get(x));
+					}
+				}
+				  
+//			    for (RecordSaver p : results) {
+//			      // Process result p
+//			    	mRecList.add(p.getRecord());
+//			    }
 			  } else {
 			    // Handle "no results" case
 			  }
