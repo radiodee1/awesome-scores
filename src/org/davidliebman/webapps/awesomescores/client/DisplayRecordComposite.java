@@ -30,7 +30,7 @@ public class DisplayRecordComposite extends Composite {
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		this.initWidget(horizontalPanel);
-		horizontalPanel.setSize("238px", "88px");
+		horizontalPanel.setSize("333px", "88px");
 		setHeight("62px");
 		
 		image = new Image("ic_guy_0.png");
@@ -39,7 +39,7 @@ public class DisplayRecordComposite extends Composite {
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
-		verticalPanel.setWidth("208px");
+		verticalPanel.setWidth("146px");
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_1);
@@ -79,7 +79,9 @@ public class DisplayRecordComposite extends Composite {
 		label_1.setSize("10", "10");
 		
 		layoutPanel = new LayoutPanel();
-		horizontalPanel_3.add(layoutPanel);
+		//horizontalPanel_3.add(layoutPanel);
+		horizontalPanel.add(layoutPanel);
+		horizontalPanel.setCellWidth(layoutPanel, "80");
 		layoutPanel.setSize("20", "20");
 		
 		btnSeeMore = new Button("See More");
@@ -88,7 +90,7 @@ public class DisplayRecordComposite extends Composite {
 		layoutPanel.add(btnSeeMore);
 		btnSeeMore.setSize("40", "10");
 		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
-		layoutPanel.setWidgetTopHeight(btnSeeMore, 0.0, Unit.PX, 34.0, Unit.PX);
+		layoutPanel.setWidgetTopHeight(btnSeeMore, 10.0, Unit.PX, 34.0, Unit.PX);
 		
 		setRecord(r, num);
 	}
@@ -96,8 +98,8 @@ public class DisplayRecordComposite extends Composite {
 	public void setRecord(Record mRec, int n) {
 		
 		lblNum.setText(new Integer(n + 1).toString());
-		
-		lblName.setText(mRec.getName());
+		String newName = mRec.getName().substring(0, 20);
+		lblName.setText(newName);
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
 		
