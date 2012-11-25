@@ -163,10 +163,13 @@ public class Awesome_scores  implements EntryPoint {
 				// First, we validate the input.
 				
 				if (!FieldVerifier.isValidName(adminConsole.getGameEmail())) {
-					errorLabel.setText("Please enter at least four characters");
+					errorLabel.setText("Please enter at least four characters for email.");
 					return;
 				}
-				
+				if (!FieldVerifier.isValidName(adminConsole.getGameName())) {
+					errorLabel.setText("Please enter at least four characters for name.");
+					return;
+				}
 				Record highScore = new Record();
 				highScore.setEmail(adminConsole.getGameEmail());
 				highScore.setName(adminConsole.getGameName());
@@ -174,7 +177,12 @@ public class Awesome_scores  implements EntryPoint {
 				highScore.setLevel(Integer.parseInt(adminConsole.getGameLevel()));
 				highScore.setLives(Integer.parseInt(adminConsole.getGameLives()));
 				highScore.setGameSpeed(Integer.parseInt(adminConsole.getGameSpeed()));
-				
+				if (game != 0) {
+					highScore.setAndroidAppname(gameTargetString);
+				}
+				else {
+					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
+				}
 				
 				// Then, we send the input to the server.
 				//sendButton.setEnabled(false);

@@ -11,6 +11,8 @@ import com.google.gwt.user.client.ui.DateLabel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.dom.client.Style.Unit;
 
 public class DisplayRecordComposite extends Composite {
 
@@ -19,6 +21,7 @@ public class DisplayRecordComposite extends Composite {
 	private DateLabel dateLabel;
 	private Button btnSeeMore;
 	private Label label_1;
+	private LayoutPanel layoutPanel;
 	
 	
 	public DisplayRecordComposite(Record r, int num) {
@@ -73,9 +76,16 @@ public class DisplayRecordComposite extends Composite {
 		horizontalPanel_3.add(label_1);
 		label_1.setSize("10", "10");
 		
+		layoutPanel = new LayoutPanel();
+		horizontalPanel_3.add(layoutPanel);
+		layoutPanel.setSize("20", "20");
+		
 		btnSeeMore = new Button("See More");
 		btnSeeMore.setStyleName("recordButton");
-		horizontalPanel_3.add(btnSeeMore);
+		//horizontalPanel_3.add(btnSeeMore);
+		layoutPanel.add(btnSeeMore);
+		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
+		layoutPanel.setWidgetTopHeight(btnSeeMore, 0.0, Unit.PX, 34.0, Unit.PX);
 		
 		setRecord(r, num);
 	}
