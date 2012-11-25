@@ -2,6 +2,7 @@ package org.davidliebman.webapps.awesomescores.client;
 
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -102,34 +103,34 @@ public class DisplayRecordComposite extends Composite {
 		
 		switch (n % 9) {
 		case 0:
-			image = new Image("ic_guy_0.png");
+			image.setUrl("ic_guy_0.png");
 			break;
 		case 1:
-			image = new Image("ic_guy_1.png");
+			image.setUrl("ic_guy_1.png");
 			break;
 		case 2:
-			image = new Image("ic_guy_2.png");
+			image.setUrl("ic_guy_2.png");
 			break;
 		case 3:
-			image = new Image("ic_guy_3.png");
+			image.setUrl("ic_guy_3.png");
 			break;
 		case 4:
-			image = new Image("ic_guy_4.png");
+			image.setUrl("ic_guy_4.png");
 			break;
 		case 5:
-			image = new Image("ic_guy_5.png");
+			image.setUrl("ic_guy_5.png");
 			break;
 		case 6:
-			image = new Image("ic_guy_6.png");
+			image.setUrl("ic_guy_6.png");
 			break;
 		case 7:
-			image = new Image("ic_guy_7.png");
+			image.setUrl("ic_guy_7.png");
 			break;
 		case 8:
-			image = new Image("ic_guy_8.png");
+			image.setUrl("ic_guy_8.png");
 			break;
 		default:
-			image = new Image("ic_guy_0.png");
+			image.setUrl("ic_guy_0.png");
 			break;
 		}
 	}
