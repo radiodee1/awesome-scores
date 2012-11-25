@@ -35,6 +35,8 @@ h1 {
 .recordDisplay {
 	color:white;
 	background:black;
+	font-style:bold;
+	font-size:20px;
 }
 .recordButton {
 	color:black;
