@@ -21,7 +21,6 @@ public class DisplayRecordComposite extends Composite {
 	private Label label, lblNum, lblName,lblScore, lblScoreNum, lblDate ;
 	private DateLabel dateLabel;
 	private Button btnSeeMore;
-	private Label label_1;
 	private LayoutPanel layoutPanel;
 	
 	
@@ -29,6 +28,7 @@ public class DisplayRecordComposite extends Composite {
 		
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setStyleName("recordDisplay");
 		this.initWidget(horizontalPanel);
 		horizontalPanel.setSize("333px", "88px");
 		setHeight("62px");
@@ -45,38 +45,41 @@ public class DisplayRecordComposite extends Composite {
 		verticalPanel.add(horizontalPanel_1);
 		
 		label = new Label("# ");
+		label.setStyleName("recordDisplay");
 		horizontalPanel_1.add(label);
 		
 		lblNum = new Label("Num");
+		lblNum.setStyleName("recordDisplay");
 		horizontalPanel_1.add(lblNum);
 		
 		lblName = new Label("name");
+		lblName.setStyleName("recordDisplay");
 		horizontalPanel_1.add(lblName);
 		
 		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_2);
 		
 		lblScore = new Label("Score: ");
+		lblScore.setStyleName("recordDisplay");
 		horizontalPanel_2.add(lblScore);
 		
 		lblScoreNum = new Label("0");
+		lblScoreNum.setStyleName("recordDisplay");
 		horizontalPanel_2.add(lblScoreNum);
 		
 		HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_3);
 		
 		lblDate = new Label("Date: ");
+		lblDate.setStyleName("recordDisplay");
 		horizontalPanel_3.add(lblDate);
 		horizontalPanel_3.setCellVerticalAlignment(lblDate, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		dateLabel = new DateLabel();
+		dateLabel.setStyleName("recordDisplay");
 		dateLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		horizontalPanel_3.add(dateLabel);
 		horizontalPanel_3.setCellVerticalAlignment(dateLabel, HasVerticalAlignment.ALIGN_MIDDLE);
-		
-		label_1 = new Label("   ");
-		horizontalPanel_3.add(label_1);
-		label_1.setSize("10", "10");
 		
 		layoutPanel = new LayoutPanel();
 		//horizontalPanel_3.add(layoutPanel);
@@ -90,7 +93,7 @@ public class DisplayRecordComposite extends Composite {
 		layoutPanel.add(btnSeeMore);
 		btnSeeMore.setSize("40", "10");
 		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
-		layoutPanel.setWidgetTopHeight(btnSeeMore, 10.0, Unit.PX, 34.0, Unit.PX);
+		layoutPanel.setWidgetTopHeight(btnSeeMore, 14.0, Unit.PX, 34.0, Unit.PX);
 		
 		setRecord(r, num);
 	}
@@ -98,7 +101,7 @@ public class DisplayRecordComposite extends Composite {
 	public void setRecord(Record mRec, int n) {
 		
 		lblNum.setText(new Integer(n + 1).toString() + ".  ");
-		String newName = mRec.getName().substring(0, 20);
+		String newName = mRec.getName().substring(0, 15);
 		lblName.setText(newName );
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
