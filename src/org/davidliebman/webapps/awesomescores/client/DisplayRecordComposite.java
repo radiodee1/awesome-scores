@@ -97,9 +97,9 @@ public class DisplayRecordComposite extends Composite {
 
 	public void setRecord(Record mRec, int n) {
 		
-		lblNum.setText(new Integer(n + 1).toString());
+		lblNum.setText(new Integer(n + 1).toString() + ".  ");
 		String newName = mRec.getName().substring(0, 20);
-		lblName.setText(newName);
+		lblName.setText(newName );
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
 		

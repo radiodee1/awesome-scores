@@ -272,7 +272,7 @@ public RecordSaver(Record mIn) {
 		mRec.setDate(new Date (mDate));
 		mRec.setEmail(mEmail);
 		mRec.setCountry(mCountry);
-		
+		mRec.setAndroidAppname(mAndroidAppname);
 		
 		return mRec;
 	}

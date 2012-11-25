@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.Button;
 public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 
 	public static final int CONSOLE_ADMIN = 1;
-	public static final int CONSLOLE_USER = 2;
+	public static final int CONSOLE_USER = 2;
 	public static final int GAME_AWESOMEGUY = 3;
 	public static final int GAME_AWESOMEFLYER = 4;
 	
@@ -111,7 +111,7 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 
 			}
 			if (event.getSource() == btnNewButton_1) {
-				console = TaskPickerComposite.CONSLOLE_USER;
+				console = TaskPickerComposite.CONSOLE_USER;
 
 			}
 			if (event.getSource() == btnNewButton_2) {
@@ -122,7 +122,7 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 				game = TaskPickerComposite.GAME_AWESOMEFLYER;
 
 			}
-			System.out.println(event.getSource().toString());
+			//System.out.println(event.getSource().toString());
 			
 			
 		}
