@@ -27,7 +27,7 @@ import java.util.*;
  */
 public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
-	private Label gameTarget = new Label("What Game!!??");
+	private Label gameTarget = new Label();
 	private String gameTargetString = new String("none");
 	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();
@@ -36,8 +36,8 @@ public class Awesome_scores  implements EntryPoint {
 
 	
 	
-	private Integer game = new Integer(0);
-	private Integer console = new Integer(0);
+	private Integer game = new Integer(TaskPickerComposite.GAME_AWESOMEGUY);
+	private Integer console = new Integer(TaskPickerComposite.CONSOLE_USER);
 	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -63,6 +63,8 @@ public class Awesome_scores  implements EntryPoint {
 		nameField.setText("user@gmail.com");
 		final Label errorLabel = new Label();
 
+		modifyTargetString();
+		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
 		//scoresButton.addStyleName("sendButton");
@@ -104,31 +106,16 @@ public class Awesome_scores  implements EntryPoint {
 		closeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogBox.hide();
-				//sendButton.setEnabled(true);
-				//sendButton.setFocus(true);
-				//scoresButton.setEnabled(true);
-				//scoresButton.setFocus(true);
+				
 			}
 		});
 		taskPicker.addClickHandler(new ClickHandler () {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				int oldgame,oldconsole;
-				oldgame = game;
-				oldconsole = console;	
-				
-				game = taskPicker.getGame();
-				console = taskPicker.getConsole();
+
 				modifyTargetString();
-				
-				if (oldgame != game ) {
-					getListFromServer();
-				}
-				if (oldconsole != console ) {
-					
-				}
-				
+				//getListFromServer();
 				modifyPage();
 				
 				
@@ -142,6 +129,7 @@ public class Awesome_scores  implements EntryPoint {
 			 * Fired when the user clicks on the sendButton.
 			 */
 			public void onClick(ClickEvent event) {
+				modifyTargetString();
 				Widget source = (Widget) event.getSource();
 				if(source == adminConsole.getGameButton()) {
 					sendNameToServer();
@@ -170,6 +158,7 @@ public class Awesome_scores  implements EntryPoint {
 					errorLabel.setText("Please enter at least four characters for name.");
 					return;
 				}
+
 				Record highScore = new Record();
 				highScore.setEmail(adminConsole.getGameEmail());
 				highScore.setName(adminConsole.getGameName());
@@ -177,8 +166,8 @@ public class Awesome_scores  implements EntryPoint {
 				highScore.setLevel(Integer.parseInt(adminConsole.getGameLevel()));
 				highScore.setLives(Integer.parseInt(adminConsole.getGameLives()));
 				highScore.setGameSpeed(Integer.parseInt(adminConsole.getGameSpeed()));
-				if (game != 0) {
-					highScore.setAndroidAppname(gameTargetString);
+				if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
+					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 				}
 				else {
 					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
@@ -212,32 +201,7 @@ public class Awesome_scores  implements EntryPoint {
 							}
 						});
 				
-//				greetingService.listServer(gameTargetString, 
-//						new AsyncCallback<ArrayList<Record>>() {
-//
-//							@Override
-//							public void onFailure(Throwable caught) {
-//								serverListLabel.setHTML("fail");
-//								dialogBox.center();
-//							}
-//
-//							@Override
-//							public void onSuccess(ArrayList<Record> result) {
-//								
-//								mList = result;
-//								//resultsVPanel = new RecordListerComposite();
-//								//resultsVPanel.fill(result);
-//								testHtml = new String();
-//								for (int x = 0; x < result.size(); x ++ ) {
-//									testHtml = testHtml + result.get(x).getName() + "<br>\n";
-//									//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
-//								}
-//								
-//								serverListLabel.setHTML(testHtml);
-//								dialogBox.center();
-//							}
-//					
-//				});
+
 				
 			}
 		}
@@ -258,6 +222,7 @@ public class Awesome_scores  implements EntryPoint {
 					public void onFailure(Throwable caught) {
 						//serverListLabel.setHTML("fail");
 						//dialogBox.center();
+						gameTarget.setText("no list");
 					}
 
 					@Override
@@ -265,16 +230,7 @@ public class Awesome_scores  implements EntryPoint {
 						
 						mList = result;
 						modifyPage();
-						//resultsVPanel = new RecordListerComposite();
-						//resultsVPanel.fill(result);
-//						testHtml = new String();
-//						for (int x = 0; x < result.size(); x ++ ) {
-//							testHtml = testHtml + result.get(x).getName() + "<br>\n";
-//							//dialogVPanel.add(new DisplayRecordComposite(result.get(x),x));
-//						}
-						
-						//serverListLabel.setHTML(testHtml);
-						//dialogBox.center();
+		
 					}
 			
 		});
@@ -303,13 +259,30 @@ public class Awesome_scores  implements EntryPoint {
 	}
 	
 	public void modifyTargetString() {
+		
+		int oldgame,oldconsole;
+		oldgame = game;
+		oldconsole = console;	
+		
+		game = taskPicker.getGame();
+		console = taskPicker.getConsole();
+		
+		
+		
 		if (game == TaskPickerComposite.GAME_AWESOMEGUY) {
-			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
+			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEGUY );
 			gameTargetString = new String(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
 		}
 		else if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
-			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
+			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEFLYER );
 			gameTargetString = new String (TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
+		if (oldgame != game && console != TaskPickerComposite.CONSOLE_ADMIN) {
+			getListFromServer();
+		}
+		if (oldconsole != console ) {
+			modifyPage();
+		}
+		
 	}
 }

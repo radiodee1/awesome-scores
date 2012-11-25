@@ -67,7 +67,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		ArrayList<Record> list = new ArrayList<Record>();
 		manageJDO = new ScoreManagerJDO();
-		list = manageJDO.getList("org.davidliebman.android.flyer");
+		list = manageJDO.getList(input);
 		
 		return list;
 

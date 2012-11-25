@@ -36,7 +36,7 @@ public class ScoreManagerJDO {
 	public ArrayList<Record> getList( String mGame ) {
 		ArrayList<Record> mRecList = new ArrayList<Record> ();
 		Query q = pm.newQuery(RecordSaver.class);
-		//q.setFilter("mAndroidAppname == gameNameParam");
+		q.setFilter("mAndroidAppname == gameNameParam");
 		q.setOrdering("mScore desc");
 		q.declareParameters("String gameNameParam");
 
