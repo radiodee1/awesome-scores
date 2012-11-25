@@ -54,11 +54,8 @@ public class ScoreManagerJDO {
 						pm.deletePersistent(results.get(x));
 					}
 				}
-				  
-//			    for (RecordSaver p : results) {
-//			      // Process result p
-//			    	mRecList.add(p.getRecord());
-//			    }
+	
+
 			  } else {
 			    // Handle "no results" case
 			  }
