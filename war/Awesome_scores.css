@@ -48,3 +48,8 @@ h1 {
 	padding:0px;
 	border-style:none
 }
+.verticalScroll {
+	height:550px;
+	overflow-y: scroll;
+	overflow-x:auto;
+}

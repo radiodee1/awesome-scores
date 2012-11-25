@@ -20,14 +20,15 @@ public class RecordListerComposite extends Composite {
 	public RecordListerComposite() {
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
+		mPanel.setStyleName("verticalScroll");
+		//scrollPanel.setStyleName("recordDisplay");
 		mPanel.setStyleName("recordDisplay");
 		mPanel.setBorderWidth(1);
 		//scrollPanel.setAlwaysShowScrollBars(true);
-		
-		scrollPanel.add(mPanel);
-		mPanel.setSize("450", "300");
-		this.initWidget(scrollPanel);
-		scrollPanel.setSize("450", "300");
+		this.initWidget(mPanel);
+		mPanel.setSize("333px", "0");
+		//this.initWidget(scrollPanel);
+		scrollPanel.setSize("363px", "550px");
 		//((ForIsWidget) scrollPanel).add(mPanel);
 		//fill(new ArrayList<Record> ());
 		
