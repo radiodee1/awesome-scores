@@ -29,6 +29,7 @@ public class DisplayRecordComposite extends Composite {
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		this.initWidget(horizontalPanel);
+		horizontalPanel.setSize("238px", "88px");
 		setHeight("62px");
 		
 		image = new Image("ic_guy_0.png");
@@ -84,6 +85,7 @@ public class DisplayRecordComposite extends Composite {
 		btnSeeMore.setStyleName("recordButton");
 		//horizontalPanel_3.add(btnSeeMore);
 		layoutPanel.add(btnSeeMore);
+		btnSeeMore.setSize("40", "10");
 		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
 		layoutPanel.setWidgetTopHeight(btnSeeMore, 0.0, Unit.PX, 34.0, Unit.PX);
 		
@@ -96,6 +98,40 @@ public class DisplayRecordComposite extends Composite {
 		
 		lblName.setText(mRec.getName());
 		dateLabel.setValue(mRec.getDate());
+		lblScoreNum.setText(" " + mRec.getScore());
+		
+		switch (n % 9) {
+		case 0:
+			image = new Image("ic_guy_0.png");
+			break;
+		case 1:
+			image = new Image("ic_guy_1.png");
+			break;
+		case 2:
+			image = new Image("ic_guy_2.png");
+			break;
+		case 3:
+			image = new Image("ic_guy_3.png");
+			break;
+		case 4:
+			image = new Image("ic_guy_4.png");
+			break;
+		case 5:
+			image = new Image("ic_guy_5.png");
+			break;
+		case 6:
+			image = new Image("ic_guy_6.png");
+			break;
+		case 7:
+			image = new Image("ic_guy_7.png");
+			break;
+		case 8:
+			image = new Image("ic_guy_8.png");
+			break;
+		default:
+			image = new Image("ic_guy_0.png");
+			break;
+		}
 	}
 	
 }
