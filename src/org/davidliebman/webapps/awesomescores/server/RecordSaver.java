@@ -274,6 +274,15 @@ public RecordSaver(Record mIn) {
 		mRec.setCountry(mCountry);
 		mRec.setAndroidAppname(mAndroidAppname);
 		
+		mRec.setRecordIdNum(mRecordIdNum);
+		mRec.setEnableCollision(mEnableCollision);
+		mRec.setEnableJNI(mEnableJNI);
+		mRec.setEnableMonsters(mEnableMonsters);
+		mRec.setGameSpeed(mGameSpeed);
+		mRec.setSave1(mSave1);
+		mRec.setSound(mSound);
+		
+		mRec.setKey(key);
 		return mRec;
 	}
 	
