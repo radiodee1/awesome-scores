@@ -42,6 +42,7 @@ public  class Record implements IsSerializable {
 	private boolean mEnableCollision;
 	
 	private Date mDate;
+	private long mKey;
 	
 	public Record() {
 		
@@ -217,8 +218,18 @@ public  class Record implements IsSerializable {
 	public void setDate(Date mDate) {
 		this.mDate = mDate;
 	}
-	
 
+
+	public long getKey() {
+		return mKey;
+	}
+
+
+	public void setKey(long mKey) {
+		this.mKey = mKey;
+	}
+	
+	
 	
 	
 
