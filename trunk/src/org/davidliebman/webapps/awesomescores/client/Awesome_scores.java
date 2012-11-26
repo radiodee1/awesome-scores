@@ -110,19 +110,19 @@ public class Awesome_scores  implements EntryPoint {
 				
 			}
 		});
-		taskPicker.addClickHandler(new ClickHandler () {
-
-			@Override
-			public void onClick(ClickEvent event) {
-
-				modifyTargetString();
-				//getListFromServer();
-				modifyPage();
-				
-				
-			}
-			
-		});
+//		taskPicker.addClickHandler(new ClickHandler () {
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//
+//				modifyTargetString();
+//				//getListFromServer();
+//				modifyPage();
+//				
+//				
+//			}
+//			
+//		});
 		
 		// Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler {
@@ -140,7 +140,10 @@ public class Awesome_scores  implements EntryPoint {
 				else if (source == taskPicker.getButtonUserScores()) {
 					getListFromServer();
 				}
-				
+				else if ( source == taskPicker.getButtonDeleteRecord() ) {
+					getListFromServer();
+				}
+				modifyPage();
 			}
 
 		
@@ -211,6 +214,10 @@ public class Awesome_scores  implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		//scoresButton.addClickHandler(handler);
 		taskPicker.getButtonUserScores().addClickHandler(handler);
+		taskPicker.getButtonDeleteRecord().addClickHandler(handler);
+		taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
+		taskPicker.getBtnAwesomeguy().addClickHandler(handler);
+		taskPicker.getBtnNewButton().addClickHandler(handler);
 		adminConsoleAdd.getGameButton().addClickHandler(handler);
 		
 	}
@@ -238,6 +245,15 @@ public class Awesome_scores  implements EntryPoint {
 	}
 	
 	public void modifyPage() {
+		
+		int oldgame,oldconsole;
+		oldgame = game;
+		oldconsole = console;	
+		
+		game = taskPicker.getGame();
+		console = taskPicker.getConsole();
+		
+		
 		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
@@ -257,7 +273,7 @@ public class Awesome_scores  implements EntryPoint {
 				RootPanel.get("resultsPanel").remove(0);
 			}
 			
-			RootPanel.get("consoleContainer").add(adminConsoleDelete);
+			RootPanel.get("resultsPanel").add(adminConsoleDelete);
 			adminConsoleDelete.fill(mList);
 		}
 		else {
@@ -290,6 +306,13 @@ public class Awesome_scores  implements EntryPoint {
 			gameTargetString = new String (TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
 		if (oldgame != game && console != TaskPickerComposite.CONSOLE_ADMIN_ADD) {
+			//gameTarget.setText( new String("console " + console));
+			getListFromServer();
+			
+		}
+		if (console == TaskPickerComposite.CONSOLE_ADMIN_DELETE) {
+			//gameTarget.setText( new String("console " + console));
+
 			getListFromServer();
 		}
 		if (oldconsole != console ) {
