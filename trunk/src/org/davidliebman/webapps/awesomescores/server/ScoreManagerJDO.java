@@ -20,6 +20,10 @@ public class ScoreManagerJDO {
 		pm = PMF.get().getPersistenceManager();
 	}
 	
+	public Long saveRecord( Record r ) {
+		return saveRecord(new RecordSaver(r));
+	}
+	
 	public Long saveRecord( RecordSaver mRec ) {
 		pm = PMF.get().getPersistenceManager();
 		

@@ -42,7 +42,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		userAgent = escapeHtml(userAgent);
 
 		manageJDO = new ScoreManagerJDO();
-		manageJDO.saveRecord(new RecordSaver(highScore));
+		long retValue = manageJDO.saveRecord(highScore);
 		
 		return "Hello, " + input + "!<br><br>I am running " + serverInfo
 				+ ".<br><br>It looks like you are using:<br>" + userAgent
@@ -50,7 +50,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				+ "<br> Score: " + inputScore 
 				+ "<br> Lives: " + inputLives
 				+ "<br> Level: " + inputLevel
-				+ "<br> Game Speed " + inputSpeed;
+				+ "<br> Game Speed " + inputSpeed
+				+ "<br> [" + retValue + "]";
 	}
 
 	public ArrayList<Record> listServer(String input) throws IllegalArgumentException {
