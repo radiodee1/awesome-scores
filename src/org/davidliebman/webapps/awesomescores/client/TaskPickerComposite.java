@@ -70,6 +70,7 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		btnNewButton_1.addClickHandler(handler);
 		btnNewButton_2.addClickHandler(handler);
 		btnNewButton_3.addClickHandler(handler);
+		btnAdminDelete.addClickHandler(handler);
 		
 	}
 
@@ -101,7 +102,23 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		return btnNewButton_1;
 	}
 
+	public Button getButtonDeleteRecord() {
+		return this.btnAdminDelete;
+	}
 	
+
+	public Button getBtnNewButton() {
+		return btnNewButton;
+	}
+
+	
+	public Button getBtnAwesomeguy() {
+		return btnNewButton_2;
+	}
+
+	public Button getBtnAwesomeFlyer() {
+		return btnNewButton_3;
+	}
 
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
