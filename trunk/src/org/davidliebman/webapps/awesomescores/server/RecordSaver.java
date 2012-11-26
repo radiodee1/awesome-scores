@@ -269,6 +269,7 @@ public RecordSaver(Record mIn) {
 		mRec.setScore(mScore);
 		mRec.setLives(mLives);
 		mRec.setLevel(mLevel);
+		mRec.setCycles(mCycles);
 		mRec.setDate(new Date (mDate));
 		mRec.setEmail(mEmail);
 		mRec.setCountry(mCountry);
