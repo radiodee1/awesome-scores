@@ -29,7 +29,8 @@ public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
 	private Label gameTarget = new Label();
 	private String gameTargetString = new String("none");
-	private final AdminConsoleComposite adminConsole = new AdminConsoleComposite();
+	private final AdminConsoleComposite adminConsoleAdd = new AdminConsoleComposite();
+	private final RecordDeleteComposite adminConsoleDelete = new RecordDeleteComposite();
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();
 	private ArrayList<Record> mList = new ArrayList<Record>();
 	private final TaskPickerComposite taskPicker = new TaskPickerComposite();
@@ -131,7 +132,7 @@ public class Awesome_scores  implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				modifyTargetString();
 				Widget source = (Widget) event.getSource();
-				if(source == adminConsole.getGameButton()) {
+				if(source == adminConsoleAdd.getGameButton()) {
 					sendNameToServer();
 					//adminConsole.setButtonPressed(false);
 					
@@ -150,22 +151,22 @@ public class Awesome_scores  implements EntryPoint {
 			private void sendNameToServer() {
 				// First, we validate the input.
 				
-				if (!FieldVerifier.isValidName(adminConsole.getGameEmail())) {
+				if (!FieldVerifier.isValidName(adminConsoleAdd.getGameEmail())) {
 					errorLabel.setText("Please enter at least four characters for email.");
 					return;
 				}
-				if (!FieldVerifier.isValidName(adminConsole.getGameName())) {
+				if (!FieldVerifier.isValidName(adminConsoleAdd.getGameName())) {
 					errorLabel.setText("Please enter at least four characters for name.");
 					return;
 				}
 
 				Record highScore = new Record();
-				highScore.setEmail(adminConsole.getGameEmail());
-				highScore.setName(adminConsole.getGameName());
-				highScore.setScore(Integer.parseInt(adminConsole.getGameScore()));
-				highScore.setLevel(Integer.parseInt(adminConsole.getGameLevel()));
-				highScore.setLives(Integer.parseInt(adminConsole.getGameLives()));
-				highScore.setGameSpeed(Integer.parseInt(adminConsole.getGameSpeed()));
+				highScore.setEmail(adminConsoleAdd.getGameEmail());
+				highScore.setName(adminConsoleAdd.getGameName());
+				highScore.setScore(Integer.parseInt(adminConsoleAdd.getGameScore()));
+				highScore.setLevel(Integer.parseInt(adminConsoleAdd.getGameLevel()));
+				highScore.setLives(Integer.parseInt(adminConsoleAdd.getGameLives()));
+				highScore.setGameSpeed(Integer.parseInt(adminConsoleAdd.getGameSpeed()));
 				if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
 					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 				}
@@ -210,7 +211,7 @@ public class Awesome_scores  implements EntryPoint {
 		MyHandler handler = new MyHandler();
 		//scoresButton.addClickHandler(handler);
 		taskPicker.getButtonUserScores().addClickHandler(handler);
-		adminConsole.getGameButton().addClickHandler(handler);
+		adminConsoleAdd.getGameButton().addClickHandler(handler);
 		
 	}
 	
@@ -237,7 +238,7 @@ public class Awesome_scores  implements EntryPoint {
 	}
 	
 	public void modifyPage() {
-		if (console == TaskPickerComposite.CONSOLE_ADMIN) {
+		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
 			}
@@ -245,8 +246,19 @@ public class Awesome_scores  implements EntryPoint {
 				RootPanel.get("resultsPanel").remove(0);
 			}
 			
-			RootPanel.get("consoleContainer").add(adminConsole);
+			RootPanel.get("consoleContainer").add(adminConsoleAdd);
 
+		}
+		else if ( console == TaskPickerComposite.CONSOLE_ADMIN_DELETE) {
+			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
+				RootPanel.get("consoleContainer").remove(0);
+			}
+			while (RootPanel.get("resultsPanel").getWidgetCount() > 0 ) {
+				RootPanel.get("resultsPanel").remove(0);
+			}
+			
+			RootPanel.get("consoleContainer").add(adminConsoleDelete);
+			adminConsoleDelete.fill(mList);
 		}
 		else {
 			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
@@ -277,7 +289,7 @@ public class Awesome_scores  implements EntryPoint {
 			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEFLYER );
 			gameTargetString = new String (TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
-		if (oldgame != game && console != TaskPickerComposite.CONSOLE_ADMIN) {
+		if (oldgame != game && console != TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			getListFromServer();
 		}
 		if (oldconsole != console ) {
