@@ -8,13 +8,15 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 
-	public static final int CONSOLE_ADMIN = 1;
-	public static final int CONSOLE_USER = 2;
-	public static final int GAME_AWESOMEGUY = 3;
-	public static final int GAME_AWESOMEFLYER = 4;
+	public static final int CONSOLE_ADMIN_ADD = 1;
+	public static final int CONSOLE_ADMIN_DELETE = 2;
+	public static final int CONSOLE_USER = 3;
+	public static final int GAME_AWESOMEGUY = 4;
+	public static final int GAME_AWESOMEFLYER = 5;
 	
 	public static final String GAME_STRING_AWESOMEGUY = 
 			new String ("org.davidliebman.android.awesomeguy");
@@ -25,6 +27,7 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	public Button btnNewButton, btnNewButton_1, btnNewButton_2, btnNewButton_3;
 	
 	private Integer game, console;
+	private Button btnAdminDelete;
 	
 	public TaskPickerComposite() {
 		
@@ -40,14 +43,18 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		verticalPanel.add(horizontalPanel);
 		
 		btnNewButton = new Button("New button");
-		btnNewButton.setText("Admin Console");
+		btnNewButton.setText("Admin Add");
 		horizontalPanel.add(btnNewButton);
+		
+		btnAdminDelete = new Button("Admin Delete");
+		horizontalPanel.add(btnAdminDelete);
 		
 		btnNewButton_1 = new Button("New button");
 		btnNewButton_1.setText("User Scores");
 		horizontalPanel.add(btnNewButton_1);
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+		horizontalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.add(horizontalPanel_1);
 		
 		btnNewButton_2 = new Button("New button");
@@ -107,13 +114,17 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		@Override
 		public void onClick(ClickEvent event) {
 			if (event.getSource() == btnNewButton) {
-				console = TaskPickerComposite.CONSOLE_ADMIN;
+				console = TaskPickerComposite.CONSOLE_ADMIN_ADD;
 
 			}
 			if (event.getSource() == btnNewButton_1) {
 				console = TaskPickerComposite.CONSOLE_USER;
 
 			}
+			if (event.getSource() == btnAdminDelete ) {
+				console = TaskPickerComposite.CONSOLE_ADMIN_DELETE;
+			}
+			
 			if (event.getSource() == btnNewButton_2) {
 				game = TaskPickerComposite.GAME_AWESOMEGUY;
 
