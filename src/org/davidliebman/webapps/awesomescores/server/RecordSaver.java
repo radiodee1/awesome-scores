@@ -97,7 +97,7 @@ public  class RecordSaver  {
 
 public RecordSaver(Record mIn) {
 		
-		key = null;
+		key = mIn.getKey();
 	
 		mAndroidAppname = mIn.getAndroidAppname();
 	
@@ -122,7 +122,32 @@ public RecordSaver(Record mIn) {
 		mEmail = mIn.getEmail();
 	}
 	
+public RecordSaver(Record mIn , Long k) {
 	
+	key = k;
+
+	mAndroidAppname = mIn.getAndroidAppname();
+
+	mName = mIn.getName();
+	
+	mNewRecord = mIn.getNewRecord();
+	mRecordIdNum = mIn.getRecordIdNum();
+	
+	mLevel = mIn.getLevel();
+	mScore = mIn.getScore();
+	mLives = mIn.getLives();
+	mCycles = mIn.getCycles();
+	mSave1 = mIn.getSave1();
+	mGameSpeed = mIn.getGameSpeed();
+	mNumRecords = mIn.getNumRecords();
+	mSound = mIn.isSound();
+	mEnableJNI = mIn.isEnableJNI();
+	mEnableMonsters = mIn.isEnableMonsters();
+	mEnableCollision = mIn.isEnableCollision();
+	mCountry = mIn.getCountry();
+	mDate = mIn.getDate().getTime();
+	mEmail = mIn.getEmail();
+}
 	
     
 	public boolean isNewRecord() {

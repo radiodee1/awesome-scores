@@ -40,6 +40,7 @@ public class Awesome_scores  implements EntryPoint {
 	private DialogBox dialogBox = new DialogBox();
 	private Button closeButton = new Button("Close");
 
+	private int oldgame, oldconsole;
 	
 	private Integer game = new Integer(TaskPickerComposite.GAME_AWESOMEGUY);
 	private Integer console = new Integer(TaskPickerComposite.CONSOLE_USER);
@@ -68,6 +69,8 @@ public class Awesome_scores  implements EntryPoint {
 		nameField.setText("user@gmail.com");
 		errorLabel = new Label();
 
+		oldgame = 0;
+		oldconsole = 0;
 		modifyTargetString();
 		
 		// We can add style names to widgets
@@ -237,16 +240,11 @@ public class Awesome_scores  implements EntryPoint {
 	
 	public void modifyPage() {
 		
-		int oldgame,oldconsole;
-		oldgame = game;
-		oldconsole = console;	
+	
 		
-		game = taskPicker.getGame();
-		console = taskPicker.getConsole();
-		
-//		if ( oldgame == game && oldconsole == console) {
-//			return;
-//		}
+		if ( oldgame == game && oldconsole == console) {
+			return;
+		}
 		
 		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
@@ -270,6 +268,7 @@ public class Awesome_scores  implements EntryPoint {
 			RootPanel.get("resultsPanel").add(adminConsoleDelete);
 			this.getListFromServer();
 			adminConsoleDelete.fill(mList);
+			
 		}
 		else {
 			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
@@ -287,7 +286,7 @@ public class Awesome_scores  implements EntryPoint {
 	
 	public void modifyTargetString() {
 		
-		int oldgame,oldconsole;
+		//int oldgame,oldconsole;
 		oldgame = game;
 		oldconsole = console;	
 		

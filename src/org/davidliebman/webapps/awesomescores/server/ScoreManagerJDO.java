@@ -21,7 +21,7 @@ public class ScoreManagerJDO {
 	}
 	
 	public Long saveRecord( Record r ) {
-		return saveRecord(new RecordSaver(r));
+		return saveRecord(new RecordSaver(r, null));
 	}
 	
 	public Long saveRecord( RecordSaver mRec ) {
@@ -36,7 +36,16 @@ public class ScoreManagerJDO {
 	}
 	
 	public void deleteRecord( RecordSaver mRec ) {
-		pm.deletePersistent(mRec);
+		pm = PMF.get().getPersistenceManager();
+		try {
+			pm.deletePersistent(pm.getObjectById(mRec.getClass(), mRec.getKey()));
+			
+
+		} finally {
+			pm.close();
+		}
+		
+		//pm.deletePersistent(mRec);
 	}
 	
 	public ArrayList<Record> getList( String mGame ) {
