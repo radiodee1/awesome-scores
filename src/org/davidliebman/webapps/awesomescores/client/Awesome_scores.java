@@ -69,8 +69,8 @@ public class Awesome_scores  implements EntryPoint {
 		nameField.setText("user@gmail.com");
 		errorLabel = new Label();
 
-		oldgame = 0;
-		oldconsole = 0;
+		//oldgame = 0;
+		//oldconsole = 0;
 		modifyTargetString();
 		this.getListFromServer();
 		//modifyPage();
@@ -270,7 +270,7 @@ public class Awesome_scores  implements EntryPoint {
 			}
 			
 			RootPanel.get("resultsPanel").add(adminConsoleDelete);
-			this.getListFromServer();
+			//this.getListFromServer();
 			adminConsoleDelete.fill(mList);
 			
 		}
@@ -283,7 +283,7 @@ public class Awesome_scores  implements EntryPoint {
 			}
 			RootPanel.get("resultsPanel").add(resultsVPanel);
 			//resultsVPanel = new RecordListerComposite();
-			this.getListFromServer();
+			//this.getListFromServer();
 			resultsVPanel.fill(mList);
 		}
 	}
