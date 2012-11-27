@@ -72,6 +72,7 @@ public class Awesome_scores  implements EntryPoint {
 		oldgame = 0;
 		oldconsole = 0;
 		modifyTargetString();
+		this.getListFromServer();
 		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
@@ -130,15 +131,17 @@ public class Awesome_scores  implements EntryPoint {
 				if(source == adminConsoleAdd.getGameButton()) {
 					sendNameToServer();
 					//adminConsole.setButtonPressed(false);
-					
+					modifyPage();
 				}
 				else if (source == taskPicker.getButtonUserScores()) {
 					getListFromServer();
+					modifyPage();
 				}
 				else if ( source == taskPicker.getButtonDeleteRecord() ) {
 					getListFromServer();
+					modifyPage();
 				}
-				modifyPage();
+				//modifyPage();
 			}
 
 		
