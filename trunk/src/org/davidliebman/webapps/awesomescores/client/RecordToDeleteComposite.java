@@ -3,6 +3,7 @@ package org.davidliebman.webapps.awesomescores.client;
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -13,9 +14,14 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 
-public class RecordToDeleteComposite extends Composite {
+public class RecordToDeleteComposite extends Composite implements HasClickHandlers {
 
 	private Image image;
 	private Label label, lblNum, lblName,lblScore, lblScoreNum, lblDate ;
@@ -23,9 +29,15 @@ public class RecordToDeleteComposite extends Composite {
 	private Button btnSeeMore;
 	private LayoutPanel layoutPanel;
 	
+	private Record record;
+	
+	private final GreetingServiceAsync greetingService = GWT
+			.create(GreetingService.class);
+
 	
 	public RecordToDeleteComposite(Record r, int num) {
 		
+		record = r;
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("recordDisplay");
@@ -95,14 +107,27 @@ public class RecordToDeleteComposite extends Composite {
 		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
 		layoutPanel.setWidgetTopHeight(btnSeeMore, 14.0, Unit.PX, 34.0, Unit.PX);
 		
+		//btnSeeMore.setFocus(true);
+		
 		setRecord(r, num);
+		
+		btnSeeMore.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				deleteThisRecord();
+				btnSeeMore.setText("click");
+			}
+			
+		});
 	}
 
 	public void setRecord(Record mRec, int n) {
 		
 		lblNum.setText(new Integer(n + 1).toString() + ".  ");
 		String newName = mRec.getName().substring(0, 15);
-		lblName.setText(newName );
+		lblName.setText(newName + " " + record.getKey());
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
 		
@@ -140,4 +165,28 @@ public class RecordToDeleteComposite extends Composite {
 		}
 	}
 	
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		// TODO Auto-generated method stub
+		return addDomHandler(handler, ClickEvent.getType());
+	}
+	
+	public void deleteThisRecord() {
+		this.greetingService.deleteServer(record, 
+				new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				btnSeeMore.setText("fail");
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				getParent().removeFromParent();
+				btnSeeMore.setText("sent");
+			}
+			
+		});
+	}
 }
