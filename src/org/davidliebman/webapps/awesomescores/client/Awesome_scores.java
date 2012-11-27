@@ -35,7 +35,11 @@ public class Awesome_scores  implements EntryPoint {
 	private ArrayList<Record> mList = new ArrayList<Record>();
 	private final TaskPickerComposite taskPicker = new TaskPickerComposite();
 
-	
+	private Label errorLabel = new Label();
+	private HTML serverResponseLabel = new HTML();
+	private DialogBox dialogBox = new DialogBox();
+	private Button closeButton = new Button("Close");
+
 	
 	private Integer game = new Integer(TaskPickerComposite.GAME_AWESOMEGUY);
 	private Integer console = new Integer(TaskPickerComposite.CONSOLE_USER);
@@ -62,7 +66,7 @@ public class Awesome_scores  implements EntryPoint {
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("user@gmail.com");
-		final Label errorLabel = new Label();
+		errorLabel = new Label();
 
 		modifyTargetString();
 		
@@ -83,14 +87,14 @@ public class Awesome_scores  implements EntryPoint {
 		sendButton.setVisible(false);
 		
 		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
+		dialogBox = new DialogBox();
 		dialogBox.setText("Remote Procedure Call");
 		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
+		closeButton = new Button("Close");
 		// We can set the id of a widget by accessing its Element
 		closeButton.getElement().setId("closeButton");
 		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
+		serverResponseLabel = new HTML();
 		final HTML serverListLabel = new HTML();
 		final VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
@@ -110,19 +114,7 @@ public class Awesome_scores  implements EntryPoint {
 				
 			}
 		});
-//		taskPicker.addClickHandler(new ClickHandler () {
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//
-//				modifyTargetString();
-//				//getListFromServer();
-//				modifyPage();
-//				
-//				
-//			}
-//			
-//		});
+
 		
 		// Create a handler for the sendButton and nameField
 		class MyHandler implements ClickHandler {
@@ -148,66 +140,7 @@ public class Awesome_scores  implements EntryPoint {
 
 		
 
-			/**
-			 * Send the name from the nameField to the server and wait for a response.
-			 */
-			private void sendNameToServer() {
-				// First, we validate the input.
-				
-				if (!FieldVerifier.isValidName(adminConsoleAdd.getGameEmail())) {
-					errorLabel.setText("Please enter at least four characters for email.");
-					return;
-				}
-				if (!FieldVerifier.isValidName(adminConsoleAdd.getGameName())) {
-					errorLabel.setText("Please enter at least four characters for name.");
-					return;
-				}
-
-				Record highScore = new Record();
-				highScore.setEmail(adminConsoleAdd.getGameEmail());
-				highScore.setName(adminConsoleAdd.getGameName());
-				highScore.setScore(Integer.parseInt(adminConsoleAdd.getGameScore()));
-				highScore.setLevel(Integer.parseInt(adminConsoleAdd.getGameLevel()));
-				highScore.setLives(Integer.parseInt(adminConsoleAdd.getGameLives()));
-				highScore.setGameSpeed(Integer.parseInt(adminConsoleAdd.getGameSpeed()));
-				if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
-					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
-				}
-				else {
-					highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
-				}
-				
-				// Then, we send the input to the server.
-				//sendButton.setEnabled(false);
-				//textToServerLabel.setText(textToServer);
-				serverResponseLabel.setText("");
-				greetingService.greetServer(highScore,
-						new AsyncCallback<String>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(String result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(result
-										+ "<br>----------------<br>");
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
-				
-
-				
-			}
+		
 		}
 
 		// Add a handler to send the name to the server
@@ -219,6 +152,64 @@ public class Awesome_scores  implements EntryPoint {
 		taskPicker.getBtnAwesomeguy().addClickHandler(handler);
 		taskPicker.getBtnNewButton().addClickHandler(handler);
 		adminConsoleAdd.getGameButton().addClickHandler(handler);
+		
+	}
+	
+	private void sendNameToServer() {
+		// First, we validate the input.
+		
+		if (!FieldVerifier.isValidName(adminConsoleAdd.getGameEmail())) {
+			errorLabel.setText("Please enter at least four characters for email.");
+			return;
+		}
+		if (!FieldVerifier.isValidName(adminConsoleAdd.getGameName())) {
+			errorLabel.setText("Please enter at least four characters for name.");
+			return;
+		}
+
+		Record highScore = new Record();
+		highScore.setEmail(adminConsoleAdd.getGameEmail());
+		highScore.setName(adminConsoleAdd.getGameName());
+		highScore.setScore(Integer.parseInt(adminConsoleAdd.getGameScore()));
+		highScore.setLevel(Integer.parseInt(adminConsoleAdd.getGameLevel()));
+		highScore.setLives(Integer.parseInt(adminConsoleAdd.getGameLives()));
+		highScore.setGameSpeed(Integer.parseInt(adminConsoleAdd.getGameSpeed()));
+		if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
+			highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
+		}
+		else {
+			highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEGUY);
+		}
+		
+		// Then, we send the input to the server.
+		//sendButton.setEnabled(false);
+		//textToServerLabel.setText(textToServer);
+		serverResponseLabel.setText("");
+		greetingService.greetServer(highScore,
+				new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+						// Show the RPC error message to the user
+						dialogBox
+								.setText("Remote Procedure Call - Failure");
+						serverResponseLabel
+								.addStyleName("serverResponseLabelError");
+						serverResponseLabel.setHTML(SERVER_ERROR);
+						dialogBox.center();
+						closeButton.setFocus(true);
+					}
+
+					public void onSuccess(String result) {
+						dialogBox.setText("Remote Procedure Call");
+						serverResponseLabel
+								.removeStyleName("serverResponseLabelError");
+						serverResponseLabel.setHTML(result
+								+ "<br>----------------<br>");
+						dialogBox.center();
+						closeButton.setFocus(true);
+					}
+				});
+		
+
 		
 	}
 	
@@ -253,6 +244,9 @@ public class Awesome_scores  implements EntryPoint {
 		game = taskPicker.getGame();
 		console = taskPicker.getConsole();
 		
+//		if ( oldgame == game && oldconsole == console) {
+//			return;
+//		}
 		
 		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
@@ -274,14 +268,19 @@ public class Awesome_scores  implements EntryPoint {
 			}
 			
 			RootPanel.get("resultsPanel").add(adminConsoleDelete);
+			this.getListFromServer();
 			adminConsoleDelete.fill(mList);
 		}
 		else {
 			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
 			}
+			while (RootPanel.get("resultsPanel").getWidgetCount() > 0 ) {
+				RootPanel.get("resultsPanel").remove(0);
+			}
 			RootPanel.get("resultsPanel").add(resultsVPanel);
 			//resultsVPanel = new RecordListerComposite();
+			this.getListFromServer();
 			resultsVPanel.fill(mList);
 		}
 	}
@@ -305,7 +304,8 @@ public class Awesome_scores  implements EntryPoint {
 			gameTarget.setText(TaskPickerComposite.GAME_STRING_AWESOMEFLYER );
 			gameTargetString = new String (TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
-		if (oldgame != game && console != TaskPickerComposite.CONSOLE_ADMIN_ADD) {
+		
+		if (console == TaskPickerComposite.CONSOLE_USER) {
 			//gameTarget.setText( new String("console " + console));
 			getListFromServer();
 			
@@ -315,9 +315,12 @@ public class Awesome_scores  implements EntryPoint {
 
 			getListFromServer();
 		}
-		if (oldconsole != console ) {
-			modifyPage();
+		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
+			
 		}
+//		if (oldconsole != console ) {
+//			modifyPage();
+//		}
 		
 	}
 }

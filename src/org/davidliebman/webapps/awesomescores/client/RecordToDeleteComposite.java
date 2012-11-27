@@ -88,7 +88,7 @@ public class RecordToDeleteComposite extends Composite {
 		layoutPanel.setSize("20", "20");
 		
 		btnSeeMore = new Button("Delete Me");
-		btnSeeMore.setStyleName("recordButton");
+		btnSeeMore.setStyleName("recordButton-delete");
 		//horizontalPanel_3.add(btnSeeMore);
 		layoutPanel.add(btnSeeMore);
 		btnSeeMore.setSize("40", "10");
