@@ -118,6 +118,8 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 			}
 			
 		});
+		
+		
 	}
 
 	public void setRecord(Record mRec, int n) {
@@ -190,5 +192,18 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		dialogBox.setWidget(dialogVPanel);
 		dialogBox.setVisible(true);
 		dialogBox.show();
+		dialogBox.center();
+		closeButton.setFocus(true);
+		
+		closeButton.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				dialogBox.setVisible(false);
+				dialogBox.hide();
+				dialogBox.clear();
+			}
+			
+		});
 	}
 }
