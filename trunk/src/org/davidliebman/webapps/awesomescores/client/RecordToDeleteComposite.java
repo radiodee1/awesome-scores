@@ -117,7 +117,7 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 			public void onClick(ClickEvent event) {
 				
 				deleteThisRecord();
-				btnSeeMore.setText("click");
+				btnSeeMore.setText("working");
 			}
 			
 		});
@@ -183,8 +183,9 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 
 			@Override
 			public void onSuccess(String result) {
-				getParent().removeFromParent();
-				btnSeeMore.setText("sent");
+				btnSeeMore.setText("done");
+				removeFromParent();
+				//btnSeeMore.setText("sent");
 			}
 			
 		});

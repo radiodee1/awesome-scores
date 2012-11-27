@@ -73,10 +73,10 @@ public class Awesome_scores  implements EntryPoint {
 		//oldconsole = 0;
 		modifyTargetString();
 		this.getListFromServer();
-		//modifyPage();
+		modifyPage();
 		
 		// We can add style names to widgets
-		sendButton.addStyleName("sendButton");
+		//sendButton.addStyleName("sendButton");
 		//scoresButton.addStyleName("sendButton");
 		taskPicker.addStyleName("sendButton");
 		
@@ -88,8 +88,8 @@ public class Awesome_scores  implements EntryPoint {
 		
 		// Focus the cursor on the name field when the app loads
 		//nameField.setFocus(true); <-- do not setFocus(true) !!
-		nameField.selectAll();
-		sendButton.setVisible(false);
+		//nameField.selectAll();
+		//sendButton.setVisible(false);
 		
 		// Create the popup dialog box
 		dialogBox = new DialogBox();
@@ -140,6 +140,9 @@ public class Awesome_scores  implements EntryPoint {
 				}
 				else if ( source == taskPicker.getButtonDeleteRecord() ) {
 					getListFromServer();
+					modifyPage();
+				}
+				else if ( source == taskPicker.getBtnNewButton()) {
 					modifyPage();
 				}
 				//modifyPage();
@@ -246,12 +249,13 @@ public class Awesome_scores  implements EntryPoint {
 		
 	
 		
-		if ( oldgame == game && oldconsole == console) {
+		if ( oldgame == game && oldconsole == console && 
+				console != TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			return;
 		}
 		
 		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
-			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
+			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
 			}
 			while (RootPanel.get("resultsPanel").getWidgetCount() > 0 ) {
@@ -262,7 +266,7 @@ public class Awesome_scores  implements EntryPoint {
 
 		}
 		else if ( console == TaskPickerComposite.CONSOLE_ADMIN_DELETE) {
-			if (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
+			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
 				RootPanel.get("consoleContainer").remove(0);
 			}
 			while (RootPanel.get("resultsPanel").getWidgetCount() > 0 ) {
