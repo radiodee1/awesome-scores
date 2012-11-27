@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.InsertPanel.ForIsWidget;
 import com.google.gwt.user.client.ui.ListBox;
@@ -12,7 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 
-public class RecordListerComposite extends Composite {
+public class RecordListerComposite extends Composite implements HasClickHandlers{
 	ArrayList<Record> mList = new ArrayList<Record>();
 	VerticalPanel mPanel = new VerticalPanel();
 	//ListBox scrollPanel = new ListBox();
@@ -46,5 +50,13 @@ public class RecordListerComposite extends Composite {
 		for(int x = 0; x < mList.size(); x ++ ) {
 			mPanel.add(new DisplayRecordComposite(mList.get(x), x));
 		}
+	}
+
+
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		// TODO Auto-generated method stub
+		return addDomHandler(handler, ClickEvent.getType());
 	}
 }

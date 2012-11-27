@@ -4,6 +4,8 @@ import org.davidliebman.webapps.awesomescores.shared.Record;
 
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -14,8 +16,12 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
 
-public class DisplayRecordComposite extends Composite {
+public class DisplayRecordComposite extends Composite implements HasClickHandlers{
 
 	private Image image;
 	private Label label, lblNum, lblName,lblScore, lblScoreNum, lblDate ;
@@ -23,9 +29,15 @@ public class DisplayRecordComposite extends Composite {
 	private Button btnSeeMore;
 	private LayoutPanel layoutPanel;
 	
+	Record record ;
+	
+	DialogBox dialogBox = new DialogBox();
+	Button closeButton = new Button();
+	HTML infoLabel = new HTML();
 	
 	public DisplayRecordComposite(Record r, int num) {
 		
+		record = r;
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("recordDisplay");
@@ -96,6 +108,16 @@ public class DisplayRecordComposite extends Composite {
 		layoutPanel.setWidgetTopHeight(btnSeeMore, 14.0, Unit.PX, 34.0, Unit.PX);
 		
 		setRecord(r, num);
+		
+		btnSeeMore.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				showDetails();
+				
+			}
+			
+		});
 	}
 
 	public void setRecord(Record mRec, int n) {
@@ -139,5 +161,34 @@ public class DisplayRecordComposite extends Composite {
 			break;
 		}
 	}
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		
+		return addDomHandler(handler, ClickEvent.getType());
+	}
 	
+	public void showDetails() {
+		dialogBox = new DialogBox();
+		dialogBox.setText("Extra Info");
+		dialogBox.setAnimationEnabled(true);
+		closeButton = new Button("Close");
+		// We can set the id of a widget by accessing its Element
+		closeButton.getElement().setId("closeButton");
+		final Label textToServerLabel = new Label();
+		infoLabel = new HTML();
+		final HTML serverListLabel = new HTML();
+		final VerticalPanel dialogVPanel = new VerticalPanel();
+		dialogVPanel.addStyleName("dialogVPanel");
+		dialogVPanel.add(new HTML("<b>Extra Info For Player: "+record.getName() + "</b>"));
+		dialogVPanel.add(textToServerLabel);
+		//dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
+		dialogVPanel.add(infoLabel);
+		dialogVPanel.add(serverListLabel);
+		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+		dialogVPanel.add(closeButton);
+		dialogBox.setWidget(dialogVPanel);
+		dialogBox.setVisible(true);
+		dialogBox.show();
+	}
 }
