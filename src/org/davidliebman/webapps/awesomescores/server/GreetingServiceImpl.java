@@ -75,6 +75,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	}
 	
+	@Override
+	public String deleteServer(Record highScore)
+			throws IllegalArgumentException {
+		manageJDO = new ScoreManagerJDO();
+		manageJDO.deleteRecord(new RecordSaver(highScore));
+		return new String("record deleted...");
+	}
+	
 	/**
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.
@@ -89,4 +97,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;");
 	}
+
+	
 }
