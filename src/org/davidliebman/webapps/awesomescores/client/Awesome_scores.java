@@ -73,6 +73,7 @@ public class Awesome_scores  implements EntryPoint {
 		oldconsole = 0;
 		modifyTargetString();
 		this.getListFromServer();
+		//modifyPage();
 		
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
