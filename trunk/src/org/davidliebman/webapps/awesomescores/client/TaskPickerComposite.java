@@ -31,8 +31,8 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	
 	public TaskPickerComposite() {
 		
-		game = 0;
-		console = 0;
+		game = GAME_AWESOMEGUY;
+		console = CONSOLE_USER;
 		
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
