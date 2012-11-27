@@ -16,4 +16,6 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 	void listServer (String input, AsyncCallback<ArrayList<Record>> asyncCallback)
 			throws IllegalArgumentException;
+	void deleteServer( Record highscore, AsyncCallback<String> asyncCallback)
+			throws IllegalArgumentException;
 }

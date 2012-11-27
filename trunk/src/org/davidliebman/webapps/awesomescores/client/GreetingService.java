@@ -15,4 +15,5 @@ public interface GreetingService extends RemoteService {
 	//String greetServer(String name) throws IllegalArgumentException;
 	String greetServer( Record highScore) throws IllegalArgumentException;
 	ArrayList<Record> listServer( String input) throws IllegalArgumentException;
+	String deleteServer(Record highScore ) throws IllegalArgumentException;
 }
