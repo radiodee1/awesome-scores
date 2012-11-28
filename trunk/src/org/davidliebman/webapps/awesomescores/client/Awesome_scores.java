@@ -42,8 +42,8 @@ public class Awesome_scores  implements EntryPoint {
 
 	private int oldgame, oldconsole;
 	
-	private Integer game = new Integer(TaskPickerComposite.GAME_AWESOMEGUY);
-	private Integer console = new Integer(TaskPickerComposite.CONSOLE_USER);
+	private Integer game = new Integer(0);
+	private Integer console = new Integer(0);
 	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
