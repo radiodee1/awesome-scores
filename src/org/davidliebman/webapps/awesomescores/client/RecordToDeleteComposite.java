@@ -127,7 +127,7 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 		
 		lblNum.setText(new Integer(n + 1).toString() + ".  ");
 		String newName = mRec.getName().substring(0, 15);
-		lblName.setText(newName + " " + record.getKey());
+		lblName.setText(newName );
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
 		
