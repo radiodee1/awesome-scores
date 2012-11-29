@@ -25,5 +25,6 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  <entry-point class="org.davidliebman.webapps.awesomescores.client.Awesome_scores_admin"/>
 
 </module>
