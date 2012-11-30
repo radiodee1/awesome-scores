@@ -133,34 +133,34 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 		
 		switch (n % 9) {
 		case 0:
-			image.setUrl("ic_guy_0.png");
+			image.setUrl("/ic_guy_0.png");
 			break;
 		case 1:
-			image.setUrl("ic_guy_1.png");
+			image.setUrl("/ic_guy_1.png");
 			break;
 		case 2:
-			image.setUrl("ic_guy_2.png");
+			image.setUrl("/ic_guy_2.png");
 			break;
 		case 3:
-			image.setUrl("ic_guy_3.png");
+			image.setUrl("/ic_guy_3.png");
 			break;
 		case 4:
-			image.setUrl("ic_guy_4.png");
+			image.setUrl("/ic_guy_4.png");
 			break;
 		case 5:
-			image.setUrl("ic_guy_5.png");
+			image.setUrl("/ic_guy_5.png");
 			break;
 		case 6:
-			image.setUrl("ic_guy_6.png");
+			image.setUrl("/ic_guy_6.png");
 			break;
 		case 7:
-			image.setUrl("ic_guy_7.png");
+			image.setUrl("/ic_guy_7.png");
 			break;
 		case 8:
-			image.setUrl("ic_guy_8.png");
+			image.setUrl("/ic_guy_8.png");
 			break;
 		default:
-			image.setUrl("ic_guy_0.png");
+			image.setUrl("/ic_guy_0.png");
 			break;
 		}
 	}
