@@ -5,20 +5,22 @@ runtime: java
 welcome_files:
 - Awesome_scores.html
 - Awesome_scores.css
-#- /admin/Awesome_scores.html
+
 
 
 handlers:
 - url: /*
-  login: required
+#  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     bgColor: yellow
   name: adminconsole
 
-- url: /admin/*
+- url: /admin
   login: admin
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     bgColor: blue
   name: userconsole
+
+
