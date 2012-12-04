@@ -22,6 +22,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.*;
 
+import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
@@ -64,6 +67,11 @@ public class Awesome_scores  implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		
+		String configString = RootPanel.get("securityTag").getElement().getPropertyString("value");
+		
+		
+		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("user@gmail.com");

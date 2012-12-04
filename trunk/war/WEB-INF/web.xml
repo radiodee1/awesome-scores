@@ -1,27 +1,27 @@
 <!-- Generated from app.yaml. Do not edit. -->
 <web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
   <servlet>
-    <servlet-name>adminconsole</servlet-name>
+    <servlet-name>userconsole</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
     <init-param>
-      <param-name>bgColor</param-name>
-      <param-value>yellow</param-value>
+      <param-name>security</param-name>
+      <param-value>user</param-value>
     </init-param>
   </servlet>
   <servlet>
-    <servlet-name>userconsole</servlet-name>
+    <servlet-name>adminconsole</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
     <init-param>
-      <param-name>bgColor</param-name>
-      <param-value>blue</param-value>
+      <param-name>security</param-name>
+      <param-value>admin</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>adminconsole</servlet-name>
+    <servlet-name>userconsole</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>userconsole</servlet-name>
+    <servlet-name>adminconsole</servlet-name>
     <url-pattern>/admin</url-pattern>
   </servlet-mapping>
   <security-constraint>

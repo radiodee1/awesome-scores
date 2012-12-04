@@ -13,14 +13,14 @@ handlers:
 #  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
-    bgColor: yellow
-  name: adminconsole
+    security: user
+  name: userconsole
 
 - url: /admin
   login: admin
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
-    bgColor: blue
-  name: userconsole
+    security: admin
+  name: adminconsole
 
 
