@@ -36,7 +36,7 @@ public class Awesome_scores  implements EntryPoint {
 	private final RecordDeleteComposite adminConsoleDelete = new RecordDeleteComposite();
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();
 	private ArrayList<Record> mList = new ArrayList<Record>();
-	private final TaskPickerComposite taskPicker = new TaskPickerComposite();
+	private TaskPickerComposite taskPicker ;//= new TaskPickerComposite();
 
 	private Label errorLabel = new Label();
 	private HTML serverResponseLabel = new HTML();
@@ -69,7 +69,7 @@ public class Awesome_scores  implements EntryPoint {
 	public void onModuleLoad() {
 		
 		String configString = RootPanel.get("securityTag").getElement().getPropertyString("value");
-		
+		taskPicker = new TaskPickerComposite(configString);
 		
 		
 		final Button sendButton = new Button("Send");
