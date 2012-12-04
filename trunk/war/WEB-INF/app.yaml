@@ -9,8 +9,8 @@ welcome_files:
 
 
 handlers:
-- url: /*
-#  login: required
+- url: /
+  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     security: user
@@ -23,4 +23,6 @@ handlers:
     security: admin
   name: adminconsole
 
-
+- url: /_ah/login
+  login: required
+  
