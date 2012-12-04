@@ -28,12 +28,14 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 	
 	private Integer game, console;
 	private Button btnAdminDelete;
+	private String security;
 	
-	public TaskPickerComposite() {
+	public TaskPickerComposite(String securityString) {
 		
 		game = GAME_AWESOMEGUY;
 		console = CONSOLE_USER;
 		
+		security = securityString;
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		initWidget(verticalPanel);
@@ -44,14 +46,20 @@ public class TaskPickerComposite extends Composite implements  HasClickHandlers{
 		
 		btnNewButton = new Button("New button");
 		btnNewButton.setText("Admin Add");
-		horizontalPanel.add(btnNewButton);
+		if (security.contentEquals("admin")) {
+			horizontalPanel.add(btnNewButton);
+		}
 		
 		btnAdminDelete = new Button("Admin Delete");
-		horizontalPanel.add(btnAdminDelete);
+		if (security.contentEquals("admin")) {
+			horizontalPanel.add(btnAdminDelete);
+		}
 		
 		btnNewButton_1 = new Button("New button");
 		btnNewButton_1.setText("User Scores");
-		horizontalPanel.add(btnNewButton_1);
+		if (security.contentEquals("admin")) {
+			horizontalPanel.add(btnNewButton_1);
+		}
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		horizontalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
