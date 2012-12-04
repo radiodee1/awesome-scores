@@ -78,6 +78,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String deleteServer(Record highScore)
 			throws IllegalArgumentException {
+		String initString = this.getServletConfig().getInitParameter("security");
+
+		if (! initString.contentEquals("admin")) return new String("must be admin...");
+		
 		manageJDO = new ScoreManagerJDO();
 		manageJDO.deleteRecord(new RecordSaver(highScore));
 		return new String("record deleted...");

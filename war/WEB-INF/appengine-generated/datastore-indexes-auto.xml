@@ -1,8 +1,8 @@
-<!-- Indices written at Fri, 30 Nov 2012 13:27:27 UTC -->
+<!-- Indices written at Tue, 4 Dec 2012 16:27:23 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 12 times in query history -->
+    <!-- Used 21 times in query history -->
     <datastore-index kind="RecordSaver" ancestor="false" source="auto">
         <property name="mAndroidAppname" direction="asc"/>
         <property name="mScore" direction="desc"/>
