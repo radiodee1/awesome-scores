@@ -97,10 +97,6 @@ public class Awesome_scores  implements EntryPoint {
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 		RootPanel.get("gameTarget").add(gameTarget);
 		
-		// Focus the cursor on the name field when the app loads
-		//nameField.setFocus(true); <-- do not setFocus(true) !!
-		//nameField.selectAll();
-		//sendButton.setVisible(false);
 		
 		// Create the popup dialog box
 		dialogBox = new DialogBox();
