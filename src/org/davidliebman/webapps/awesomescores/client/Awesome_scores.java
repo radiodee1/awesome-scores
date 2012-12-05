@@ -68,6 +68,9 @@ public class Awesome_scores  implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		
+		RootPanel.get("docDiv").setStyleName("docDiv");
+		RootPanel.get("myTable").setStyleName("myTable");
+		
 		String configString = RootPanel.get("securityTag").getElement().getPropertyString("value");
 		taskPicker = new TaskPickerComposite(configString);
 		

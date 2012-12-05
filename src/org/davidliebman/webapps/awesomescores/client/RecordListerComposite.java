@@ -24,7 +24,7 @@ public class RecordListerComposite extends Composite implements HasClickHandlers
 	public RecordListerComposite() {
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
-		mPanel.setStyleName("verticalScroll");
+		mPanel.setStyleName("recordListing");
 		//scrollPanel.setStyleName("recordDisplay");
 		mPanel.setStyleName("recordDisplay");
 		mPanel.setBorderWidth(1);
@@ -36,6 +36,7 @@ public class RecordListerComposite extends Composite implements HasClickHandlers
 		//((ForIsWidget) scrollPanel).add(mPanel);
 		//fill(new ArrayList<Record> ());
 		
+		setStyleName("recordListing");
 	}
 	
 	

@@ -27,13 +27,13 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 	private Label label, lblNum, lblName,lblScore, lblScoreNum, lblDate ;
 	private DateLabel dateLabel;
 	private Button btnSeeMore;
-	private LayoutPanel layoutPanel;
 	
 	Record record ;
 	
 	DialogBox dialogBox = new DialogBox();
 	Button closeButton = new Button();
 	HTML infoLabel = new HTML();
+	private VerticalPanel verticalPanel_1;
 	
 	public DisplayRecordComposite(Record r, int num) {
 		
@@ -42,16 +42,16 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("recordDisplay");
 		this.initWidget(horizontalPanel);
-		horizontalPanel.setSize("333px", "88px");
-		setHeight("62px");
+		horizontalPanel.setSize("315px", "66px");
+		setSize("300px", "66px");
 		
 		image = new Image("ic_guy_0.png");
 		horizontalPanel.add(image);
-		image.setHeight("58px");
+		image.setSize("", "58px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
-		verticalPanel.setWidth("146px");
+		verticalPanel.setWidth("140px");
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_1);
@@ -93,21 +93,15 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		horizontalPanel_3.add(dateLabel);
 		horizontalPanel_3.setCellVerticalAlignment(dateLabel, HasVerticalAlignment.ALIGN_MIDDLE);
 		
-		layoutPanel = new LayoutPanel();
-		//horizontalPanel_3.add(layoutPanel);
-		horizontalPanel.add(layoutPanel);
-		horizontalPanel.setCellWidth(layoutPanel, "80");
-		layoutPanel.setSize("20", "20");
+		verticalPanel_1 = new VerticalPanel();
+		verticalPanel_1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.add(verticalPanel_1);
+		verticalPanel_1.setHeight("");
 		
 		btnSeeMore = new Button("See More");
+		verticalPanel_1.add(btnSeeMore);
 		btnSeeMore.setStyleName("recordButton");
-		//horizontalPanel_3.add(btnSeeMore);
-		layoutPanel.add(btnSeeMore);
-		btnSeeMore.setSize("40", "10");
-		layoutPanel.setWidgetLeftWidth(btnSeeMore, 10.0, Unit.PX, 88.0, Unit.PX);
-		layoutPanel.setWidgetTopHeight(btnSeeMore, 14.0, Unit.PX, 34.0, Unit.PX);
-		
-		setRecord(r, num);
+		btnSeeMore.setSize("35", "10");
 		
 		btnSeeMore.addClickHandler(new ClickHandler() {
 
@@ -119,7 +113,10 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 			
 		});
 		
+		setRecord(r, num);
 		
+		
+		setStyleName("recordListing");
 	}
 
 	public void setRecord(Record mRec, int n) {
@@ -192,7 +189,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		dialogBox.setWidget(dialogVPanel);
 		dialogBox.setVisible(true);
 		dialogBox.show();
-		dialogBox.center();
+		//dialogBox.center();
 		closeButton.setFocus(true);
 		
 		closeButton.addClickHandler(new ClickHandler() {
