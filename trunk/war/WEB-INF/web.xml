@@ -1,6 +1,8 @@
 <!-- Generated from app.yaml. Do not edit. -->
+
 <web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
-  <servlet>
+
+    <servlet>
     <servlet-name>userconsole</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
     <init-param>
@@ -18,8 +20,17 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>userconsole</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
   <servlet-mapping>
     <servlet-name>adminconsole</servlet-name>
     <url-pattern>/admin</url-pattern>
@@ -31,6 +42,15 @@
     </web-resource-collection>
     <auth-constraint>
       <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/_ah/login</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
     </auth-constraint>
   </security-constraint>
   <welcome-file-list>
