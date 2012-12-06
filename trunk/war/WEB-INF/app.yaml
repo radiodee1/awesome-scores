@@ -6,10 +6,8 @@ welcome_files:
 - Awesome_scores.html
 - Awesome_scores.css
 
-
-
 handlers:
-- url: /
+- url: /*
   login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
