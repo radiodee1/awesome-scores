@@ -14,7 +14,7 @@ handlers:
     security: user
   name: userconsole
 
-- url: /admin
+- url: /admin/
   login: admin
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
