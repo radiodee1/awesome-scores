@@ -22,8 +22,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.*;
 
-import javax.naming.InitialContext;
-import javax.persistence.EntityManager;
+//import javax.naming.InitialContext;
+//import javax.persistence.EntityManager;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -68,12 +68,11 @@ public class Awesome_scores  implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		
-		RootPanel.get("docDiv").setStyleName("docDiv");
-		RootPanel.get("myTable").setStyleName("myTable");
-		
 		String configString = RootPanel.get("securityTag").getElement().getPropertyString("value");
 		taskPicker = new TaskPickerComposite(configString);
 		
+		RootPanel.get("docDiv").setStyleName("docDiv");
+		RootPanel.get("myTable").setStyleName("myTable");
 		
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
