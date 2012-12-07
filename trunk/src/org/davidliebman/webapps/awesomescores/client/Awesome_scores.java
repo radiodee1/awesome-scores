@@ -86,8 +86,6 @@ public class Awesome_scores  implements EntryPoint {
 		modifyPage();
 		
 		// We can add style names to widgets
-		//sendButton.addStyleName("sendButton");
-		//scoresButton.addStyleName("sendButton");
 		taskPicker.addStyleName("sendButton");
 		
 		// Add the nameField and sendButton to the RootPanel

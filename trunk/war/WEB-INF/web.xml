@@ -20,35 +20,17 @@
     <servlet-name>userconsole</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>aname</web-resource-name>
-      <url-pattern>/*</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>*</role-name>
-    </auth-constraint>
-  </security-constraint>
   <servlet-mapping>
     <servlet-name>adminconsole</servlet-name>
-    <url-pattern>/admin/</url-pattern>
+    <url-pattern>/admin</url-pattern>
   </servlet-mapping>
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>aname</web-resource-name>
-      <url-pattern>/admin/</url-pattern>
+      <url-pattern>/admin</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>admin</role-name>
-    </auth-constraint>
-  </security-constraint>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>aname</web-resource-name>
-      <url-pattern>/_ah/login</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>*</role-name>
     </auth-constraint>
   </security-constraint>
   <welcome-file-list>
