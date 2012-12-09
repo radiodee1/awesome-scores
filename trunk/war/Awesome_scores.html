@@ -11,8 +11,8 @@
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="Awesome_scores.css">
-
+    <link type="text/css" rel="stylesheet" media="screen" href="Awesome_scores.css">
+	<!-- link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)" href="handheld.css" / -->
     <!--                                           -->
     <!-- Any title is fine                         -->
     <!--                                           -->
@@ -24,6 +24,19 @@
     <!-- be added before this line.                -->
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="awesome_scores/awesome_scores.nocache.js"></script>
+	<script type="text/javascript">
+    var userAgent = navigator.userAgent;
+
+    if(userAgent.search("Mobile")>=0) document.getElementById("stylesheet").href = "/handheld.css";
+
+    if(userAgent.search("Nokia")>=0) document.getElementById("stylesheet").href = "/handheld.css";
+
+    if(userAgent.search("SymbianOS")>=0) document.getElementById("stylesheet").href = "/handheld.css";
+	
+	if(userAgent.search("Android")>=0) document.getElementById("stylesheet").href = "/handheld.css";
+	
+	</script>
+
   </head>
 
   <!--                                           -->
@@ -43,7 +56,7 @@
         in order for this application to display correctly.
       </div>
     </noscript>
-	<div id="docDiv">
+	<div id="docDiv" style=".docDiv">
     <h1>Awesome Scores Web Scorekeeper</h1>
 
     <table align="center">
@@ -65,8 +78,11 @@
       <tr>
         <td  style="color:red;" id="errorLabelContainer"></td>
       </tr>
+      <tr>
+        <td  id="resultsPanel"></td>
+      </tr>
     </table>
-    <div id="resultsPanel"></div>
+    <div id="resultsPanelx"></div>
     </div>
   </body>
 </html>
