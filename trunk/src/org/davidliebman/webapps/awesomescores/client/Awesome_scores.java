@@ -267,6 +267,7 @@ public class Awesome_scores  implements EntryPoint {
 			}
 			
 			RootPanel.get("consoleContainer").add(adminConsoleAdd);
+			//adminConsoleAdd.addStyleName("adminConsoleAdd");
 
 		}
 		else if ( console == TaskPickerComposite.CONSOLE_ADMIN_DELETE) {

@@ -9,14 +9,13 @@ welcome_files:
 
 handlers:
 - url: /*
-#  login: required
+  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     security: user
   name: userconsole
 
 - url: /admin
-#- url: /Awesome_scores_admin.html
   login: admin
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
