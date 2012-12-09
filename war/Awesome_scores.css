@@ -72,7 +72,7 @@ h1 {
 }
 .docDiv {
 	color:black;
-	background:red;
+	background:white;
 	width: 320px;
 	padding:0px;
 	margin:0px;
@@ -86,4 +86,9 @@ h1 {
 }
 .myTable {
 	width:320px;
+}
+
+.adminConsoleAdd {
+	color: black;
+	background: white;
 }

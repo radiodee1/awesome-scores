@@ -42,7 +42,7 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("recordDisplay");
 		this.initWidget(horizontalPanel);
-		horizontalPanel.setSize("333px", "88px");
+		horizontalPanel.setSize("315px", "88px");
 		setHeight("62px");
 		
 		image = new Image("ic_guy_0.png");
