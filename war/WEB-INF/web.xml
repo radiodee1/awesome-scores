@@ -45,5 +45,6 @@
   <welcome-file-list>
     <welcome-file>Awesome_scores.html</welcome-file>
     <welcome-file>Awesome_scores.css</welcome-file>
+    <welcome-file>handheld.css</welcome-file>
   </welcome-file-list>
 </web-app>

@@ -5,7 +5,7 @@ runtime: java
 welcome_files:
 - Awesome_scores.html
 - Awesome_scores.css
-#- Awesome_scores_admin.html 
+- handheld.css 
 
 handlers:
 - url: /*
