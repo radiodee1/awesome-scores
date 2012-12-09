@@ -11,7 +11,7 @@ h1 {
 }
 
 body {
-	
+	width:315px;
 }
 
 .sendButton {
@@ -77,10 +77,13 @@ body {
 .docDiv {
 	color:black;
 	background:white;
+	width: 320px;
 	padding:0px;
 	margin:0px;
 	
 }
+
+
 
 .recordListing {
 	width: 315px;
@@ -88,7 +91,7 @@ body {
 	background:black;
 }
 .myTable {
-	
+	width:320px;
 }
 
 .adminConsoleAdd {
