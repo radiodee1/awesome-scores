@@ -9,10 +9,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.SimpleCheckBox;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class AdminConsoleComposite extends Composite implements HasClickHandlers{
 
-	private TextBox gameEmail, gameName, gameScore, gameLevel, gameLives, gameSpeed;
+	private TextBox gameEmail, gameName, gameScore, gameLevel, gameLives, gameSpeed, gameCountry;
+	private SimpleCheckBox soundOn, monstersOn, monsterCollisionOn;
 	private Button gameButton;
 	private boolean buttonPressed = false;
 	
@@ -64,6 +67,41 @@ public class AdminConsoleComposite extends Composite implements HasClickHandlers
 		gameSpeed = new TextBox();
 		gameSpeed.setText("40");
 		verticalPanel.add(gameSpeed);
+		
+		Label lblCountry = new Label("Country:");
+		verticalPanel.add(lblCountry);
+		
+		gameCountry = new TextBox();
+		gameCountry.setText("USA");
+		verticalPanel.add(gameCountry);
+		
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		verticalPanel.add(horizontalPanel);
+		
+		soundOn = new SimpleCheckBox();
+		horizontalPanel.add(soundOn);
+		soundOn.setName("game sound on");
+		
+		Label lblGameSoundOn = new Label("Game Sound On");
+		horizontalPanel.add(lblGameSoundOn);
+		
+		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+		verticalPanel.add(horizontalPanel_1);
+		
+		monstersOn = new SimpleCheckBox();
+		horizontalPanel_1.add(monstersOn);
+		
+		Label lblMonstersOn = new Label("Monsters On");
+		horizontalPanel_1.add(lblMonstersOn);
+		
+		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+		verticalPanel.add(horizontalPanel_2);
+		
+		monsterCollisionOn = new SimpleCheckBox();
+		horizontalPanel_2.add(monsterCollisionOn);
+		
+		Label lblMonsterCollisionOn = new Label("Monster Collision On");
+		horizontalPanel_2.add(lblMonsterCollisionOn);
 		
 		gameButton = new Button("Submit Scores");
 		verticalPanel.add(gameButton);
@@ -128,6 +166,38 @@ public class AdminConsoleComposite extends Composite implements HasClickHandlers
 	}
 	
 	
+
+	public String getGameCountry() {
+		return gameCountry.getText();
+	}
+
+	public void setGameCountry(String gameCountry) {
+		this.gameCountry.setText(gameCountry);
+	}
+
+	public boolean isSoundOn() {
+		return soundOn.getValue();
+	}
+
+	public void setSoundOn(boolean sound) {
+		this.soundOn.setValue(sound) ;
+	}
+
+	public boolean isMonstersOn() {
+		return monstersOn.getValue();
+	}
+
+	public void setMonstersOn(boolean monsters) {
+		this.monstersOn.setValue(monsters);
+	}
+
+	public boolean isMonsterCollisionOn() {
+		return monsterCollisionOn.getValue();
+	}
+
+	public void setMonsterCollisionOn(boolean monsterCollision) {
+		this.monsterCollisionOn.setValue(monsterCollision);
+	}
 
 	public Button getGameButton() {
 		return gameButton;

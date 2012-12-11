@@ -188,6 +188,12 @@ public class Awesome_scores  implements EntryPoint {
 		highScore.setLevel(Integer.parseInt(adminConsoleAdd.getGameLevel()));
 		highScore.setLives(Integer.parseInt(adminConsoleAdd.getGameLives()));
 		highScore.setGameSpeed(Integer.parseInt(adminConsoleAdd.getGameSpeed()));
+		highScore.setCountry(adminConsoleAdd.getGameCountry());
+		highScore.setEnableMonsters(adminConsoleAdd.isMonstersOn());
+		highScore.setEnableCollision(adminConsoleAdd.isMonsterCollisionOn());
+		highScore.setSound(adminConsoleAdd.isSoundOn());
+		
+		
 		if (game == TaskPickerComposite.GAME_AWESOMEFLYER) {
 			highScore.setAndroidAppname(TaskPickerComposite.GAME_STRING_AWESOMEFLYER);
 		}
