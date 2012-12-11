@@ -29,6 +29,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 	private Button btnSeeMore;
 	
 	private int yval = 0;
+	private int xval = 0;
 	
 	Record record ;
 	
@@ -111,7 +112,8 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 			@Override
 			public void onClick(ClickEvent event) {
 				yval = btnSeeMore.getAbsoluteTop();
-				showDetails(yval);
+				xval = image.getAbsoluteLeft();
+				showDetails(xval, yval);
 				
 			}
 			
@@ -126,7 +128,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 	public void setRecord(Record mRec, int n) {
 		
 		lblNum.setText(new Integer(n + 1).toString() + ".  ");
-		String newName = mRec.getName().substring(0, 15);
+		String newName = mRec.getName().substring(0, 12);
 		lblName.setText(newName );
 		dateLabel.setValue(mRec.getDate());
 		lblScoreNum.setText(" " + mRec.getScore());
@@ -171,7 +173,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		return addDomHandler(handler, ClickEvent.getType());
 	}
 	
-	public void showDetails(int y) {
+	public void showDetails(int x, int y) {
 		dialogBox = new DialogBox();
 		dialogBox.setText("Extra Info");
 		dialogBox.setAnimationEnabled(true);
@@ -183,9 +185,8 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		final HTML serverListLabel = new HTML();
 		final VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Extra Info For Player: "+record.getName() + "</b>"));
-		
-		dialogVPanel.add(new HTML("<b>Sound: "+record.isSound() + "</b>"));
+		dialogVPanel.add(new HTML("<b>Extra Info For</b>"));
+		dialogVPanel.add(new HTML("<b>Player: "+record.getName().substring(0, 15) + "</b>"));
 		dialogVPanel.add(new HTML("<b>Lives: "+record.getLives() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Level: "+record.getLevel() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Cycles: "+record.getCycles() + "</b>"));
@@ -193,9 +194,9 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		dialogVPanel.add(new HTML("<b>Country: "+record.getCountry() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Monsters: "+record.isEnableMonsters() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Monster Collision: "+record.isEnableCollision() + "</b>"));
+		dialogVPanel.add(new HTML("<b>Sound: "+record.isSound() + "</b>"));
 		
 		dialogVPanel.add(textToServerLabel);
-		//dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
 		dialogVPanel.add(infoLabel);
 		dialogVPanel.add(serverListLabel);
 		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
@@ -203,7 +204,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		dialogBox.setWidget(dialogVPanel);
 		dialogBox.setVisible(true);
 		dialogBox.show();
-		dialogBox.setPopupPosition(10, y);
+		dialogBox.setPopupPosition(x + 10, y);
 
 		//dialogBox.center();
 		closeButton.setFocus(true);
