@@ -123,7 +123,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		else if (userService.isUserLoggedIn()) {
 			returnValue = SiteEnum.USER_PLAIN;
 		}
-		// TODO Auto-generated method stub
+		
 		return returnValue;
 	}
 
