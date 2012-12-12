@@ -1,13 +1,4 @@
-<!-- Generated from app.yaml. Do not edit. -->
-<web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
-  <servlet>
-    <servlet-name>userconsole</servlet-name>
-    <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
-    <init-param>
-      <param-name>security</param-name>
-      <param-value>user</param-value>
-    </init-param>
-  </servlet>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated from app.yaml. Do not edit. --><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <servlet>
     <servlet-name>adminconsole</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
@@ -16,6 +7,27 @@
       <param-value>admin</param-value>
     </init-param>
   </servlet>
+  <servlet>
+    <servlet-name>userconsole</servlet-name>
+    <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
+    <init-param>
+      <param-name>security</param-name>
+      <param-value>user</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>adminconsole</servlet-name>
+    <url-pattern>/admin/Awesome_scores.html</url-pattern>
+  </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/admin/Awesome_scores.html</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
   <servlet-mapping>
     <servlet-name>userconsole</servlet-name>
     <url-pattern>/*</url-pattern>
@@ -29,22 +41,23 @@
       <role-name>*</role-name>
     </auth-constraint>
   </security-constraint>
-  <servlet-mapping>
-    <servlet-name>adminconsole</servlet-name>
-    <url-pattern>/admin</url-pattern>
-  </servlet-mapping>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>aname</web-resource-name>
-      <url-pattern>/admin</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>admin</role-name>
-    </auth-constraint>
-  </security-constraint>
   <welcome-file-list>
     <welcome-file>Awesome_scores.html</welcome-file>
     <welcome-file>Awesome_scores.css</welcome-file>
     <welcome-file>handheld.css</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value/>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <url-pattern>/_ah/spi/*</url-pattern>
+  </servlet-mapping>
+
 </web-app>

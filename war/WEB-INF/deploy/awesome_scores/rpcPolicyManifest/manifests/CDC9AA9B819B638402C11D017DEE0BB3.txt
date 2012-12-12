@@ -1,0 +1,2 @@
+serviceClass: org.davidliebman.webapps.awesomescores.client.GreetingService
+path: 6AD4AB961352F3E4E6B9ACE670020852.gwt.rpc

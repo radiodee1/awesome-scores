@@ -183,8 +183,10 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 
 			@Override
 			public void onSuccess(String result) {
-				btnSeeMore.setText("done");
-				removeFromParent();
+				btnSeeMore.setText(result);
+				if (result == null) {
+					removeFromParent();
+				}
 				//btnSeeMore.setText("sent");
 			}
 			

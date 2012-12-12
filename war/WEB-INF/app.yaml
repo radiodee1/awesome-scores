@@ -1,5 +1,5 @@
 application: awesomescores
-version: 1
+version: 2
 runtime: java
 
 welcome_files:
@@ -8,6 +8,13 @@ welcome_files:
 - handheld.css 
 
 handlers:
+- url: /admin/Awesome_scores.html
+  login: admin
+  servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
+  init_params:
+    security: admin
+  name: adminconsole
+
 - url: /*
   login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
@@ -15,13 +22,3 @@ handlers:
     security: user
   name: userconsole
 
-- url: /admin
-  login: admin
-  servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
-  init_params:
-    security: admin
-  name: adminconsole
-
-#- url: /_ah/login
-#  login: required
-  
