@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import org.davidliebman.webapps.awesomescores.client.GreetingService;
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
 import org.davidliebman.webapps.awesomescores.shared.Record;
+import org.davidliebman.webapps.awesomescores.shared.SiteEnum;
+
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -80,11 +84,19 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			throws IllegalArgumentException {
 		String initString = this.getServletConfig().getInitParameter("security");
 
-		if (! initString.contentEquals("admin")) return new String("must be admin...");
+		if (userEnum() != SiteEnum.USER_ADMIN) return new String("must be admin...");
 		
 		manageJDO = new ScoreManagerJDO();
 		manageJDO.deleteRecord(new RecordSaver(highScore));
-		return new String("record deleted...");
+		return null;//new String("record deleted...");
+	}
+	
+	@Override
+	public Integer checkUser(String input) 
+			throws IllegalArgumentException {
+		Integer returnValue = SiteEnum.USER_NONE;
+		
+		return userEnum();
 	}
 	
 	/**
@@ -100,6 +112,19 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;");
+	}
+
+	private Integer userEnum () {
+		Integer returnValue = SiteEnum.USER_NONE;
+		UserService userService = UserServiceFactory.getUserService();
+		if (userService.isUserAdmin()) {
+			returnValue = SiteEnum.USER_ADMIN;
+		}
+		else if (userService.isUserLoggedIn()) {
+			returnValue = SiteEnum.USER_PLAIN;
+		}
+		// TODO Auto-generated method stub
+		return returnValue;
 	}
 
 	

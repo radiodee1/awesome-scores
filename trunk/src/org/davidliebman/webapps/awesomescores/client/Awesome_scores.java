@@ -2,6 +2,7 @@ package org.davidliebman.webapps.awesomescores.client;
 
 import org.davidliebman.webapps.awesomescores.shared.FieldVerifier;
 import org.davidliebman.webapps.awesomescores.shared.Record;
+import org.davidliebman.webapps.awesomescores.shared.SiteEnum;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -30,6 +31,7 @@ import java.util.*;
  */
 public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
+	private String configString = new String("user");
 	private Label gameTarget = new Label();
 	private String gameTargetString = new String("none");
 	private final AdminConsoleComposite adminConsoleAdd = new AdminConsoleComposite();
@@ -37,7 +39,8 @@ public class Awesome_scores  implements EntryPoint {
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();
 	private ArrayList<Record> mList = new ArrayList<Record>();
 	private TaskPickerComposite taskPicker ;//= new TaskPickerComposite();
-
+	private MyHandler handler = new MyHandler();
+	
 	private Label errorLabel = new Label();
 	private HTML serverResponseLabel = new HTML();
 	private DialogBox dialogBox = new DialogBox();
@@ -68,7 +71,9 @@ public class Awesome_scores  implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		
-		String configString = RootPanel.get("securityTag").getElement().getPropertyString("value");
+		configString = new String("user");
+		this.checkUser();
+		
 		taskPicker = new TaskPickerComposite(configString);
 		
 		RootPanel.get("docDiv").setStyleName("docDiv");
@@ -90,7 +95,7 @@ public class Awesome_scores  implements EntryPoint {
 		
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("taskPicker").add(taskPicker);
+		//RootPanel.get("taskPicker").add(taskPicker);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 		RootPanel.get("gameTarget").add(gameTarget);
 		
@@ -124,47 +129,7 @@ public class Awesome_scores  implements EntryPoint {
 			}
 		});
 
-		
-		// Create a handler for the sendButton and nameField
-		class MyHandler implements ClickHandler {
-			/**
-			 * Fired when the user clicks on the sendButton.
-			 */
-			public void onClick(ClickEvent event) {
-				modifyTargetString();
-				Widget source = (Widget) event.getSource();
-				if(source == adminConsoleAdd.getGameButton()) {
-					sendNameToServer();
-					//adminConsole.setButtonPressed(false);
-					modifyPage();
-				}
-				else if (source == taskPicker.getButtonUserScores()) {
-					getListFromServer();
-					modifyPage();
-				}
-				else if ( source == taskPicker.getButtonDeleteRecord() ) {
-					getListFromServer();
-					modifyPage();
-				}
-				else if ( source == taskPicker.getBtnNewButton()) {
-					modifyPage();
-				}
-				//modifyPage();
-			}
 
-		
-
-		
-		}
-
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		//scoresButton.addClickHandler(handler);
-		taskPicker.getButtonUserScores().addClickHandler(handler);
-		taskPicker.getButtonDeleteRecord().addClickHandler(handler);
-		taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
-		taskPicker.getBtnAwesomeguy().addClickHandler(handler);
-		taskPicker.getBtnNewButton().addClickHandler(handler);
 		adminConsoleAdd.getGameButton().addClickHandler(handler);
 		
 	}
@@ -255,6 +220,47 @@ public class Awesome_scores  implements EntryPoint {
 		});
 	}
 	
+	public void checkUser() {
+		greetingService.checkUser(new String(), 
+				new AsyncCallback<Integer> () {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				gameTarget.setText("no user");
+				
+			}
+
+			@Override
+			public void onSuccess(Integer result) {
+				
+				//SiteEnum user = result;
+				switch (result) {
+				case SiteEnum.USER_NONE :
+					configString = new String("none");
+
+					break;
+				case SiteEnum.USER_ADMIN :
+					configString = new String("admin");
+
+					break;
+				case SiteEnum.USER_PLAIN :
+					configString = new String("user");
+
+					break;
+				}
+				
+				taskPicker = new TaskPickerComposite(configString);
+				RootPanel.get("taskPicker").add(taskPicker);
+				taskPicker.getButtonUserScores().addClickHandler(handler);
+				taskPicker.getButtonDeleteRecord().addClickHandler(handler);
+				taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
+				taskPicker.getBtnAwesomeguy().addClickHandler(handler);
+				taskPicker.getBtnNewButton().addClickHandler(handler);
+			}
+			
+		});
+	}
+	
 	public void modifyPage() {
 		
 	
@@ -341,4 +347,36 @@ public class Awesome_scores  implements EntryPoint {
 //		}
 		
 	}
+	
+	// Create a handler for the sendButton and nameField
+			class MyHandler implements ClickHandler {
+				/**
+				 * Fired when the user clicks on the sendButton.
+				 */
+				public void onClick(ClickEvent event) {
+					modifyTargetString();
+					Widget source = (Widget) event.getSource();
+					if(source == adminConsoleAdd.getGameButton()) {
+						sendNameToServer();
+						//adminConsole.setButtonPressed(false);
+						modifyPage();
+					}
+					else if (source == taskPicker.getButtonUserScores()) {
+						getListFromServer();
+						modifyPage();
+					}
+					else if ( source == taskPicker.getButtonDeleteRecord() ) {
+						getListFromServer();
+						modifyPage();
+					}
+					else if ( source == taskPicker.getBtnNewButton()) {
+						modifyPage();
+					}
+					//modifyPage();
+				}
+
+			
+
+			
+			}
 }

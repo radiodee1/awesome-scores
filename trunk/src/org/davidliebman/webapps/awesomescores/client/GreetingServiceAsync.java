@@ -18,4 +18,6 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 	void deleteServer( Record highscore, AsyncCallback<String> asyncCallback)
 			throws IllegalArgumentException;
+	void checkUser (String input, AsyncCallback<Integer> asyncCallback )
+			throws IllegalArgumentException;
 }
