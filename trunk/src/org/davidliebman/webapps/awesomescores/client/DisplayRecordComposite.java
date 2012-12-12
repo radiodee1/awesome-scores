@@ -45,7 +45,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("recordDisplay");
 		this.initWidget(horizontalPanel);
-		horizontalPanel.setSize("315px", "66px");
+		horizontalPanel.setSize("305px", "66px");
 		setSize("300px", "66px");
 		
 		image = new Image("ic_guy_0.png");

@@ -11,7 +11,18 @@ h1 {
 }
 
 body {
-	
+	margin-left:0px;
+	border:0px;
+	padding-left:0px;
+}
+
+tr, td {
+	margin-left:0px;
+	margin-right:0px;
+	padding-left:0px;
+	padding-right:0px;
+	border-left:0px;
+	border-right:0px;
 }
 
 .sendButton {
@@ -77,19 +88,18 @@ body {
 .docDiv {
 	color:black;
 	background:white;
-	padding:0px;
-	margin:0px;
 	
 }
 
 .recordListing {
-	width: 315px;
+	width: 305px;
 	color:white;
 	background:black;
-}
-.myTable {
+	margin-left:0px;
+	padding-left:0px;
 	
 }
+
 
 .adminConsoleAdd {
 	color: black;

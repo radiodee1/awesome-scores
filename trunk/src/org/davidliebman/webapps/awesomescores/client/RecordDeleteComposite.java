@@ -30,7 +30,7 @@ public class RecordDeleteComposite extends Composite implements HasClickHandlers
 		mPanel.setBorderWidth(1);
 		//scrollPanel.setAlwaysShowScrollBars(true);
 		this.initWidget(mPanel);
-		mPanel.setSize("315px", "0");
+		mPanel.setSize("305px", "0");
 		//this.initWidget(scrollPanel);
 		//scrollPanel.setSize("363px", "550px");
 		//((ForIsWidget) scrollPanel).add(mPanel);
