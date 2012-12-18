@@ -15,10 +15,18 @@ handlers:
     security: admin
   name: adminconsole
 
+#- url: /game/game.html
+  #servlet: org.davidliebman.webapps.awesomescores.server.JSONDataCollector
+  #jsp: /game/game.jsp
+  #init_params:
+  #  security: user
+  #name: dispatcher
+
 - url: /*
   login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     security: user
   name: userconsole
+
 
