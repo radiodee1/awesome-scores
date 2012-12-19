@@ -3,30 +3,34 @@ version: 3
 runtime: java
 
 welcome_files:
-- Awesome_scores.html
-- Awesome_scores.css
+- index.html
+- awesome.css
 - handheld.css 
 
 handlers:
-- url: /admin/Awesome_scores.html
-  login: admin
-  servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
-  init_params:
-    security: admin
-  name: adminconsole
-
-- url: /game.html
-  #servlet: org.davidliebman.webapps.awesomescores.server.JSONDataCollector
-  #jsp: /game.jsp
-  #init_params:
-  #  security: user
-  name: game
-
-- url: /Awesome_scores.html
+- url: /*
   login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     security: user
   name: userconsole
+
+
+#- url: /admin/index.html
+#  login: admin
+#  servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
+#  init_params:
+#    security: admin
+#  name: adminconsole
+
+
+
+- url: /game.html
+  #login: optional
+  jsp: /game.jsp
+  init_params:
+    security: game
+  name: game
+
 
 
