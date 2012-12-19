@@ -15,9 +15,9 @@ handlers:
     security: admin
   name: adminconsole
 
-- url: /game/game.html
+- url: /game.html
   #servlet: org.davidliebman.webapps.awesomescores.server.JSONDataCollector
-  #jsp: /game/game.jsp
+  #jsp: /game.jsp
   #init_params:
   #  security: user
   name: game
