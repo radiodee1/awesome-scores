@@ -17,6 +17,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.webscale.json.client.JsonClient;
@@ -93,7 +94,7 @@ public class MainActivity extends Activity {
 	}
 
 	public String someExecuteMethod()  {
-		Record rec = new Record();
+		RecordJson rec = new RecordJson();
 		
 		rec.setName("hello world");
 		rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
@@ -123,10 +124,18 @@ public class MainActivity extends Activity {
 		nameValuePairs.add(new BasicNameValuePair("command", cmd));
 		
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game/game.html");
-		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+		//HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
+		HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
+
+		//httppost.setHeader("User-Agent", "");
+		httppost.setHeader("Content-type", "application/json");
+		StringEntity entity = new StringEntity(cmd, "UTF-8");
 		
-		cmd = cmd.substring(1, cmd.length()- 1);
+		
+		httppost.setEntity(entity);
+		
+		
+		//cmd = cmd.substring(1, cmd.length()- 1);
 	    HttpResponse response = httpclient.execute(httppost);//?command="+cmd));
 	    StatusLine statusLine = response.getStatusLine();
 	    if(statusLine.getStatusCode() == HttpStatus.SC_OK){

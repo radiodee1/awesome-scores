@@ -8,7 +8,7 @@ import java.util.Date;
 
 //import com.google.gwt.user.client.rpc.IsSerializable;
 
-public  class Record  {
+public  class RecordJson  {
 	
 	public final static int SPEED_SLOW = 	16;
 	public final static int SPEED_MEDIUM = 	20;
@@ -45,7 +45,7 @@ public  class Record  {
 	private Date mDate;
 	private long mKey;
 	
-	public Record() {
+	public RecordJson() {
 		
 		mName = new String("anonymous");
 		mEmail = new String("");
