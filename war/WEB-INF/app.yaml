@@ -7,6 +7,8 @@ welcome_files:
 - awesome.css
 - handheld.css 
 
+precompilation_enabled: true
+
 handlers:
 - url: /*
   login: required
