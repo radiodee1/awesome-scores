@@ -7,13 +7,12 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <meta name="viewport" content="width = 320">
-
+	<meta name="viewport" content="width = 320">
+	
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" id="stylesheet" href="/Awesome_scores.css">
+    <link type="text/css" rel="stylesheet" id="stylesheet" media="screen" href="awesome.css">
 	
     <!--                                           -->
     <!-- Any title is fine                         -->
@@ -25,7 +24,7 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="../awesome_scores/awesome_scores.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="awesome_scores/awesome_scores.nocache.js"></script>
 	
 	<script type="text/javascript">
     	var userAgent = navigator.userAgent;
@@ -39,7 +38,7 @@
     	if(userAgent.search("SymbianOS")>=0) document.getElementById("stylesheet").href = "/handheld.css";
 	
 		if(userAgent.search("Android")>=0) document.getElementById("stylesheet").href = "/handheld.css";
-			
+	
 	</script>
 
   </head>
@@ -50,7 +49,7 @@
   <!-- to create a completely dynamic UI.        -->
   <!--                                           -->
   <body style="margin:5px;">
-	<form><input id="securityTag" type="hidden" name="security" value="admin"></input></form>
+	<form><input id="securityTag" type="hidden" name="security" value="user"></input></form>
     <!-- OPTIONAL: include this if you want history support -->
     <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
     
@@ -61,7 +60,7 @@
         in order for this application to display correctly.
       </div>
     </noscript>
-	<div id="docDiv">
+	<div id="docDiv" style=".docDiv">
     <h1>Awesome Scores Web Scorekeeper</h1>
 
     <table align="center">
