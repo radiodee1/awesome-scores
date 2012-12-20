@@ -10,13 +10,15 @@ welcome_files:
 precompilation_enabled: true
 
 handlers:
-- url: /*
+- url: /index.html
   login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
   init_params:
     security: user
   name: userconsole
 
+- url: /game.html
+  jsp: /game.jsp
 
 #- url: /admin/index.html
 #  login: admin
