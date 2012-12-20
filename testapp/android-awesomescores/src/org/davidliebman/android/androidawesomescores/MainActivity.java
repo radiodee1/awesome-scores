@@ -3,6 +3,7 @@ package org.davidliebman.android.androidawesomescores;
 import java.io.ByteArrayOutputStream;
 import java.io.Console;
 import java.io.IOException;
+import java.net.URI;
 //import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.webscale.json.client.JsonClient;
 import org.webscale.json.cmd.AppEngineCmdResults;
 import org.webscale.json.cmd.JsonCmd;
@@ -39,7 +41,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	
+	private String results = new String();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class MainActivity extends Activity {
 	    mGoButton.setOnClickListener(new OnClickListener() {
 	    	@Override
 	        public void onClick(View v) {
-				TextView mtext = (TextView) findViewById(R.id.text_output);
+				final TextView mtext = (TextView) findViewById(R.id.text_output);
 	        	
 	    		new AsyncTask <Object, Object, Object>() {
 
@@ -72,8 +74,8 @@ public class MainActivity extends Activity {
 					
 					 @Override
 				        protected void onPostExecute(Object result) {
-				            // TODO Auto-generated method stub
-				            //super.onPostExecute(result);
+				            results =(String) result;
+				            mtext.setText(results);
 				            Toast.makeText(MainActivity.this, (String) result, Toast.LENGTH_LONG).show();
 				        }
 	    		}.execute(new Object());
@@ -102,7 +104,6 @@ public class MainActivity extends Activity {
 		
 		Gson gson = new Gson();
 		String cmd = gson.toJson(rec);
-		Log.e("org.davidliebman", "command="+cmd);
 //		TextView mtext = (TextView) findViewById(R.id.text_output);
 //		mtext.setText(cmd);
         //String cmd = new String(rec.getName());
@@ -120,16 +121,20 @@ public class MainActivity extends Activity {
 
 	public String sendToJsonClient(String cmd) throws Exception{
 		String responseString = new String();
-		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		nameValuePairs.add(new BasicNameValuePair("command", cmd));
+		//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+		//nameValuePairs.add(new BasicNameValuePair("command", cmd));
+		
+		Log.e("org.davidliebman", "command="+cmd);
+
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		//HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
-		HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
+		HttpPost httppost = new HttpPost();
+		httppost.setURI(new URI("http://10.0.2.2:8888/game.html"));
 
 		//httppost.setHeader("User-Agent", "");
 		httppost.setHeader("Content-type", "application/json");
-		StringEntity entity = new StringEntity(cmd, "UTF-8");
+		StringEntity entity = new StringEntity(cmd,HTTP.UTF_8 );
 		
 		
 		httppost.setEntity(entity);
