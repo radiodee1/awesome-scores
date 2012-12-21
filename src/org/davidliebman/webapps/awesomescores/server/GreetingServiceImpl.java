@@ -115,7 +115,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	}
 
 	private Integer userEnum () {
-		Integer returnValue = SiteEnum.USER_NONE;
+		Integer returnValue = SiteEnum.USER_PLAIN;
 		UserService userService = UserServiceFactory.getUserService();
 		if (userService.isUserAdmin()) {
 			returnValue = SiteEnum.USER_ADMIN;

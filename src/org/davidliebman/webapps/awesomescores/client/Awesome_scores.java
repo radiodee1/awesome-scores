@@ -280,6 +280,7 @@ public class Awesome_scores  implements EntryPoint {
 			
 			RootPanel.get("consoleContainer").add(adminConsoleAdd);
 			//adminConsoleAdd.addStyleName("adminConsoleAdd");
+			
 
 		}
 		else if ( console == TaskPickerComposite.CONSOLE_ADMIN_DELETE) {
@@ -294,6 +295,7 @@ public class Awesome_scores  implements EntryPoint {
 			//this.getListFromServer();
 			adminConsoleDelete.fill(mList);
 			
+
 		}
 		else {
 			while (RootPanel.get("consoleContainer").getWidgetCount() > 0) {
@@ -306,7 +308,11 @@ public class Awesome_scores  implements EntryPoint {
 			//resultsVPanel = new RecordListerComposite();
 			//this.getListFromServer();
 			resultsVPanel.fill(mList);
+			
+
 		}
+		
+
 	}
 	
 	public void modifyTargetString() {
@@ -342,6 +348,8 @@ public class Awesome_scores  implements EntryPoint {
 		if (console == TaskPickerComposite.CONSOLE_ADMIN_ADD) {
 			
 		}
+		gameTarget.setText(gameTargetString);
+
 //		if (oldconsole != console ) {
 //			modifyPage();
 //		}

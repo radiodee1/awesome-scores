@@ -11,9 +11,6 @@ precompilation_enabled: true
 
 handlers:
 - url: /game.html
-  jsp: /game.jsp
-
-- url: /test.html
 #  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GameHttpServlet
 
