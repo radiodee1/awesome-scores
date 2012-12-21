@@ -42,6 +42,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private String results = new String();
+	private WebScoreUpload web = new WebScoreUpload();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +68,13 @@ public class MainActivity extends Activity {
 					@Override
 					protected Object doInBackground(Object... params) {
 						TextView mtext = (TextView) findViewById(R.id.text_output);
-
+						RecordJson rec = new RecordJson();
+						
+						rec.setName("hello world3");
+						rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
+						rec.setEmail("hello-user3@gmail.com");
 			        	//mtext.setText(someExecuteMethod());
-						return someExecuteMethod();
+						return web.prepareAndSendRecord(rec);
 					}
 					
 					 @Override
@@ -95,78 +100,68 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public String someExecuteMethod()  {
-		RecordJson rec = new RecordJson();
-		
-		rec.setName("hello world");
-		rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
-		rec.setEmail("hello-user@gmail.com");
-		
-		Gson gson = new Gson();
-		String cmd = gson.toJson(rec);
-//		TextView mtext = (TextView) findViewById(R.id.text_output);
-//		mtext.setText(cmd);
-        //String cmd = new String(rec.getName());
-        String res = null;
-        try {
-                res = sendToJsonClient(cmd);
-                //Console.pt(res.getResponse());
-        } catch (Exception e) {
-                e.printStackTrace();
-                //throw new Exception("fail" ,e);
-        }
-        return res;
-        
-	}
-
-	public String sendToJsonClient(String cmd) throws Exception{
-		String responseString = new String();
-		//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-		//nameValuePairs.add(new BasicNameValuePair("command", cmd));
-		
-		Log.e("org.davidliebman", "command="+cmd);
-
-		
-		HttpClient httpclient = new DefaultHttpClient();
-		//HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
-		HttpPost httppost = new HttpPost();
-		httppost.setURI(new URI("http://10.0.2.2:8888/game.html"));
-
-		//httppost.setHeader("User-Agent", "");
-		httppost.setHeader("Content-type", "application/json");
-		StringEntity entity = new StringEntity(cmd,HTTP.UTF_8 );
-		
-		
-		httppost.setEntity(entity);
-		
-		
-		//cmd = cmd.substring(1, cmd.length()- 1);
-	    HttpResponse response = httpclient.execute(httppost);//?command="+cmd));
-	    StatusLine statusLine = response.getStatusLine();
-	    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-	        ByteArrayOutputStream out = new ByteArrayOutputStream();
-	        response.getEntity().writeTo(out);
-	        out.close();
-	        responseString = out.toString();
-	        //..more logic
-	    } else{
-	        //Closes the connection.
-	        response.getEntity().getContent().close();
-	        throw new IOException(statusLine.getReasonPhrase());
-	    }		
-	    
-//        JsonClient<String> client = new JsonClient<String>();
-//        client.setUuid(UUID.randomUUID().toString());
-//        //client.setSubmissionURL("http://yourapp.appspot.com/JSONServlet");
-//        client.setSubmissionURL("http://localhost:8888/game/game.html");
-//        client.setObjTosubmit(cmd);
-//        client.setJsonRequestId("jsonCommandHandler");
-//        client.setResponseClazz(AppEngineCmdResults.class);
+//	public String someExecuteMethod()  {
+//		RecordJson rec = new RecordJson();
+//		
+//		rec.setName("hello world3");
+//		rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
+//		rec.setEmail("hello-user3@gmail.com");
+//		
+//		Gson gson = new Gson();
+//		String cmd = gson.toJson(rec);
+////		TextView mtext = (TextView) findViewById(R.id.text_output);
+////		mtext.setText(cmd);
+//        //String cmd = new String(rec.getName());
+//        String res = null;
+//        try {
+//                res = sendToJsonClient(cmd);
+//                //Console.pt(res.getResponse());
+//        } catch (Exception e) {
+//                e.printStackTrace();
+//                //throw new Exception("fail" ,e);
+//        }
+//        return res;
 //        
-//        String response = client.call();
-//        return response;
-	    
-	    return responseString;
-	}
+//	}
+//
+//	public String sendToJsonClient(String cmd) throws Exception{
+//		String responseString = new String();
+//		//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//		//nameValuePairs.add(new BasicNameValuePair("command", cmd));
+//		
+//		Log.e("org.davidliebman", "command="+cmd);
+//
+//		
+//		HttpClient httpclient = new DefaultHttpClient();
+//		//HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
+//		HttpPost httppost = new HttpPost();
+//		httppost.setURI(new URI("http://10.0.2.2:8888/test.html"));
+//
+//		//httppost.setHeader("User-Agent", "");
+//		httppost.setHeader("Content-type", "application/json");
+//		StringEntity entity = new StringEntity(cmd,HTTP.UTF_8 );
+//		
+//		
+//		httppost.setEntity(entity);
+//		
+//		
+//		//cmd = cmd.substring(1, cmd.length()- 1);
+//	    HttpResponse response = httpclient.execute(httppost);//?command="+cmd));
+//	    StatusLine statusLine = response.getStatusLine();
+//	    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+//	        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//	        response.getEntity().writeTo(out);
+//	        out.close();
+//	        responseString = out.toString();
+//	        //..more logic
+//	    } else{
+//	        //Closes the connection.
+//	        response.getEntity().getContent().close();
+//	        throw new IOException(statusLine.getReasonPhrase());
+//	    }		
+//	    
+//	    
+//	    return responseString;
+//	}
 
 }
