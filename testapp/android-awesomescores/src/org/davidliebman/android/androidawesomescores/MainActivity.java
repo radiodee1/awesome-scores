@@ -112,9 +112,9 @@ public class MainActivity extends Activity {
 							TextView mtext = (TextView) findViewById(R.id.text_output);
 							RecordJson rec = new RecordJson();
 							
-							rec.setName("hello world3");
+							rec.setName("hello world4");
 							rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
-							rec.setEmail("hello-user3@gmail.com");
+							rec.setEmail("hello-user4@gmail.com");
 				        	//mtext.setText(someExecuteMethod());
 							web.setUrl("http://10.0.2.2:8888/game.html");
 							return web.prepareAndSendRecord(rec);
