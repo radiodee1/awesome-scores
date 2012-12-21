@@ -13,6 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -28,6 +29,12 @@ public class WebScoreUpload {
 	private int serverVersion;
 	private int errorCode;
 	private String raw = new String();
+	
+	private String packageName = new String();
+	
+	public WebScoreUpload(Context context) {
+		packageName = context.getPackageName();
+	}
 	
 	public String prepareAndSendRecord(RecordJson rec)  {
 		
@@ -165,6 +172,20 @@ public class WebScoreUpload {
 		this.url = url;
 	}
 	
+	
+	
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	public String getRaw() {
+		return raw;
+	}
+
 	public void clearVars() {
 		this.errorCode = 0;
 		this.key = 0;
