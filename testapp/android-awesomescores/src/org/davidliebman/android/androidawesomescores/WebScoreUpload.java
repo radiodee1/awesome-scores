@@ -21,25 +21,38 @@ public class WebScoreUpload {
 
 	public static final String MY_URL = new String("http://10.0.2.2:8888/test.html");
 	
+	private String url = MY_URL;
+	
+	private long key;
+	private String message = new String();
+	private int serverVersion;
+	private int errorCode;
+	
 	public String prepareAndSendRecord(RecordJson rec)  {
 		
 		
 		Gson gson = new Gson();
 		String cmd = gson.toJson(rec);
         String res = null;
-        String key = null;
+        String keyString = null;
         String msg = null;
         try {
                 res = sendToJsonClient(cmd);
                 Gson gsonResult = new Gson();
                 ReturnJson result = gsonResult.fromJson(res, ReturnJson.class);
-                key = new String(new Long(result.getKey()).toString());
+                keyString = new String(new Long(result.getKey()).toString());
                 msg = new String(result.getMessage());
+                
+                this.key = result.getKey();
+                this.errorCode = result.getError();
+                this.message = result.getMessage();
+                this.serverVersion = result.getVersion();
+                
         } catch (Exception e) {
                 e.printStackTrace();
                 //throw new Exception("fail" ,e);
         }
-        return key + " - "+ msg;
+        return keyString + " - "+ msg;
         
 	}
 
@@ -78,4 +91,46 @@ public class WebScoreUpload {
 	    
 	    return responseString;
 	}
+
+	public long getKey() {
+		return key;
+	}
+
+	public void setKey(long key) {
+		this.key = key;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public int getServerVersion() {
+		return serverVersion;
+	}
+
+	public void setServerVersion(int serverVersion) {
+		this.serverVersion = serverVersion;
+	}
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
 }

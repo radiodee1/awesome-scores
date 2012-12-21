@@ -58,12 +58,12 @@ public class MainActivity extends Activity {
 	        	
 	    		new AsyncTask <Object, Object, Object>() {
 
-	    			 @Override
-	    		        protected void onPreExecute() {
-	    		            // TODO Auto-generated method stub
-	    		            //super.onPostExecute(result);
-	    		            Toast.makeText(MainActivity.this, "task started.", Toast.LENGTH_LONG).show();
-	    		        }
+	    			@Override
+	    		    protected void onPreExecute() {
+	    		        
+	    		        //super.onPostExecute(result);
+	    		        Toast.makeText(MainActivity.this, "task started.", Toast.LENGTH_LONG).show();
+	    		    }
 	    			
 					@Override
 					protected Object doInBackground(Object... params) {
@@ -86,11 +86,50 @@ public class MainActivity extends Activity {
 	    		}.execute(new Object());
 	    		//mtext.setText("waiting...2");
 	        	
+	    		
+	    		
 	        	Toast.makeText(MainActivity.this, "And We're Off", Toast.LENGTH_SHORT).show();
 	        }
-	
-			
 	    });
+	    
+	    	Button mGoButton2 = (Button) findViewById(R.id.button2);
+		    mGoButton2.setOnClickListener(new OnClickListener() {
+		    	@Override
+		        public void onClick(View v) {
+					final TextView mtext = (TextView) findViewById(R.id.text_output);
+		        	
+		    		new AsyncTask <Object, Object, Object>() {
+
+		    			@Override
+		    		    protected void onPreExecute() {
+		    		        
+		    		        //super.onPostExecute(result);
+		    		        Toast.makeText(MainActivity.this, "task started.", Toast.LENGTH_LONG).show();
+		    		    }
+		    			
+						@Override
+						protected Object doInBackground(Object... params) {
+							TextView mtext = (TextView) findViewById(R.id.text_output);
+							RecordJson rec = new RecordJson();
+							
+							rec.setName("hello world3");
+							rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
+							rec.setEmail("hello-user3@gmail.com");
+				        	//mtext.setText(someExecuteMethod());
+							web.setUrl("http://10.0.2.2:8888/game.html");
+							return web.prepareAndSendRecord(rec);
+						}
+						
+						 @Override
+					        protected void onPostExecute(Object result) {
+					            results =(String) result;
+					            mtext.setText(results);
+					            Toast.makeText(MainActivity.this, (String) result, Toast.LENGTH_LONG).show();
+					        }
+		    		}.execute(new Object());
+		    	}
+	    });
+		    
     
 	}
 	@Override
@@ -100,68 +139,6 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-//	public String someExecuteMethod()  {
-//		RecordJson rec = new RecordJson();
-//		
-//		rec.setName("hello world3");
-//		rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
-//		rec.setEmail("hello-user3@gmail.com");
-//		
-//		Gson gson = new Gson();
-//		String cmd = gson.toJson(rec);
-////		TextView mtext = (TextView) findViewById(R.id.text_output);
-////		mtext.setText(cmd);
-//        //String cmd = new String(rec.getName());
-//        String res = null;
-//        try {
-//                res = sendToJsonClient(cmd);
-//                //Console.pt(res.getResponse());
-//        } catch (Exception e) {
-//                e.printStackTrace();
-//                //throw new Exception("fail" ,e);
-//        }
-//        return res;
-//        
-//	}
-//
-//	public String sendToJsonClient(String cmd) throws Exception{
-//		String responseString = new String();
-//		//List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-//		//nameValuePairs.add(new BasicNameValuePair("command", cmd));
-//		
-//		Log.e("org.davidliebman", "command="+cmd);
-//
-//		
-//		HttpClient httpclient = new DefaultHttpClient();
-//		//HttpPost httppost = new HttpPost("http://10.0.2.2:8888/game.html");
-//		HttpPost httppost = new HttpPost();
-//		httppost.setURI(new URI("http://10.0.2.2:8888/test.html"));
-//
-//		//httppost.setHeader("User-Agent", "");
-//		httppost.setHeader("Content-type", "application/json");
-//		StringEntity entity = new StringEntity(cmd,HTTP.UTF_8 );
-//		
-//		
-//		httppost.setEntity(entity);
-//		
-//		
-//		//cmd = cmd.substring(1, cmd.length()- 1);
-//	    HttpResponse response = httpclient.execute(httppost);//?command="+cmd));
-//	    StatusLine statusLine = response.getStatusLine();
-//	    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-//	        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//	        response.getEntity().writeTo(out);
-//	        out.close();
-//	        responseString = out.toString();
-//	        //..more logic
-//	    } else{
-//	        //Closes the connection.
-//	        response.getEntity().getContent().close();
-//	        throw new IOException(statusLine.getReasonPhrase());
-//	    }		
-//	    
-//	    
-//	    return responseString;
-//	}
+//	
 
 }
