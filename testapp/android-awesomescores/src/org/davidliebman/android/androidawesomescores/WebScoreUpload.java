@@ -69,6 +69,9 @@ public class WebScoreUpload {
 
 	public ReturnJson sendRecord(RecordJson rec) {
 		this.clearVars();
+		
+		rec.setAndroidAppname(packageName);
+		
 		Gson gson = new Gson();
 		String cmd = gson.toJson(rec);
         String res = null;

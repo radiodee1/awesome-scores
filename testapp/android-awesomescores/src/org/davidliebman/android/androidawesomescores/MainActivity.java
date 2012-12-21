@@ -42,11 +42,13 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private String results = new String();
-	private WebScoreUpload web = new WebScoreUpload();
+	private WebScoreUpload web ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		web = new WebScoreUpload(this);
+		
 		setContentView(R.layout.activity_main);
 	
 
