@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated from app.yaml. Do not edit. --><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <servlet>
-    <servlet-name>userconsole</servlet-name>
+    <servlet-name>/game.jsp</servlet-name>
+    <jsp-file>/game.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
+    <servlet-class>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-class>
-    <init-param>
-      <param-name>security</param-name>
-      <param-value>user</param-value>
-    </init-param>
   </servlet>
-  <servlet>
-    <servlet-name>/game.jsp</servlet-name>
-    <jsp-file>/game.jsp</jsp-file>
-  </servlet>
-  <servlet>
-    <servlet-name>game</servlet-name>
-    <jsp-file>/game.jsp</jsp-file>
-    <init-param>
-      <param-name>security</param-name>
-      <param-value>game</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>userconsole</servlet-name>
-    <url-pattern>/index.html</url-pattern>
-  </servlet-mapping>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>aname</web-resource-name>
-      <url-pattern>/index.html</url-pattern>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>*</role-name>
-    </auth-constraint>
-  </security-constraint>
   <servlet-mapping>
     <servlet-name>/game.jsp</servlet-name>
     <url-pattern>/game.html</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>game</servlet-name>
-    <url-pattern>/game.html</url-pattern>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
+    <url-pattern>/test.html</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

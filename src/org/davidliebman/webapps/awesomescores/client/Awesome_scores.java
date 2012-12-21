@@ -33,7 +33,7 @@ public class Awesome_scores  implements EntryPoint {
 	private String testHtml = new String();
 	private String configString = new String("user");
 	private Label gameTarget = new Label();
-	private String gameTargetString = new String("none");
+	private String gameTargetString = new String("org.davidliebman.android.awesomeguy");
 	private final AdminConsoleComposite adminConsoleAdd = new AdminConsoleComposite();
 	private final RecordDeleteComposite adminConsoleDelete = new RecordDeleteComposite();
 	private RecordListerComposite resultsVPanel = new RecordListerComposite();

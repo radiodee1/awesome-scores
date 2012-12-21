@@ -10,31 +10,18 @@ welcome_files:
 precompilation_enabled: true
 
 handlers:
-- url: /index.html
-  login: required
+- url: /game.html
+  jsp: /game.jsp
+
+- url: /test.html
+#  login: required
+  servlet: org.davidliebman.webapps.awesomescores.server.GameHttpServlet
+
+- url: /
+#  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
-  init_params:
-    security: user
-  name: userconsole
-
-- url: /game.html
-  jsp: /game.jsp
-
-#- url: /admin/index.html
-#  login: admin
-#  servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
 #  init_params:
-#    security: admin
-#  name: adminconsole
-
-
-
-- url: /game.html
-  #login: optional
-  jsp: /game.jsp
-  init_params:
-    security: game
-  name: game
-
+#    security: user
+#  name: userconsole
 
 
