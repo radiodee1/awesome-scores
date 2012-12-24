@@ -226,8 +226,8 @@ public class Awesome_scores  implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				gameTarget.setText("no user");
-				
+				//gameTarget.setText("no user");
+				gameTarget.setText(gameTargetString);
 			}
 
 			@Override
