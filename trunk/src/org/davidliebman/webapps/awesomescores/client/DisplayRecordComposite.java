@@ -188,8 +188,8 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		dialogVPanel.add(new HTML("<b>Extra Info For</b>"));
 		dialogVPanel.add(new HTML("<b>Player: "+record.getName().substring(0, 15) + "</b>"));
 		dialogVPanel.add(new HTML("<b>Lives: "+record.getLives() + "</b>"));
-		dialogVPanel.add(new HTML("<b>Level: "+record.getLevel() + "</b>"));
-		dialogVPanel.add(new HTML("<b>Cycles: "+record.getCycles() + "</b>"));
+		//dialogVPanel.add(new HTML("<b>Level: "+record.getLevel() + "</b>"));
+		//dialogVPanel.add(new HTML("<b>Cycles: "+record.getCycles() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Speed: "+record.getGameSpeed() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Country: "+record.getCountry() + "</b>"));
 		dialogVPanel.add(new HTML("<b>Monsters: "+record.isEnableMonsters() + "</b>"));
