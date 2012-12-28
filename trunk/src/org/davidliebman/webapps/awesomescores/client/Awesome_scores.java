@@ -226,8 +226,9 @@ public class Awesome_scores  implements EntryPoint {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				//gameTarget.setText("no user");
+				configString = new String("user");
 				gameTarget.setText(gameTargetString);
+				loadTaskPicker();
 			}
 
 			@Override
@@ -248,17 +249,27 @@ public class Awesome_scores  implements EntryPoint {
 
 					break;
 				}
-				
-				taskPicker = new TaskPickerComposite(configString);
-				RootPanel.get("taskPicker").add(taskPicker);
-				taskPicker.getButtonUserScores().addClickHandler(handler);
-				taskPicker.getButtonDeleteRecord().addClickHandler(handler);
-				taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
-				taskPicker.getBtnAwesomeguy().addClickHandler(handler);
-				taskPicker.getBtnNewButton().addClickHandler(handler);
+				loadTaskPicker();
+//				taskPicker = new TaskPickerComposite(configString);
+//				RootPanel.get("taskPicker").add(taskPicker);
+//				taskPicker.getButtonUserScores().addClickHandler(handler);
+//				taskPicker.getButtonDeleteRecord().addClickHandler(handler);
+//				taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
+//				taskPicker.getBtnAwesomeguy().addClickHandler(handler);
+//				taskPicker.getBtnNewButton().addClickHandler(handler);
 			}
 			
 		});
+	}
+	
+	public void loadTaskPicker() {
+		taskPicker = new TaskPickerComposite(configString);
+		RootPanel.get("taskPicker").add(taskPicker);
+		taskPicker.getButtonUserScores().addClickHandler(handler);
+		taskPicker.getButtonDeleteRecord().addClickHandler(handler);
+		taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
+		taskPicker.getBtnAwesomeguy().addClickHandler(handler);
+		taskPicker.getBtnNewButton().addClickHandler(handler);
 	}
 	
 	public void modifyPage() {
