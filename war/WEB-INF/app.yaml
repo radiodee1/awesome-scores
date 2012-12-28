@@ -17,8 +17,5 @@ handlers:
 - url: /
 #  login: required
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
-#  init_params:
-#    security: user
-#  name: userconsole
 
 
