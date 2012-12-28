@@ -250,13 +250,7 @@ public class Awesome_scores  implements EntryPoint {
 					break;
 				}
 				loadTaskPicker();
-//				taskPicker = new TaskPickerComposite(configString);
-//				RootPanel.get("taskPicker").add(taskPicker);
-//				taskPicker.getButtonUserScores().addClickHandler(handler);
-//				taskPicker.getButtonDeleteRecord().addClickHandler(handler);
-//				taskPicker.getBtnAwesomeFlyer().addClickHandler(handler);
-//				taskPicker.getBtnAwesomeguy().addClickHandler(handler);
-//				taskPicker.getBtnNewButton().addClickHandler(handler);
+
 			}
 			
 		});
