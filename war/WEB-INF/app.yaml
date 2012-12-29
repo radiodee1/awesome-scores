@@ -1,12 +1,12 @@
 application: awesomescores
-version: 4
+version: 5
 runtime: java
 
 welcome_files:
 - index.html
 - awesome.css
 - handheld.css 
-#- game.html
+
 
 precompilation_enabled: true
 
