@@ -43,11 +43,15 @@ public class MainActivity extends Activity {
 
 	private String results = new String();
 	private WebScoreUpload web ;
+	private WebAuth auth = null;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		web = new WebScoreUpload(this);
+		auth = new WebAuth(this);
+		
 		
 		setContentView(R.layout.activity_main);
 	
