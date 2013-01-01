@@ -22,15 +22,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.webscale.json.client.JsonClient;
-import org.webscale.json.cmd.AppEngineCmdResults;
-import org.webscale.json.cmd.JsonCmd;
 
 import com.google.gson.Gson;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -43,14 +41,14 @@ public class MainActivity extends Activity {
 
 	private String results = new String();
 	private WebScoreUpload web ;
-	private WebAuth auth = null;
+	//private WebAuth auth = null;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		web = new WebScoreUpload(this);
-		auth = new WebAuth(this);
+		//auth = new WebAuth(this);
 		
 		
 		setContentView(R.layout.activity_main);
@@ -137,7 +135,19 @@ public class MainActivity extends Activity {
 		    		}.execute(new Object());
 		    	}
 	    });
+		   
 		    
+	Button mGoButton3 = (Button) findViewById(R.id.button3);
+	mGoButton3.setOnClickListener( new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent(MainActivity.this, WebAuthActivity.class);
+			startActivity(intent);
+			
+		}
+		
+	});
     
 	}
 	@Override
