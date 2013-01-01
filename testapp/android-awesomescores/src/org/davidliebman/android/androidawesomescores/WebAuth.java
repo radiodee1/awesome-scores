@@ -10,6 +10,20 @@ import android.content.Context;
 import android.os.Bundle;
 
 public class WebAuth {
+	
+	public static final String URL_INITIATE_OAUTH2 = new String ("https://accounts.google.com/o/oauth2/auth");
+	public static final String URL_INITIATE_RESPONSE_TYPE = new String ("code");
+	public static final String URL_INITIATE_CLIENT_ID = new String ("459132469396.apps.googleusercontent.com");
+	public static final String URL_INITIATE_REDIRECT_URI = new String ("urn:ietf:wg:oauth:2.0:oob");
+	public static final String URL_INITIATE_SCOPE = new String ("auth userinfo.email");
+	public static final String URL_INITIATE_STATE = new String ("");
+	
+	public static final String PARAM_RESPONSE_TYPE = new String ("response_type");
+	public static final String PARAM_REDIRECT_URI = new String ("redirect_uri");
+	public static final String PARAM_CLIENT_ID = new String ("client_id");
+	public static final String PARAM_SCOPE = new String ("scope");
+	public static final String PARAM_STATE = new String ("state");
+	
 	private Context mContext = null;
 	private Account mAccount = null;
 	private Activity mActivity = null;
@@ -25,30 +39,29 @@ public class WebAuth {
 	
 		
 		
-		Object mSpecial;
-		AccountManager manager  = AccountManager.get(mContext);
-		
-		String AUTH_TOKEN_TYPE = new String("Manage your tasks");
-		
-		manager.getAuthToken(this.mAccount, AUTH_TOKEN_TYPE, null, mActivity, new AccountManagerCallback<Bundle>() {
-		    
-			public void run(AccountManagerFuture<Bundle> future) {
-		      try {
-		        // If the user has authorized your application to use the tasks API
-		        // a token is available.
-		        String token = future.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-		        // Now you can use the Tasks API...
-		        //useTasksAPI(token);
-		      } catch (OperationCanceledException e) {
-		        // TODO: The user has denied you access to the API, you should handle that
-		      } catch (Exception e) {
-		        //handleException(e);
-		      }
-		    }
-		  }, null);
+//		Object mSpecial;
+//		AccountManager manager  = AccountManager.get(mContext);
+//		
+//		String AUTH_TOKEN_TYPE = new String("Manage your tasks");
+//		
+//		manager.getAuthToken(this.mAccount, AUTH_TOKEN_TYPE, null, mActivity, new AccountManagerCallback<Bundle>() {
+//		    
+//			public void run(AccountManagerFuture<Bundle> future) {
+//		      try {
+//		        // If the user has authorized your application to use the tasks API
+//		        // a token is available.
+//		        String token = future.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+//		        // Now you can use the Tasks API...
+//		        //useTasksAPI(token);
+//		      } catch (OperationCanceledException e) {
+//		        // TODO: The user has denied you access to the API, you should handle that
+//		      } catch (Exception e) {
+//		        //handleException(e);
+//		      }
+//		    }
+//		  }, null);
+	
 	
 	}
-	
-	
 	
 }
