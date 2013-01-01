@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
 						rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
 						rec.setEmail("hello-user3@gmail.com");
 			        	//mtext.setText(someExecuteMethod());
-						web.setUrl(WebScoreUpload.MY_URL);
+						web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
 						return web.prepareAndSendRecord(rec);
 					}
 					
@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
 							rec.setEmail("hello-user4@gmail.com");
 				        	//mtext.setText(someExecuteMethod());
 							//web.setUrl("http://10.0.2.2:8888/game.html");
-							web.setUrl(WebScoreUpload.MY_URL);
+							web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
 							return web.prepareAndSendRecord(rec);
 						}
 						
