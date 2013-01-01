@@ -25,7 +25,7 @@ public class WebAuthActivity extends Activity {
 		
 		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
-		auth = new WebAuth(this);
+		auth = new WebAuth(this, this);
 		showDialog(DIALOG_ACCOUNTS);
 		
 	}
