@@ -9,6 +9,7 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 
 public class WebAuthActivity extends Activity {
 
+	private Context mContext;
+	
 	private boolean mStopExecuting = true;
 	private boolean mPrerequisites = true;
 	
@@ -33,6 +36,8 @@ public class WebAuthActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_web_auth);
+		
+		mContext = this;
 		
 		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
@@ -88,10 +93,10 @@ public class WebAuthActivity extends Activity {
 	      AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	      builder.setTitle("Select a Google account");
 	      
-	      //GoogleAccountManager googleAccountManager = new GoogleAccountManager(WebAuthActivity.this);
+	      //GoogleAccountManager googleAccountManager = new GoogleAccountManager(mContext);
 	      //final Account[] accounts = googleAccountManager.getAccounts();
 	      AccountManager accountManager = AccountManager.get(WebAuthActivity.this);
-	      final Account[] accounts = accountManager.getAccountsByType("com.google");
+	      final Account[] accounts = accountManager.getAccountsByType(null);//("com.google");
 
 	      final int size = accounts.length;
 	      String[] names = new String[size + 1];
