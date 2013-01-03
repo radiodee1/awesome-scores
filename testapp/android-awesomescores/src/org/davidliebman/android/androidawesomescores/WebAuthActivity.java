@@ -2,17 +2,28 @@ package org.davidliebman.android.androidawesomescores;
 
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
+
 
 public class WebAuthActivity extends Activity {
 
+	private boolean mStopExecuting = true;
+	private boolean mPrerequisites = true;
+	
+	public static final int SDK_INT_PRE = 5;//14;
+	
 	public static final int DIALOG_ACCOUNTS = 1;
 	
 	private WebAuth auth = null;
@@ -25,11 +36,44 @@ public class WebAuthActivity extends Activity {
 		
 		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
+		if (Build.VERSION.SDK_INT >=  SDK_INT_PRE) {
+			mPrerequisites = true;
+		}
+		else {
+			mPrerequisites = false;
+		}
+		
+		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
+		
 		auth = new WebAuth(this, this);
 		showDialog(DIALOG_ACCOUNTS);
 		
+		Button mGoButton = (Button) findViewById(R.id.button_auth);
+		mGoButton.setOnClickListener(new OnClickListener () {
+
+			@Override
+			public void onClick(View v) {
+				
+				if (! mStopExecuting) {
+					if ( mPrerequisites == true) {
+						auth.getTokenAM();
+					}
+					else {
+						
+					}
+					//auth.getTokenAM();
+				}
+			}
+			
+		});
+		
 	}
 
+	@Override
+	public void onStop() {
+		super.onStop();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -44,10 +88,11 @@ public class WebAuthActivity extends Activity {
 	      AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	      builder.setTitle("Select a Google account");
 	      
-	      GoogleAccountManager googleAccountManager = new GoogleAccountManager(WebAuthActivity.this);
-	      final Account[] accounts = googleAccountManager.getAccounts();
-	      
-	      //final Account[] accounts = accountManager.getAccountsByType("com.google");
+	      //GoogleAccountManager googleAccountManager = new GoogleAccountManager(WebAuthActivity.this);
+	      //final Account[] accounts = googleAccountManager.getAccounts();
+	      AccountManager accountManager = AccountManager.get(WebAuthActivity.this);
+	      final Account[] accounts = accountManager.getAccountsByType("com.google");
+
 	      final int size = accounts.length;
 	      String[] names = new String[size + 1];
 	      for (int i = 0; i < size; i++) {
@@ -59,9 +104,12 @@ public class WebAuthActivity extends Activity {
 	          // Stuff to do when the account is selected by the user
 	        	
 	        	if (which != size ) {
+	        		
 	        		gotAccount(accounts[which]);
 	        	}
 	        	else {
+	        		mStopExecuting = true;
+	        		finish();
 	        		//exit without change
 	        	}
 	        }
@@ -73,5 +121,6 @@ public class WebAuthActivity extends Activity {
 	
 	public void gotAccount(Account mUseAccount ) {
 		auth.setAccount(mUseAccount);
+		mStopExecuting = false;
 	}
 }
