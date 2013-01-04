@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +26,7 @@ public class WebAuthActivity extends Activity {
 	private boolean mStopExecuting = true;
 	private boolean mPrerequisites = true;
 	
-	public static final int SDK_INT_PRE = 5;//14;
+	public static final int SDK_INT_PRE = 14;
 	
 	public static final int DIALOG_ACCOUNTS = 1;
 	
@@ -51,7 +52,9 @@ public class WebAuthActivity extends Activity {
 		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
 		auth = new WebAuth(this, this);
-		showDialog(DIALOG_ACCOUNTS);
+		if (mPrerequisites == true ) {
+			showDialog(DIALOG_ACCOUNTS);
+		}
 		
 		Button mGoButton = (Button) findViewById(R.id.button_auth);
 		mGoButton.setOnClickListener(new OnClickListener () {
@@ -62,12 +65,15 @@ public class WebAuthActivity extends Activity {
 				if (! mStopExecuting) {
 					if ( mPrerequisites == true) {
 						auth.getTokenAM();
+						Log.e("WebAuthActivity" , "gettoken-am");
 					}
 					else {
-						
+						Log.e("WebAuthActivity", "no-gettoken-am");
 					}
+					
 					//auth.getTokenAM();
 				}
+				
 			}
 			
 		});
@@ -77,6 +83,12 @@ public class WebAuthActivity extends Activity {
 	@Override
 	public void onStop() {
 		super.onStop();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		finish();
 	}
 	
 	@Override
@@ -109,7 +121,7 @@ public class WebAuthActivity extends Activity {
 	          // Stuff to do when the account is selected by the user
 	        	
 	        	if (which != size ) {
-	        		
+	        		mStopExecuting = false;
 	        		gotAccount(accounts[which]);
 	        	}
 	        	else {
@@ -126,6 +138,8 @@ public class WebAuthActivity extends Activity {
 	
 	public void gotAccount(Account mUseAccount ) {
 		auth.setAccount(mUseAccount);
+		Log.e("WebAuthActivity", "account "+ mUseAccount.name);
 		mStopExecuting = false;
+		
 	}
 }
