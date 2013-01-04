@@ -4,6 +4,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -101,12 +105,12 @@ public class WebAuth {
 	}
 	
 	public void useTasksAPI(String accessToken) {
-//		  // Setting up the Tasks API Service
-//		  HttpTransport transport = AndroidHttp.newCompatibleTransport();
-//		  AccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(accessToken);
-//		  Tasks service = new Tasks(transport, accessProtectedResource, new JacksonFactory());
-//		  service.accessKey = INSERT_YOUR_API_KEY;
-//		  service.setApplicationName("Google-TasksSample/1.0");
+		  // Setting up the Tasks API Service
+		  HttpTransport transport = AndroidHttp.newCompatibleTransport();
+		  AccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(accessToken);
+		  Tasks service = new Tasks(transport, accessProtectedResource, new JacksonFactory());
+		  service.accessKey = INSERT_YOUR_API_KEY;
+		  service.setApplicationName("Google-TasksSample/1.0");
 
 		  // TODO: now use the service to query the Tasks API
 	}
