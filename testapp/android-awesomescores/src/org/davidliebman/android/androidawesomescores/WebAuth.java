@@ -8,6 +8,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -38,6 +39,12 @@ public class WebAuth {
 	public static final String PARAM_STATE = new String ("state");
 	public static final String PARAM_OAUTH = new String ("OAuth ");
 	
+	private final static String G_PLUS_SCOPE = 
+		      "oauth2:https://www.googleapis.com/auth/plus.me";
+	private final static String USERINFO_SCOPE =   
+		      "https://www.googleapis.com/auth/userinfo.profile";
+	private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
+	
 	public static final String TXT_QUESTIONMARK = new String("?");
 	public static final String TXT_SPACE = new String(" ");
 	public static final String TXT_AMPERSAND = new String("&");
@@ -62,6 +69,10 @@ public class WebAuth {
 		this.mAccount = mAccount;
 		
 	
+	}
+	
+	public void getToken() {
+		
 	}
 	
 	public void getTokenAM() {
@@ -105,12 +116,12 @@ public class WebAuth {
 	}
 	
 	public void useTasksAPI(String accessToken) {
-		  // Setting up the Tasks API Service
-		  HttpTransport transport = AndroidHttp.newCompatibleTransport();
-		  AccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(accessToken);
-		  Tasks service = new Tasks(transport, accessProtectedResource, new JacksonFactory());
-		  service.accessKey = INSERT_YOUR_API_KEY;
-		  service.setApplicationName("Google-TasksSample/1.0");
+//		  // Setting up the Tasks API Service
+//		  HttpTransport transport = AndroidHttp.newCompatibleTransport();
+//		  AccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(accessToken);
+//		  Tasks service = new Tasks(transport, accessProtectedResource, new JacksonFactory());
+//		  service.accessKey = INSERT_YOUR_API_KEY;
+//		  service.setApplicationName("Google-TasksSample/1.0");
 
 		  // TODO: now use the service to query the Tasks API
 	}
@@ -124,6 +135,7 @@ public class WebAuth {
 			conn.addRequestProperty("client_id", WebAuth.URL_INITIATE_CLIENT_ID);
 			conn.addRequestProperty("client_secret", WebAuth.URL_INITIATE_SHA1);
 			conn.setRequestProperty("Authorization", "OAuth " + this.getOAuthToken());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
