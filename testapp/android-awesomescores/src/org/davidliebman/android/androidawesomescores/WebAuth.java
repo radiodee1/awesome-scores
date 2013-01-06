@@ -1,8 +1,21 @@
 package org.davidliebman.android.androidawesomescores;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 
 //import com.google.api.client.extensions.android.http.AndroidHttp;
 //import com.google.api.client.http.HttpTransport;
@@ -46,6 +59,7 @@ public class WebAuth {
 //	private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
 	
 	public static final String TXT_QUESTIONMARK = new String("?");
+	public static final String TXT_EQUALS = new String("=");
 	public static final String TXT_SPACE = new String(" ");
 	public static final String TXT_AMPERSAND = new String("&");
 	
@@ -72,8 +86,44 @@ public class WebAuth {
 	
 	}
 	
-	public void getToken() {
+	public void buildURL() {
+		this.mURL = WebAuth.URL_INITIATE_OAUTH2 + WebAuth.TXT_QUESTIONMARK +
+				WebAuth.PARAM_SCOPE + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_SCOPE + WebAuth.TXT_AMPERSAND +
+				WebAuth.PARAM_CLIENT_ID + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_CLIENT_ID + WebAuth.TXT_AMPERSAND +
+				WebAuth.PARAM_REDIRECT_URI + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_REDIRECT_URI + WebAuth.TXT_AMPERSAND +
+				WebAuth.PARAM_RESPONSE_TYPE + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_RESPONSE_TYPE + WebAuth.TXT_AMPERSAND ;
+	}
+	
+	public String getToken() {
+		String responseString = new String();
+
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
 		
+			HttpGet httpget = new HttpGet();
+			httpget.setURI(new URI(mURL));
+
+		
+		
+		    HttpResponse response = httpclient.execute(httpget);//?command="+cmd));
+		    StatusLine statusLine = response.getStatusLine();
+		    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+		        ByteArrayOutputStream out = new ByteArrayOutputStream();
+		        response.getEntity().writeTo(out);
+		        out.close();
+		        responseString = out.toString();
+		        
+		    } else{
+		        //Closes the connection.
+		        response.getEntity().getContent().close();
+		        throw new IOException(statusLine.getReasonPhrase());
+		    }		
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
+	    return responseString;
 	}
 	
 //	public void getTokenAM() {
@@ -116,16 +166,7 @@ public class WebAuth {
 //		  }, null);
 //	}
 	
-	public void useTasksAPI(String accessToken) {
-//		  // Setting up the Tasks API Service
-//		  HttpTransport transport = AndroidHttp.newCompatibleTransport();
-//		  AccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(accessToken);
-//		  Tasks service = new Tasks(transport, accessProtectedResource, new JacksonFactory());
-//		  service.accessKey = INSERT_YOUR_API_KEY;
-//		  service.setApplicationName("Google-TasksSample/1.0");
 
-		  // TODO: now use the service to query the Tasks API
-	}
 	
 	public void useAPI() {
 		try {
