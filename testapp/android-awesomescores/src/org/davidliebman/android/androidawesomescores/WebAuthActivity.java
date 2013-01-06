@@ -1,6 +1,6 @@
 package org.davidliebman.android.androidawesomescores;
 
-import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
+//import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 
 import android.os.Build;
 import android.os.Bundle;
