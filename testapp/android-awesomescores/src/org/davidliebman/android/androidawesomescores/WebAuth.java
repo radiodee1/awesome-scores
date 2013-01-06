@@ -30,6 +30,7 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -94,7 +95,7 @@ public class WebAuth {
 				WebAuth.PARAM_RESPONSE_TYPE + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_RESPONSE_TYPE + WebAuth.TXT_AMPERSAND ;
 	}
 	
-	public String getToken() {
+	public String getTokenFromWeb() {
 		String responseString = new String();
 
 		try {
@@ -124,6 +125,13 @@ public class WebAuth {
 		}
 	    
 	    return responseString;
+	}
+	
+	public void startWebView() {
+		Uri uri = Uri.parse(mURL);
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		
+		mContext.startActivity(intent);
 	}
 	
 //	public void getTokenAM() {

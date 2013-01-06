@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ import android.widget.TextView;
 public class WebAuthActivity extends Activity {
 
 	private Context mContext;
+	private WebView mWebview;
+	
 	
 	private boolean mStopExecuting = true;
 	private boolean mPrerequisites = true;
@@ -30,53 +33,55 @@ public class WebAuthActivity extends Activity {
 	
 	public static final int DIALOG_ACCOUNTS = 1;
 	
-	private WebAuth auth = null;
+	public WebAuth auth = null;
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_web_auth);
+		
+		mWebview = new WebView(this);
+		setContentView(mWebview);
+		
+		//setContentView(R.layout.activity_web_auth);
 		
 		mContext = this;
 		
-		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
+		//final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
-		if (Build.VERSION.SDK_INT >=  SDK_INT_PRE) {
-			mPrerequisites = true;
-		}
-		else {
-			mPrerequisites = false;
-		}
 		
-		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
+		
+		//mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
 		auth = new WebAuth(this, this);
 		if (mPrerequisites == true ) {
 			showDialog(DIALOG_ACCOUNTS);
 		}
 		
-		Button mGoButton = (Button) findViewById(R.id.button_auth);
-		mGoButton.setOnClickListener(new OnClickListener () {
-
-			@Override
-			public void onClick(View v) {
-				
-				if (! mStopExecuting) {
-					if ( mPrerequisites == true) {
-						//auth.getTokenAM();
-						Log.e("WebAuthActivity" , "gettoken-am");
-					}
-					else {
-						Log.e("WebAuthActivity", "no-gettoken-am");
-					}
-					
-					//auth.getTokenAM();
-				}
-				
-			}
-			
-		});
+//		Button mGoButton = (Button) findViewById(R.id.button_auth);
+//		mGoButton.setOnClickListener(new OnClickListener () {
+//
+//			@Override
+//			public void onClick(View v) {
+//				
+//				if (! mStopExecuting) {
+//					if ( mPrerequisites == true) {
+//						//auth.buildURL();
+//						//String mReply = auth.getToken();
+//						//auth.startWebView();
+//						//Log.e("WebAuthActivity",mReply);
+//						Log.e("WebAuthActivity" , "gettoken-am");
+//					}
+//					else {
+//						Log.e("WebAuthActivity", "no-gettoken-am");
+//					}
+//					
+//					//auth.getTokenAM();
+//				}
+//				
+//			}
+//			
+//		});
 		
 	}
 
@@ -140,6 +145,22 @@ public class WebAuthActivity extends Activity {
 		auth.setAccount(mUseAccount);
 		Log.e("WebAuthActivity", "account "+ mUseAccount.name);
 		mStopExecuting = false;
-		
+		this.mWebview.getSettings().setJavaScriptEnabled(true);
+		auth.buildURL();
+		//String mShow = auth.getTokenFromWeb() ;//+ new JSObject().toString();
+		mWebview.loadUrl(auth.getURL());
+		//Log.e("WebAuthActivity --- ", mShow);
+		//this.mWebview.loadData(mShow, "text/html", "UTF-8");
+		//this.mWebview.getSettings().setJavaScriptEnabled(true);
+		//this.mWebview.loadDataWithBaseURL(auth.getURL(), new JSObject().toString(), "text/javascript", "UTF-8", null);
+		//this.mWebview.getSettings().setJavaScriptEnabled(true);
+		//mWebview.setHttpAuthUsernamePassword(null, null, mUseAccount.name, null);
+		//this.mWebview.addJavascriptInterface(new JSObject(), "awesomeUsername");
+	}
+
+
+	class JSObject {
+		public String toString() { return "<script type=\"text/javascript\" language=\"javascript\"> document.write(\"" + auth.getAccount().name +
+				"\");</script>"; }
 	}
 }
