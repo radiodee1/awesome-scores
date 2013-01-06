@@ -4,9 +4,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.jackson.JacksonFactory;
+//import com.google.api.client.extensions.android.http.AndroidHttp;
+//import com.google.api.client.http.HttpTransport;
+//import com.google.api.client.json.jackson.JacksonFactory;
 
 
 import android.accounts.Account;
