@@ -24,12 +24,12 @@ public class WebAuth {
 	
 	public static final String URL_INITIATE_OAUTH2 = new String ("https://accounts.google.com/o/oauth2/auth");
 	public static final String URL_INITIATE_API_TYPE = new String ("https://www.googleapis.com/oauth2/v1/userinfo");
-	public static final String URL_INITIATE_SHA1 = new String ("F3:FE:60:09:29:2F:F6:43:CE:EE:22:38:70:35:8F:04:8A:1C:AF:BB");
+	//public static final String URL_INITIATE_SHA1 = new String ("F3:FE:60:09:29:2F:F6:43:CE:EE:22:38:70:35:8F:04:8A:1C:AF:BB");
 	public static final String URL_INITIATE_RESPONSE_TYPE = new String ("code");
 	public static final String URL_INITIATE_CLIENT_ID = new String ("459132469396.apps.googleusercontent.com");
 	public static final String URL_INITIATE_REDIRECT_URI = new String ("urn:ietf:wg:oauth:2.0:oob");
-	public static final String URL_INITIATE_SCOPE = new String ("auth userinfo.email");
-	public static final String URL_INITIATE_STATE = new String ("");
+	public static final String URL_INITIATE_SCOPE = new String ("https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");
+	//public static final String URL_INITIATE_STATE = new String ("");
 	
 	public static final String PARAM_RESPONSE_TYPE = new String ("response_type");
 	public static final String PARAM_REDIRECT_URI = new String ("redirect_uri");
@@ -39,11 +39,11 @@ public class WebAuth {
 	public static final String PARAM_STATE = new String ("state");
 	public static final String PARAM_OAUTH = new String ("OAuth ");
 	
-	private final static String G_PLUS_SCOPE = 
-		      "oauth2:https://www.googleapis.com/auth/plus.me";
-	private final static String USERINFO_SCOPE =   
-		      "https://www.googleapis.com/auth/userinfo.profile";
-	private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
+//	private final static String G_PLUS_SCOPE = 
+//		      "oauth2:https://www.googleapis.com/auth/plus.me";
+//	private final static String USERINFO_SCOPE =   
+//		      "https://www.googleapis.com/auth/userinfo.profile";
+//	private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
 	
 	public static final String TXT_QUESTIONMARK = new String("?");
 	public static final String TXT_SPACE = new String(" ");
@@ -58,6 +58,7 @@ public class WebAuth {
 	private String mAutherization = new String("");
 	private String mApiKey = new String("");
 	private String mOAuthToken = new String ("");
+	private String mURL = new String("");
 	
 	public WebAuth( Context c, Activity a) {
 		mContext = c;
@@ -75,45 +76,45 @@ public class WebAuth {
 		
 	}
 	
-	public void getTokenAM() {
-		if (!this.mOAuthToken.contentEquals("")) {
-			Log.e("WebAuth", "Token is "+ this.mOAuthToken);
-			this.useAPI();
-			
-		}
-		AccountManager manager  = AccountManager.get(mContext);
-		
-		String AUTH_TOKEN_TYPE = new String("View your tasks");
-		//Log.e("WebAuth", "AM");
-		manager.getAuthToken(this.mAccount, AUTH_TOKEN_TYPE, null, mActivity, new AccountManagerCallback<Bundle>() {
-		    
-			public void run(AccountManagerFuture<Bundle> future) {
-		      try {
-		    	  
-		    	Bundle bundle = future.getResult();
-		        // If the user has authorized your application to use the tasks API
-		        // a token is available.
-		        String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-		        // Now you can use the Tasks API...
-		        //useTasksAPI(token);
-		        Log.e("WebAuth", "bundle");
-		        setOAuthToken(token);
-		        useAPI();
-		        Intent launch = (Intent) bundle.get(AccountManager.KEY_INTENT);
-		        if (launch != null) {
-		        	Log.e("WebAuth", "intent section");
-		            mActivity.startActivityForResult(launch, 0);
-		            return;
-		        }
-		      } catch (OperationCanceledException e) {
-		    	Log.e("WebAuth", "OperationCanceledException");
-		        // TODO: The user has denied you access to the API, you should handle that
-		      } catch (Exception e) {
-		        e.printStackTrace();
-		      }
-		    }
-		  }, null);
-	}
+//	public void getTokenAM() {
+//		if (!this.mOAuthToken.contentEquals("")) {
+//			Log.e("WebAuth", "Token is "+ this.mOAuthToken);
+//			this.useAPI();
+//			
+//		}
+//		AccountManager manager  = AccountManager.get(mContext);
+//		
+//		String AUTH_TOKEN_TYPE = new String("View your tasks");
+//		//Log.e("WebAuth", "AM");
+//		manager.getAuthToken(this.mAccount, AUTH_TOKEN_TYPE, null, mActivity, new AccountManagerCallback<Bundle>() {
+//		    
+//			public void run(AccountManagerFuture<Bundle> future) {
+//		      try {
+//		    	  
+//		    	Bundle bundle = future.getResult();
+//		        // If the user has authorized your application to use the tasks API
+//		        // a token is available.
+//		        String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+//		        // Now you can use the Tasks API...
+//		        //useTasksAPI(token);
+//		        Log.e("WebAuth", "bundle");
+//		        setOAuthToken(token);
+//		        useAPI();
+//		        Intent launch = (Intent) bundle.get(AccountManager.KEY_INTENT);
+//		        if (launch != null) {
+//		        	Log.e("WebAuth", "intent section");
+//		            mActivity.startActivityForResult(launch, 0);
+//		            return;
+//		        }
+//		      } catch (OperationCanceledException e) {
+//		    	Log.e("WebAuth", "OperationCanceledException");
+//		        // TODO: The user has denied you access to the API, you should handle that
+//		      } catch (Exception e) {
+//		        e.printStackTrace();
+//		      }
+//		    }
+//		  }, null);
+//	}
 	
 	public void useTasksAPI(String accessToken) {
 //		  // Setting up the Tasks API Service
@@ -130,11 +131,11 @@ public class WebAuth {
 		try {
 			Log.e("WebAuth", "token "+ this.mOAuthToken);
 			//URL url = new URL("https://www.googleapis.com/tasks/v1/users/@me/lists?key=" + your_api_key);
-			URL url = new URL(WebAuth.URL_INITIATE_API_TYPE);
-			URLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.addRequestProperty("client_id", WebAuth.URL_INITIATE_CLIENT_ID);
-			conn.addRequestProperty("client_secret", WebAuth.URL_INITIATE_SHA1);
-			conn.setRequestProperty("Authorization", "OAuth " + this.getOAuthToken());
+//			URL url = new URL(WebAuth.URL_INITIATE_API_TYPE);
+//			URLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.addRequestProperty("client_id", WebAuth.URL_INITIATE_CLIENT_ID);
+//			conn.addRequestProperty("client_secret", WebAuth.URL_INITIATE_SHA1);
+//			conn.setRequestProperty("Authorization", "OAuth " + this.getOAuthToken());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,6 +185,14 @@ public class WebAuth {
 
 	public Account getAccount() {
 		return mAccount;
+	}
+
+	public String getURL() {
+		return mURL;
+	}
+
+	public void setURL(String mURL) {
+		this.mURL = mURL;
 	}
 
 	

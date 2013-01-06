@@ -64,7 +64,7 @@ public class WebAuthActivity extends Activity {
 				
 				if (! mStopExecuting) {
 					if ( mPrerequisites == true) {
-						auth.getTokenAM();
+						//auth.getTokenAM();
 						Log.e("WebAuthActivity" , "gettoken-am");
 					}
 					else {
