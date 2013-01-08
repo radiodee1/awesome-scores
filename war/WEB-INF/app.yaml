@@ -1,5 +1,5 @@
 application: awesomescores
-version: 5
+version: 6
 runtime: java
 
 welcome_files:
