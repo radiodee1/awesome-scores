@@ -91,7 +91,7 @@ public class DisplayRecordComposite extends Composite implements HasClickHandler
 		horizontalPanel_3.setCellVerticalAlignment(lblDate, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		dateLabel = new DateLabel();
-		dateLabel.setStyleName("recordDisplay");
+		dateLabel.setStyleName("recordDisplayDate");
 		dateLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		horizontalPanel_3.add(dateLabel);
 		horizontalPanel_3.setCellVerticalAlignment(dateLabel, HasVerticalAlignment.ALIGN_MIDDLE);
