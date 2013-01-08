@@ -17,6 +17,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
+
 //import com.google.api.client.extensions.android.http.AndroidHttp;
 //import com.google.api.client.http.HttpTransport;
 //import com.google.api.client.json.jackson.JacksonFactory;
@@ -31,6 +33,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -44,6 +47,10 @@ public class WebAuth {
 	public static final String URL_INITIATE_REDIRECT_URI = new String ("urn:ietf:wg:oauth:2.0:oob");
 	public static final String URL_INITIATE_SCOPE = new String ("https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");
 	//public static final String URL_INITIATE_STATE = new String ("");
+	
+	public static final String AUTH_WEB_PREFIX = new String ("audience:server:client_id:");
+	public static final String AUTH_MY_TOKEN = new String ("");
+	public static final String AUTH_WEB_TOKEN = new String ("459132469396-99er3ba7o4ukn0ttdm5pil6au9h4fvid.apps.googleusercontent.com");
 	
 	public static final String PARAM_RESPONSE_TYPE = new String ("response_type");
 	public static final String PARAM_REDIRECT_URI = new String ("redirect_uri");
@@ -75,6 +82,8 @@ public class WebAuth {
 	private String mOAuthToken = new String ("");
 	private String mURL = new String("");
 	
+	private String mSendString = new String("");
+	
 	public WebAuth( Context c, Activity a) {
 		mContext = c;
 		mActivity = a;
@@ -93,6 +102,31 @@ public class WebAuth {
 				WebAuth.PARAM_CLIENT_ID + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_CLIENT_ID + WebAuth.TXT_AMPERSAND +
 				WebAuth.PARAM_REDIRECT_URI + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_REDIRECT_URI + WebAuth.TXT_AMPERSAND +
 				WebAuth.PARAM_RESPONSE_TYPE + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_RESPONSE_TYPE + WebAuth.TXT_AMPERSAND ;
+	}
+	
+	public void buildAuthTokenString () {
+		mSendString = WebAuth.AUTH_WEB_PREFIX + WebAuth.AUTH_WEB_TOKEN;
+		
+	}
+	
+	public String useAuthUtility () {
+		final String token = null;
+		new AsyncTask <Object, Object, Object> () {
+
+			@Override
+			protected Object doInBackground(Object... params) {
+				try {
+				    token = GoogleAuthUtil.getToken(mActivity, mAccount.name, mSendString);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+			
+		};
+		
+		return null;
 	}
 	
 	public String getTokenFromWeb() {

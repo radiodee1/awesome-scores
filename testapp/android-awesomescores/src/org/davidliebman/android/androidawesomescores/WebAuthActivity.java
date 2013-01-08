@@ -40,48 +40,48 @@ public class WebAuthActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		mWebview = new WebView(this);
-		setContentView(mWebview);
+		//mWebview = new WebView(this);
+		//setContentView(mWebview);
 		
-		//setContentView(R.layout.activity_web_auth);
+		setContentView(R.layout.activity_web_auth);
 		
 		mContext = this;
 		
-		//final TextView mText = (TextView) this.findViewById(R.id.text_output2);
+		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
 		
 		
-		//mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
+		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
 		auth = new WebAuth(this, this);
 		if (mPrerequisites == true ) {
 			showDialog(DIALOG_ACCOUNTS);
 		}
 		
-//		Button mGoButton = (Button) findViewById(R.id.button_auth);
-//		mGoButton.setOnClickListener(new OnClickListener () {
-//
-//			@Override
-//			public void onClick(View v) {
-//				
-//				if (! mStopExecuting) {
-//					if ( mPrerequisites == true) {
-//						//auth.buildURL();
-//						//String mReply = auth.getToken();
-//						//auth.startWebView();
-//						//Log.e("WebAuthActivity",mReply);
-//						Log.e("WebAuthActivity" , "gettoken-am");
-//					}
-//					else {
-//						Log.e("WebAuthActivity", "no-gettoken-am");
-//					}
-//					
-//					//auth.getTokenAM();
-//				}
-//				
-//			}
-//			
-//		});
+		Button mGoButton = (Button) findViewById(R.id.button_auth);
+		mGoButton.setOnClickListener(new OnClickListener () {
+
+			@Override
+			public void onClick(View v) {
+				
+				if (! mStopExecuting) {
+					if ( mPrerequisites == true) {
+						//auth.buildURL();
+						//String mReply = auth.getToken();
+						//auth.startWebView();
+						//Log.e("WebAuthActivity",mReply);
+						Log.e("WebAuthActivity" , "gettoken-am");
+					}
+					else {
+						Log.e("WebAuthActivity", "no-gettoken-am");
+					}
+					
+					//auth.getTokenAM();
+				}
+				
+			}
+			
+		});
 		
 	}
 
@@ -145,10 +145,10 @@ public class WebAuthActivity extends Activity {
 		auth.setAccount(mUseAccount);
 		Log.e("WebAuthActivity", "account "+ mUseAccount.name);
 		mStopExecuting = false;
-		this.mWebview.getSettings().setJavaScriptEnabled(true);
-		auth.buildURL();
+		//this.mWebview.getSettings().setJavaScriptEnabled(true);
+		//auth.buildURL();
 		//String mShow = auth.getTokenFromWeb() ;//+ new JSObject().toString();
-		mWebview.loadUrl(auth.getURL());
+		//mWebview.loadUrl(auth.getURL());
 		//Log.e("WebAuthActivity --- ", mShow);
 		//this.mWebview.loadData(mShow, "text/html", "UTF-8");
 		//this.mWebview.getSettings().setJavaScriptEnabled(true);
