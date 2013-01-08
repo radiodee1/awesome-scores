@@ -11,6 +11,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -83,7 +84,9 @@ public class Awesome_scores  implements EntryPoint {
 		final TextBox nameField = new TextBox();
 		nameField.setText("user@gmail.com");
 		errorLabel = new Label();
-
+		
+		setInitialGameValue();
+		
 		//oldgame = 0;
 		//oldconsole = 0;
 		modifyTargetString();
@@ -359,6 +362,17 @@ public class Awesome_scores  implements EntryPoint {
 //			modifyPage();
 //		}
 		
+	}
+	
+	public void setInitialGameValue() {
+		String mGameString = Window.Location.getParameter("game");
+		
+		if (mGameString.contentEquals(TaskPickerComposite.GAME_STRING_AWESOMEFLYER)) {
+			game = TaskPickerComposite.GAME_AWESOMEFLYER;
+		} 
+		else {
+			game = TaskPickerComposite.GAME_AWESOMEGUY;
+		}
 	}
 	
 	// Create a handler for the sendButton and nameField
