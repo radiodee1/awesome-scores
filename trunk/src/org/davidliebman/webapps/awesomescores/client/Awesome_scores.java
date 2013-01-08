@@ -368,10 +368,13 @@ public class Awesome_scores  implements EntryPoint {
 		String mGameString = Window.Location.getParameter("game");
 		
 		if (mGameString.contentEquals(TaskPickerComposite.GAME_STRING_AWESOMEFLYER)) {
+			
 			game = TaskPickerComposite.GAME_AWESOMEFLYER;
+			taskPicker.setGame(game);
 		} 
 		else {
 			game = TaskPickerComposite.GAME_AWESOMEGUY;
+			taskPicker.setGame(game);
 		}
 	}
 	
