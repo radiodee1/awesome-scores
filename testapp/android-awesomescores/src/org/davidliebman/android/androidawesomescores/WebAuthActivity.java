@@ -109,7 +109,8 @@ public class WebAuthActivity extends Activity {
 			mPrerequisites = true;
 		}
 		else {
-			GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
+			Dialog mDialog = GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
+			mDialog.show();
 			setResult(RESULT_OK, new Intent());
 			finish();
 		}
@@ -181,7 +182,12 @@ public class WebAuthActivity extends Activity {
 		
 	}
 
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
+		//startActivity(data);
+	}
+	
 	class JSObject {
 		public String toString() { return "<script type=\"text/javascript\" language=\"javascript\"> document.write(\"" + auth.getAccount().name +
 				"\");</script>"; }
