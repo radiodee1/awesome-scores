@@ -110,6 +110,8 @@ public class WebAuthActivity extends Activity {
 		}
 		else {
 			GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
+			setResult(RESULT_OK, new Intent());
+			finish();
 		}
 	}
 	
@@ -176,8 +178,7 @@ public class WebAuthActivity extends Activity {
 		//this.mWebview.getSettings().setJavaScriptEnabled(true);
 		//mWebview.setHttpAuthUsernamePassword(null, null, mUseAccount.name, null);
 		//this.mWebview.addJavascriptInterface(new JSObject(), "awesomeUsername");
-		setResult(RESULT_OK, new Intent());
-		finish();
+		
 	}
 
 
