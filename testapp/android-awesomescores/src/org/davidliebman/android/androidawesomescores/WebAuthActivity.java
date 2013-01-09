@@ -58,9 +58,7 @@ public class WebAuthActivity extends Activity {
 		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
 		auth = new WebAuth(this, this);
-		if (mPrerequisites == true ) {
-			showDialog(DIALOG_ACCOUNTS);
-		}
+		
 		
 		Button mGoButton = (Button) findViewById(R.id.button_auth);
 		mGoButton.setOnClickListener(new OnClickListener () {
@@ -107,12 +105,18 @@ public class WebAuthActivity extends Activity {
 		
 		if (mGoogleResults == ConnectionResult.SUCCESS) {
 			mPrerequisites = true;
+			mStopExecuting = false;
 		}
 		else {
+			mStopExecuting = true;
 			Dialog mDialog = GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
 			mDialog.show();
 			setResult(RESULT_OK, new Intent());
-			finish();
+			//finish();
+		}
+		
+		if (mPrerequisites == true  && ! mStopExecuting) {
+			showDialog(DIALOG_ACCOUNTS);
 		}
 	}
 	
@@ -186,10 +190,8 @@ public class WebAuthActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
 		//startActivity(data);
+		finish();
 	}
 	
-	class JSObject {
-		public String toString() { return "<script type=\"text/javascript\" language=\"javascript\"> document.write(\"" + auth.getAccount().name +
-				"\");</script>"; }
-	}
+	
 }

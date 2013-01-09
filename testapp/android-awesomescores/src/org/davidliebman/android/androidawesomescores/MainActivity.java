@@ -144,9 +144,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, WebAuthActivity.class);
-				//startActivity(intent);
+				startActivity(intent);
 				Bundle bundle = new Bundle();
-				startActivityForResult(intent, -1, bundle);
+				//startActivityForResult(intent, -1, bundle);
 			}
 			
 		});
