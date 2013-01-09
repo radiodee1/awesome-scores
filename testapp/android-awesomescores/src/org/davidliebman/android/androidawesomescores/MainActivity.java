@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -42,14 +43,14 @@ public class MainActivity extends Activity {
 	private String results = new String();
 	private WebScoreUpload web ;
 	//private WebAuth auth = null;
-	
+	private Context mContext ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		web = new WebScoreUpload(this);
 		//auth = new WebAuth(this);
-		
+		mContext = this;
 		
 		setContentView(R.layout.activity_main);
 	
@@ -137,19 +138,28 @@ public class MainActivity extends Activity {
 	    });
 		   
 		    
-	Button mGoButton3 = (Button) findViewById(R.id.button3);
-	mGoButton3.setOnClickListener( new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(MainActivity.this, WebAuthActivity.class);
-			startActivity(intent);
+		Button mGoButton3 = (Button) findViewById(R.id.button3);
+		mGoButton3.setOnClickListener( new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, WebAuthActivity.class);
+				//startActivity(intent);
+				Bundle bundle = new Bundle();
+				startActivityForResult(intent, -1, bundle);
+			}
 			
-		}
-		
-	});
+		});
     
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
+		//startActivity(data);
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
