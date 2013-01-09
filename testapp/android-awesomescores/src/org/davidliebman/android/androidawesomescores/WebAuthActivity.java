@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -52,14 +53,7 @@ public class WebAuthActivity extends Activity {
 		
 		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
-		int mGoogleResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		
-		if (mGoogleResults == ConnectionResult.SUCCESS) {
-			mPrerequisites = true;
-		}
-		else {
-			GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, );
-		}
 		
 		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
@@ -104,6 +98,19 @@ public class WebAuthActivity extends Activity {
 	public void onPause() {
 		super.onPause();
 		finish();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		int mGoogleResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		
+		if (mGoogleResults == ConnectionResult.SUCCESS) {
+			mPrerequisites = true;
+		}
+		else {
+			GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
+		}
 	}
 	
 	@Override
@@ -169,6 +176,8 @@ public class WebAuthActivity extends Activity {
 		//this.mWebview.getSettings().setJavaScriptEnabled(true);
 		//mWebview.setHttpAuthUsernamePassword(null, null, mUseAccount.name, null);
 		//this.mWebview.addJavascriptInterface(new JSObject(), "awesomeUsername");
+		setResult(RESULT_OK, new Intent());
+		finish();
 	}
 
 
