@@ -104,29 +104,42 @@ public class WebAuth {
 				WebAuth.PARAM_RESPONSE_TYPE + WebAuth.TXT_EQUALS + WebAuth.URL_INITIATE_RESPONSE_TYPE + WebAuth.TXT_AMPERSAND ;
 	}
 	
-	public void buildAuthTokenString () {
+	public void buildOAuthTokenString () {
 		mSendString = WebAuth.AUTH_WEB_PREFIX + WebAuth.AUTH_WEB_TOKEN;
 		
 	}
 	
-	public String useAuthUtility () {
-		final String token = null;
-		new AsyncTask <Object, Object, Object> () {
+	public String assignOAuthWithUtility () {
+		
+		new AsyncTask <String, Object, String> () {
 
 			@Override
-			protected Object doInBackground(Object... params) {
+			protected void onPreExecute() {
+				
+			}
+			
+			@Override
+			protected String doInBackground(String... params) {
+				String token = null;
 				try {
+					Log.e("WebAuth ---","name: " + mAccount.name);
 				    token = GoogleAuthUtil.getToken(mActivity, mAccount.name, mSendString);
 				}
 				catch (Exception e) {
 					e.printStackTrace();
 				}
-				return null;
+				return token;
 			}
 			
-		};
+			@Override
+			protected void onPostExecute(String mResult) {
+				Log.e("WebAuth ---", "token: " + mResult);
+				mOAuthToken = mResult;
+			}
+			
+		}.execute("");
 		
-		return null;
+		return mOAuthToken;
 	}
 	
 	public String getTokenFromWeb() {

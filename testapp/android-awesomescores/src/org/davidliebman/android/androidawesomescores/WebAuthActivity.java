@@ -2,6 +2,9 @@ package org.davidliebman.android.androidawesomescores;
 
 //import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.accounts.Account;
@@ -49,7 +52,14 @@ public class WebAuthActivity extends Activity {
 		
 		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
 		
+		int mGoogleResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		
+		if (mGoogleResults == ConnectionResult.SUCCESS) {
+			mPrerequisites = true;
+		}
+		else {
+			GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, );
+		}
 		
 		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
 		
@@ -145,6 +155,9 @@ public class WebAuthActivity extends Activity {
 		auth.setAccount(mUseAccount);
 		Log.e("WebAuthActivity", "account "+ mUseAccount.name);
 		mStopExecuting = false;
+		
+		auth.buildOAuthTokenString();
+		auth.assignOAuthWithUtility();
 		//this.mWebview.getSettings().setJavaScriptEnabled(true);
 		//auth.buildURL();
 		//String mShow = auth.getTokenFromWeb() ;//+ new JSObject().toString();
