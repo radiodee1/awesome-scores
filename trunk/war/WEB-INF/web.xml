@@ -1,4 +1,6 @@
 <!-- Generated from app.yaml. Do not edit. -->
+
+
 <web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
   <servlet>
     <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
@@ -12,10 +14,28 @@
     <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
     <url-pattern>/game.html</url-pattern>
   </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/game.html</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
   <servlet-mapping>
     <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>awesome.css</welcome-file>

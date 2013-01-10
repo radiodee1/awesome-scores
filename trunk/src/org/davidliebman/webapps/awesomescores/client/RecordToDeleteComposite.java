@@ -83,12 +83,12 @@ public class RecordToDeleteComposite extends Composite implements HasClickHandle
 		verticalPanel.add(horizontalPanel_3);
 		
 		lblDate = new Label("Date: ");
-		lblDate.setStyleName("recordDisplay");
+		lblDate.setStyleName("recordDisplayDate");
 		horizontalPanel_3.add(lblDate);
 		horizontalPanel_3.setCellVerticalAlignment(lblDate, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		dateLabel = new DateLabel();
-		dateLabel.setStyleName("recordDisplay");
+		dateLabel.setStyleName("recordDisplayDate");
 		dateLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		horizontalPanel_3.add(dateLabel);
 		horizontalPanel_3.setCellVerticalAlignment(dateLabel, HasVerticalAlignment.ALIGN_MIDDLE);
