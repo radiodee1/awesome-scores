@@ -111,3 +111,10 @@ table, tr, td {
 	color: black;
 	background: white;
 }
+
+.recordDisplayDate {
+	color:white;
+	background:black;
+	font-size: 15pt;
+	font-style: bold;
+}
