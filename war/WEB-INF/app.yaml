@@ -1,5 +1,5 @@
 application: awesomescores
-version: 6
+version: 7
 runtime: java
 
 welcome_files:
@@ -12,11 +12,11 @@ precompilation_enabled: true
 
 handlers:
 - url: /game.html
-#  login: required
+  secure: always
   servlet: org.davidliebman.webapps.awesomescores.server.GameHttpServlet
 
 - url: /
-#  login: required
+  secure: always
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
 
 
