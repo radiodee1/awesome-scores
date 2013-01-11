@@ -44,6 +44,7 @@ public class WebAuth {
 	public static final int TASK_USERNAME  = 1;
 	public static final int TASK_SEND_SCORE = 2;
 	public static final int TASK_NAME_AND_SCORE = 3;
+	public static final int TASK_FINISH = 4;
 	
 	public static final String AUTH_WEB_PREFIX = new String ("audience:server:client_id:");
 	public static final String AUTH_MY_TOKEN = new String ("");
@@ -52,25 +53,19 @@ public class WebAuth {
 	public static final String PREFS_USRENAME = "user_name_chosen";
 	public static final String PREFS_CONNECTION_WORKS = "connection_works";
 	public static final String PREFS_PREFERENCES_NAME = "account_associated_prefs";
+	public static final String PREFS_TEMP_TOKEN_STORE = "temporary_token_storage";
 	
 	private Context mContext = null;
 	private Account mAccount = null;
-	private Activity mActivity = null;
 	private SharedPreferences mPrefs;
-
-	private String mClientId = new String("");
-	private String mSecret = new String("");
-	private String mAutherization = new String("");
-	private String mApiKey = new String("");
-	private String mOAuthToken = new String ("");
-	private String mURL = new String("");
+	private WebAuthActivity.MyHandler mHandle;
 	
+	private String mOAuthToken = new String ("");	
 	private String mSendString = new String("");
 	
-	public WebAuth( Context c, Activity a) {
+	public WebAuth( Context c,  WebAuthActivity.MyHandler h) {
 		mContext = c;
-		mActivity = a;
-		
+		mHandle = h;
 	}
 	
 	public void setAccount(Account mAccount ) {
@@ -78,8 +73,6 @@ public class WebAuth {
 		
 	
 	}
-	
-	
 	
 	public void buildOAuthTokenString () {
 		mSendString = WebAuth.AUTH_WEB_PREFIX + WebAuth.AUTH_WEB_TOKEN;
@@ -100,7 +93,7 @@ public class WebAuth {
 				String token = null;
 				try {
 					Log.e("WebAuth ---","name: " + mAccount.name);
-				    token = GoogleAuthUtil.getToken(mActivity, mAccount.name, mSendString);
+				    token = GoogleAuthUtil.getToken((Activity) mContext, mAccount.name, mSendString);
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -112,6 +105,16 @@ public class WebAuth {
 			protected void onPostExecute(String mResult) {
 				Log.e("WebAuth ---", "token: " + mResult);
 				mOAuthToken = mResult;
+				
+				mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+				SharedPreferences.Editor ed = mPrefs.edit();
+		        ed.putString(WebAuth.PREFS_TEMP_TOKEN_STORE, mOAuthToken);
+		        ed.commit();
+				
+				if(mHandle != null) {
+					mHandle.sendEmptyMessage(TASK_FINISH);
+				}
+				
 			}
 			
 		}.execute("");
@@ -137,12 +140,15 @@ public class WebAuth {
 		assignOAuthWithUtility();
 		
 		
-		
-		
 		return mOAuthToken;
 		
 	}
 
+	public String getRecentToken() {
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		return mPrefs.getString(WebAuth.PREFS_TEMP_TOKEN_STORE, "");
+	}
+	
 	public void setConnectionSuccess() {
 		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
@@ -177,38 +183,6 @@ public class WebAuth {
 	}
 
 
-	public String getClientId() {
-		return mClientId;
-	}
-
-	public void setClientId(String mClientId) {
-		this.mClientId = mClientId;
-	}
-
-	public String getSecret() {
-		return mSecret;
-	}
-
-	public void setSecret(String mSecret) {
-		this.mSecret = mSecret;
-	}
-
-	public String getAutherization() {
-		return mAutherization;
-	}
-
-	public void setAutherization(String mAutherization) {
-		this.mAutherization = mAutherization;
-	}
-
-	public String getApiKey() {
-		return mApiKey;
-	}
-
-	public void setApiKey(String mApiKey) {
-		this.mApiKey = mApiKey;
-	}
-
 	public String getOAuthToken() {
 		return mOAuthToken;
 	}
@@ -222,13 +196,7 @@ public class WebAuth {
 		return mAccount;
 	}
 
-	public String getURL() {
-		return mURL;
-	}
 
-	public void setURL(String mURL) {
-		this.mURL = mURL;
-	}
 
 	
 	

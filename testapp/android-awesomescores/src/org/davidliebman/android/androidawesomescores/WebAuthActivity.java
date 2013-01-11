@@ -7,6 +7,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -30,6 +32,7 @@ public class WebAuthActivity extends Activity {
 	private Context mContext;
 	private WebView mWebview;
 	private SharedPreferences mPrefs;
+	public MyHandler mHandle;
 	
 	private int mTask = WebAuth.TASK_USERNAME;
 	private boolean mStopExecuting = true;
@@ -58,9 +61,10 @@ public class WebAuthActivity extends Activity {
 		mText = (TextView) this.findViewById(R.id.text_output2);
 		
 		//mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
-		mText.setText("mesage: " + mTask);
-		auth = new WebAuth(this, this);
+		//mText.setText("mesage: " + mTask);
 		
+		mHandle = new MyHandler();		
+		auth = new WebAuth(this, mHandle);
 		
 		Button mGoButton = (Button) findViewById(R.id.button_auth);
 		mGoButton.setOnClickListener(new OnClickListener () {
@@ -130,6 +134,8 @@ public class WebAuthActivity extends Activity {
 				showDialog(DIALOG_ACCOUNTS);
 				break;
 			case WebAuth.TASK_SEND_SCORE:
+				auth.getTokenWithAccount();
+				//finish();
 				break;
 			}
 		}
@@ -176,6 +182,8 @@ public class WebAuthActivity extends Activity {
 	        	if (mTask == WebAuth.TASK_USERNAME) {
 	        		finish();
 	        	}
+	        	mHandle.sendEmptyMessage(WebAuth.TASK_SEND_SCORE);
+	        	
 	        }
 	      });
 	      return builder.create();
@@ -185,12 +193,12 @@ public class WebAuthActivity extends Activity {
 	
 
 	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
-		//startActivity(data);
-		finish();
-	}
+//	@Override
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
+//		//startActivity(data);
+//		finish();
+//	}
 
 	public int getTask() {
 		return mTask;
@@ -200,5 +208,22 @@ public class WebAuthActivity extends Activity {
 		this.mTask = mTask;
 	}
 	
+	public MyHandler getHandle() {
+		return mHandle;
+	}
 	
+	class MyHandler extends Handler {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case WebAuth.TASK_SEND_SCORE:
+				auth.getTokenWithAccount();
+				//finish();
+				break;
+			case WebAuth.TASK_FINISH:
+				finish();
+				break;
+			}
+		}
+	}
 }

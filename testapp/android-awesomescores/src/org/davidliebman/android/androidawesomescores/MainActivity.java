@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(mContext, WebAuthActivity.class);
 				intent.putExtra(WebAuth.EXTRA_NAME, WebAuth.TASK_NAME_AND_SCORE);
 				startActivity(intent);
-				Bundle bundle = new Bundle();
+				//Bundle bundle = new Bundle();
 				//startActivityForResult(intent, -1, bundle);
 			}
 			
@@ -154,11 +154,7 @@ public class MainActivity extends Activity {
     
 	}
 	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
-		//startActivity(data);
-	}
+
 	
 	
 	@Override
