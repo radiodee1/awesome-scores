@@ -15,6 +15,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,10 +29,13 @@ public class WebAuthActivity extends Activity {
 
 	private Context mContext;
 	private WebView mWebview;
+	private SharedPreferences mPrefs;
 	
-	
+	private int mTask = WebAuth.TASK_USERNAME;
 	private boolean mStopExecuting = true;
 	private boolean mPrerequisites = true;
+	private TextView mText = null;
+	private String mOAuthToken = new String("");
 	
 	public static final int SDK_INT_PRE = 14;
 	
@@ -51,12 +55,10 @@ public class WebAuthActivity extends Activity {
 		
 		mContext = this;
 		
-		final TextView mText = (TextView) this.findViewById(R.id.text_output2);
+		mText = (TextView) this.findViewById(R.id.text_output2);
 		
-		
-		
-		mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
-		
+		//mText.setText(new Integer(Build.VERSION.SDK_INT).toString());
+		mText.setText("mesage: " + mTask);
 		auth = new WebAuth(this, this);
 		
 		
@@ -101,9 +103,15 @@ public class WebAuthActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		
+		Bundle extras = getIntent().getExtras();
+		mTask = extras.getInt(WebAuth.EXTRA_NAME);
+		Log.e("WebAuthActivity", "--- " + mTask);
+		
+		
 		int mGoogleResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		
-		if (mGoogleResults == ConnectionResult.SUCCESS) {
+		if (mGoogleResults == ConnectionResult.SUCCESS || true) {
 			mPrerequisites = true;
 			mStopExecuting = false;
 		}
@@ -111,12 +119,19 @@ public class WebAuthActivity extends Activity {
 			mStopExecuting = true;
 			Dialog mDialog = GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
 			mDialog.show();
-			setResult(RESULT_OK, new Intent());
+			//setResult(RESULT_OK, new Intent());
 			//finish();
 		}
 		
 		if (mPrerequisites == true  && ! mStopExecuting) {
-			showDialog(DIALOG_ACCOUNTS);
+			switch (mTask ) {
+			case WebAuth.TASK_NAME_AND_SCORE:
+			case WebAuth.TASK_USERNAME:
+				showDialog(DIALOG_ACCOUNTS);
+				break;
+			case WebAuth.TASK_SEND_SCORE:
+				break;
+			}
 		}
 	}
 	
@@ -137,7 +152,7 @@ public class WebAuthActivity extends Activity {
 	      //GoogleAccountManager googleAccountManager = new GoogleAccountManager(mContext);
 	      //final Account[] accounts = googleAccountManager.getAccounts();
 	      AccountManager accountManager = AccountManager.get(WebAuthActivity.this);
-	      final Account[] accounts = accountManager.getAccountsByType(null);//("com.google");
+	      final Account[] accounts = accountManager.getAccountsByType(null);//"com.gmail");
 
 	      final int size = accounts.length;
 	      String[] names = new String[size + 1];
@@ -151,12 +166,15 @@ public class WebAuthActivity extends Activity {
 	        	
 	        	if (which != size ) {
 	        		mStopExecuting = false;
-	        		gotAccount(accounts[which]);
+	        		auth.gotAccount(accounts[which]);
+	        		
 	        	}
 	        	else {
 	        		mStopExecuting = true;
+	        	
+	        	}
+	        	if (mTask == WebAuth.TASK_USERNAME) {
 	        		finish();
-	        		//exit without change
 	        	}
 	        }
 	      });
@@ -165,32 +183,21 @@ public class WebAuthActivity extends Activity {
 	  return null;
 	}
 	
-	public void gotAccount(Account mUseAccount ) {
-		auth.setAccount(mUseAccount);
-		Log.e("WebAuthActivity", "account "+ mUseAccount.name);
-		mStopExecuting = false;
-		
-		auth.buildOAuthTokenString();
-		auth.assignOAuthWithUtility();
-		//this.mWebview.getSettings().setJavaScriptEnabled(true);
-		//auth.buildURL();
-		//String mShow = auth.getTokenFromWeb() ;//+ new JSObject().toString();
-		//mWebview.loadUrl(auth.getURL());
-		//Log.e("WebAuthActivity --- ", mShow);
-		//this.mWebview.loadData(mShow, "text/html", "UTF-8");
-		//this.mWebview.getSettings().setJavaScriptEnabled(true);
-		//this.mWebview.loadDataWithBaseURL(auth.getURL(), new JSObject().toString(), "text/javascript", "UTF-8", null);
-		//this.mWebview.getSettings().setJavaScriptEnabled(true);
-		//mWebview.setHttpAuthUsernamePassword(null, null, mUseAccount.name, null);
-		//this.mWebview.addJavascriptInterface(new JSObject(), "awesomeUsername");
-		
-	}
 
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
 		//startActivity(data);
 		finish();
+	}
+
+	public int getTask() {
+		return mTask;
+	}
+
+	public void setTask(int mTask) {
+		this.mTask = mTask;
 	}
 	
 	

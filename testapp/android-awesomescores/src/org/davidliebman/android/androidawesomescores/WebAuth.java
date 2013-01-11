@@ -32,6 +32,7 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,42 +40,24 @@ import android.util.Log;
 
 public class WebAuth {
 	
-//	public static final String URL_INITIATE_OAUTH2 = new String ("https://accounts.google.com/o/oauth2/auth");
-//	public static final String URL_INITIATE_API_TYPE = new String ("https://www.googleapis.com/oauth2/v1/userinfo");
-//	//public static final String URL_INITIATE_SHA1 = new String ("F3:FE:60:09:29:2F:F6:43:CE:EE:22:38:70:35:8F:04:8A:1C:AF:BB");
-//	public static final String URL_INITIATE_RESPONSE_TYPE = new String ("code");
-//	public static final String URL_INITIATE_CLIENT_ID = new String ("459132469396.apps.googleusercontent.com");
-//	public static final String URL_INITIATE_REDIRECT_URI = new String ("urn:ietf:wg:oauth:2.0:oob");
-//	public static final String URL_INITIATE_SCOPE = new String ("https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");
-//	//public static final String URL_INITIATE_STATE = new String ("");
+	public static final String EXTRA_NAME = "task";
+	public static final int TASK_USERNAME  = 1;
+	public static final int TASK_SEND_SCORE = 2;
+	public static final int TASK_NAME_AND_SCORE = 3;
 	
 	public static final String AUTH_WEB_PREFIX = new String ("audience:server:client_id:");
 	public static final String AUTH_MY_TOKEN = new String ("");
 	public static final String AUTH_WEB_TOKEN = new String ("459132469396-99er3ba7o4ukn0ttdm5pil6au9h4fvid.apps.googleusercontent.com");
 	
-//	public static final String PARAM_RESPONSE_TYPE = new String ("response_type");
-//	public static final String PARAM_REDIRECT_URI = new String ("redirect_uri");
-//	public static final String PARAM_CLIENT_ID = new String ("client_id");
-//	public static final String PARAM_CLIENT_SECRET = new String ("client_secret");
-//	public static final String PARAM_SCOPE = new String ("scope");
-//	public static final String PARAM_STATE = new String ("state");
-//	public static final String PARAM_OAUTH = new String ("OAuth ");
-	
-//	private final static String G_PLUS_SCOPE = 
-//		      "oauth2:https://www.googleapis.com/auth/plus.me";
-//	private final static String USERINFO_SCOPE =   
-//		      "https://www.googleapis.com/auth/userinfo.profile";
-//	private final static String SCOPES = G_PLUS_SCOPE + " " + USERINFO_SCOPE;
-	
-//	public static final String TXT_QUESTIONMARK = new String("?");
-//	public static final String TXT_EQUALS = new String("=");
-//	public static final String TXT_SPACE = new String(" ");
-//	public static final String TXT_AMPERSAND = new String("&");
+	public static final String PREFS_USRENAME = "user_name_chosen";
+	public static final String PREFS_CONNECTION_WORKS = "connection_works";
+	public static final String PREFS_PREFERENCES_NAME = "account_associated_prefs";
 	
 	private Context mContext = null;
 	private Account mAccount = null;
 	private Activity mActivity = null;
-	
+	private SharedPreferences mPrefs;
+
 	private String mClientId = new String("");
 	private String mSecret = new String("");
 	private String mAutherization = new String("");
@@ -136,53 +119,63 @@ public class WebAuth {
 		return mOAuthToken;
 	}
 	
-	public String getTokenFromWeb() {
-		String responseString = new String();
 
-		try {
-			HttpClient httpclient = new DefaultHttpClient();
-		
-			HttpGet httpget = new HttpGet();
-			httpget.setURI(new URI(mURL));
-
-		
-		
-		    HttpResponse response = httpclient.execute(httpget);//?command="+cmd));
-		    StatusLine statusLine = response.getStatusLine();
-		    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
-		        ByteArrayOutputStream out = new ByteArrayOutputStream();
-		        response.getEntity().writeTo(out);
-		        out.close();
-		        responseString = out.toString();
-		        
-		    } else{
-		        //Closes the connection.
-		        response.getEntity().getContent().close();
-		        throw new IOException(statusLine.getReasonPhrase());
-		    }		
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	    
-	    return responseString;
+	
+	public void gotAccount(Account mUseAccount ) {
+		setAccount(mUseAccount);
+		//Log.e("WebAuth", "account "+ mUseAccount.name);
+		//mStopExecuting = false;
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putString(WebAuth.PREFS_USRENAME, mUseAccount.name);
+        ed.putBoolean(WebAuth.PREFS_CONNECTION_WORKS, false);
+        ed.commit();
 	}
 	
-	
-	
-
-	
-
-	
-	public void useAPI() {
-		try {
-			Log.e("WebAuth", "token "+ this.mOAuthToken);
-
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String getTokenWithAccount () {
+		buildOAuthTokenString();
+		assignOAuthWithUtility();
+		
+		
+		
+		
+		return mOAuthToken;
+		
 	}
+
+	public void setConnectionSuccess() {
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean(WebAuth.PREFS_CONNECTION_WORKS, true);
+        ed.commit();
+	}
+	
+	public void setConnectionFailed() {
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean(WebAuth.PREFS_CONNECTION_WORKS, false);
+        ed.commit();
+	}
+	
+	public boolean isConnectionSuccess() {
+		boolean mSet = false;
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		if (mPrefs.getBoolean(WebAuth.PREFS_CONNECTION_WORKS, false)) {
+			mSet = true;
+		}
+		
+		return mSet;
+	}
+	
+	public boolean isAccountSet() {
+		boolean mSet = false;
+		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
+		if ( ! mPrefs.getString(WebAuth.PREFS_USRENAME, "").contentEquals("")) {
+			mSet = true;
+		}
+		return mSet;
+	}
+
 
 	public String getClientId() {
 		return mClientId;

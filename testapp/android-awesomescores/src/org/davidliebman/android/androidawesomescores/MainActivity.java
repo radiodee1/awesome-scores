@@ -144,6 +144,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, WebAuthActivity.class);
+				intent.putExtra(WebAuth.EXTRA_NAME, WebAuth.TASK_NAME_AND_SCORE);
 				startActivity(intent);
 				Bundle bundle = new Bundle();
 				//startActivityForResult(intent, -1, bundle);
