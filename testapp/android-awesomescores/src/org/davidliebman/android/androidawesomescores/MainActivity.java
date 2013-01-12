@@ -41,14 +41,15 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private String results = new String();
-	private WebScoreUpload web ;
+	//private WebScoreUpload web ;
 	//private WebAuth auth = null;
 	private Context mContext ;
+	private String mCountry = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		web = new WebScoreUpload(this);
+		//web = new WebScoreUpload(this);
 		//auth = new WebAuth(this);
 		mContext = this;
 		
@@ -79,8 +80,8 @@ public class MainActivity extends Activity {
 						rec.setAndroidAppname("org.davidliebman.android.awesomeguy");
 						rec.setEmail("hello-user3@gmail.com");
 			        	//mtext.setText(someExecuteMethod());
-						web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
-						return web.prepareAndSendRecord(rec);
+						//web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
+						return null;//web.prepareAndSendRecord(rec);
 					}
 					
 					 @Override
@@ -123,8 +124,8 @@ public class MainActivity extends Activity {
 							rec.setEmail("hello-user4@gmail.com");
 				        	//mtext.setText(someExecuteMethod());
 							//web.setUrl("http://10.0.2.2:8888/game.html");
-							web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
-							return web.prepareAndSendRecord(rec);
+							//web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
+							return null;//web.prepareAndSendRecord(rec);
 						}
 						
 						 @Override
@@ -144,7 +145,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, WebAuthActivity.class);
-				intent.putExtra(WebAuth.EXTRA_NAME, WebAuth.TASK_NAME_AND_SCORE);
+				intent.putExtra(WebAuth.EXTRA_NAME, WebAuth.TASK_USERNAME);
+				intent = addRecordToIntent(intent, new Scores.High());
 				startActivity(intent);
 				//Bundle bundle = new Bundle();
 				//startActivityForResult(intent, -1, bundle);
@@ -154,7 +156,22 @@ public class MainActivity extends Activity {
     
 	}
 	
-
+	public Intent addRecordToIntent(Intent mIntent, Scores.High mIn ) {
+		mIntent.putExtra(WebAuth.INTENT_DATE, mIn.getDate());
+		mIntent.putExtra(WebAuth.INTENT_COUNTRY, mCountry);
+		mIntent.putExtra(WebAuth.INTENT_COLLISION, mIn.isMonsterCollision());
+		mIntent.putExtra(WebAuth.INTENT_EMAIL, "");
+		mIntent.putExtra(WebAuth.INTENT_LEVEL, mIn.getLevel());
+		mIntent.putExtra(WebAuth.INTENT_LIVES, mIn.getLives());
+		mIntent.putExtra(WebAuth.INTENT_LOCAL_ID, mIn.getKey());
+		mIntent.putExtra(WebAuth.INTENT_MONSTERS, mIn.isEnableMonsters());
+		mIntent.putExtra(WebAuth.INTENT_NAME, mIn.getName());
+		mIntent.putExtra(WebAuth.INTENT_SCORE, mIn.getScoreKey());
+		mIntent.putExtra(WebAuth.INTENT_SOUND, mIn.isSoundOn());
+		mIntent.putExtra(WebAuth.INTENT_SPEED, mIn.getGameSpeed());
+		mIntent.putExtra(WebAuth.INTENT_APPNAME, "");
+		return mIntent;
+	}
 	
 	
 	@Override

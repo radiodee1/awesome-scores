@@ -44,7 +44,8 @@ public class WebAuth {
 	public static final int TASK_USERNAME  = 1;
 	public static final int TASK_SEND_SCORE = 2;
 	public static final int TASK_NAME_AND_SCORE = 3;
-	public static final int TASK_FINISH = 4;
+	public static final int HANDLE_FINISH = 4;
+	public static final int HANDLE_SEND_SCORE = 5;
 	
 	public static final String AUTH_WEB_PREFIX = new String ("audience:server:client_id:");
 	public static final String AUTH_MY_TOKEN = new String ("");
@@ -126,7 +127,7 @@ public class WebAuth {
 		        ed.commit();
 				
 				if(mHandle != null) {
-					mHandle.sendEmptyMessage(TASK_FINISH);
+					mHandle.sendEmptyMessage(HANDLE_FINISH);
 				}
 				
 			}
@@ -140,8 +141,7 @@ public class WebAuth {
 	
 	public void gotAccount(Account mUseAccount ) {
 		setAccount(mUseAccount);
-		//Log.e("WebAuth", "account "+ mUseAccount.name);
-		//mStopExecuting = false;
+		
 		mPrefs = mContext.getSharedPreferences(WebAuth.PREFS_PREFERENCES_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
         ed.putString(WebAuth.PREFS_USRENAME, mUseAccount.name);
@@ -149,12 +149,12 @@ public class WebAuth {
         ed.commit();
 	}
 	
-	public String getTokenWithAccount () {
+	public void getTokenWithAccount () {
 		buildOAuthTokenString();
 		assignOAuthWithUtility();
+		//NOTE: this ends with an async call!!
 		
-		
-		return mOAuthToken;
+		return ;
 		
 	}
 

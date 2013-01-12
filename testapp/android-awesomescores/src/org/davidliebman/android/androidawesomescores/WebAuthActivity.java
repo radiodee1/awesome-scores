@@ -8,7 +8,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,9 +41,9 @@ public class WebAuthActivity extends Activity {
 	private RecordJson mRec;
 	private WebScoreUpload web;
 	private Scores mScores;
+	private Bundle extras;
 	
 	private int mTask = WebAuth.TASK_USERNAME;
-	private boolean mStopExecuting = true;
 	private boolean mPrerequisites = true;
 	private TextView mText = null;
 	private String mOAuthToken = new String("");
@@ -77,6 +76,8 @@ public class WebAuthActivity extends Activity {
 		
 		mHandle = new MyHandler();		
 		auth = new WebAuth(this, mHandle);
+		web = new WebScoreUpload(this);
+		mScores = new Scores(this, new Record());
 		
 		Button mGoButton = (Button) findViewById(R.id.button_auth);
 		mGoButton.setOnClickListener(new OnClickListener () {
@@ -84,20 +85,6 @@ public class WebAuthActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				if (! mStopExecuting) {
-					if ( mPrerequisites == true) {
-						//auth.buildURL();
-						//String mReply = auth.getToken();
-						//auth.startWebView();
-						//Log.e("WebAuthActivity",mReply);
-						Log.e("WebAuthActivity" , "gettoken-am");
-					}
-					else {
-						Log.e("WebAuthActivity", "no-gettoken-am");
-					}
-					
-					//auth.getTokenAM();
-				}
 				
 			}
 			
@@ -120,34 +107,40 @@ public class WebAuthActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		
-		Bundle extras = getIntent().getExtras();
+		extras = getIntent().getExtras();
 		mTask = extras.getInt(WebAuth.EXTRA_NAME);
 		Log.e("WebAuthActivity", "--- " + mTask);
-		mRec = this.extractScoreFromIntent(extras);
 		
 		int mGoogleResults = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 		Log.e("WebAuthActivity", "play: " + mGoogleResults);
 		
-		if (mGoogleResults == ConnectionResult.SUCCESS ) {
+		if (mGoogleResults == ConnectionResult.SUCCESS || mTask == WebAuth.TASK_USERNAME) {
 			mPrerequisites = true;
-			mStopExecuting = false;
 		}
 		else {
-			mStopExecuting = true;
 			Dialog mDialog = GooglePlayServicesUtil.getErrorDialog(mGoogleResults, this, -1);
 			mDialog.show();
 			//setResult(RESULT_OK, new Intent());
 			//finish();
 		}
 		
-		if (mPrerequisites == true  && ! mStopExecuting) {
+		if (mPrerequisites == true  ) {
 			switch (mTask ) {
+			
+			
 			case WebAuth.TASK_NAME_AND_SCORE:
+				mRec = this.extractScoreFromIntent(extras);
+
+				break;
 			case WebAuth.TASK_USERNAME:
 				showDialog(DIALOG_ACCOUNTS);
+			
 				break;
 			case WebAuth.TASK_SEND_SCORE:
+				mRec = this.extractScoreFromIntent(extras);
+
 				auth.getTokenWithAccount();
+				//mRec.setAuthToken(this.mOAuthToken);
 				//finish();
 				break;
 			}
@@ -249,18 +242,14 @@ public class WebAuthActivity extends Activity {
 	          // Stuff to do when the account is selected by the user
 	        	
 	        	if (which != size ) {
-	        		mStopExecuting = false;
 	        		auth.gotAccount(accounts[which]);
 	        		
 	        	}
-	        	else {
-	        		mStopExecuting = true;
 	        	
-	        	}
 	        	if (mTask == WebAuth.TASK_USERNAME) {
 	        		finish();
 	        	}
-	        	mHandle.sendEmptyMessage(WebAuth.TASK_SEND_SCORE);
+	        	mHandle.sendEmptyMessage(WebAuth.HANDLE_FINISH);
 	        	
 	        }
 	      });
@@ -325,13 +314,9 @@ public class WebAuthActivity extends Activity {
     				return;
     			}
     			else {
-    				//change scores sql
     				showDialog(WebAuthActivity.DIALOG_WEB_SUCCESS);
     		        Toast.makeText(WebAuthActivity.this, result.getMessage() + " - " + result.getKey(), Toast.LENGTH_LONG).show();
-//    		        mNames = mScores.getGameHighList(0);
-//    		        mAadapter = new HighAdapter(Highscores.this, R.layout.highscores, mNames);
-//    		        mAadapter.setNotifyOnChange(true);
-//    		    	setListAdapter(mAadapter);
+
     				return;
     			}
     			
@@ -340,12 +325,7 @@ public class WebAuthActivity extends Activity {
     	
     }
 	
-//	@Override
-//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		Log.e("MainActivity", "here: " + requestCode + " " + resultCode);
-//		//startActivity(data);
-//		finish();
-//	}
+
 
 	public int getTask() {
 		return mTask;
@@ -363,11 +343,62 @@ public class WebAuthActivity extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case WebAuth.TASK_SEND_SCORE:
+			case WebAuth.HANDLE_SEND_SCORE:
 				auth.getTokenWithAccount();
 				//finish();
 				break;
-			case WebAuth.TASK_FINISH:
+			case WebAuth.HANDLE_FINISH:
+				
+				if (mTask == WebAuth.TASK_USERNAME) {
+					finish();
+				}
+				mRec = extractScoreFromIntent(extras);
+
+				mRec.setAuthToken(mOAuthToken);
+				//web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
+				
+				new AsyncTask <RecordJson, Object, ReturnJson>() {
+
+	    			@Override
+	    		    protected void onPreExecute() {
+	    		        
+	    		        //super.onPostExecute(result);
+	    		        Toast.makeText(WebAuthActivity.this, "task started.", Toast.LENGTH_LONG).show();
+	    		    }
+	    			
+					@Override
+					protected ReturnJson doInBackground(RecordJson... params) {
+						ReturnJson returnRecord = null;
+		    			RecordJson sendRecord = params[0];
+		    			web.setUrl(WebScoreUpload.MY_URL + WebScoreUpload.MY_PATH_GAME);
+		    			returnRecord = web.sendRecord(params[0]);
+		    			if (returnRecord != null ) {
+		    				Scores.High mHigh = new Scores.High();
+		    				mHigh.setInternetKey(returnRecord.getKey());
+		    				mHigh.setKey(sendRecord.getRecordIdNum());
+		    				mScores.updateInternetKey(mHigh);
+		    			}
+		    			
+		    			return returnRecord;
+					}
+					
+					 @Override
+				        protected void onPostExecute(ReturnJson result) {
+
+			    			if (result == null ) {
+			    				showDialog(WebAuthActivity.DIALOG_WEB_FAILURE);
+			    				return;
+			    			}
+			    			else {
+			    				//change scores sql
+			    				showDialog(WebAuthActivity.DIALOG_WEB_SUCCESS);
+			    		        Toast.makeText(WebAuthActivity.this, result.getMessage() + " - " + result.getKey(), Toast.LENGTH_LONG).show();
+
+			    				return;
+			    			}
+				        }
+	    		}.execute(mRec);
+				
 				finish();
 				break;
 			}
