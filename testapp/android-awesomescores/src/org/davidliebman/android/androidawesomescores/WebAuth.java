@@ -55,6 +55,20 @@ public class WebAuth {
 	public static final String PREFS_PREFERENCES_NAME = "account_associated_prefs";
 	public static final String PREFS_TEMP_TOKEN_STORE = "temporary_token_storage";
 	
+	public static final String INTENT_NAME = "name";
+	public static final String INTENT_COUNTRY = "country";
+	public static final String INTENT_SOUND = "sound";
+	public static final String INTENT_SPEED = "speed";
+	public static final String INTENT_SCORE = "score";
+	public static final String INTENT_LIVES = "lives";
+	public static final String INTENT_LEVEL = "level";
+	public static final String INTENT_COLLISION = "collision";
+	public static final String INTENT_MONSTERS = "monsters";
+	public static final String INTENT_EMAIL = "email";
+	public static final String INTENT_LOCAL_ID = "local_id";
+	public static final String INTENT_APPNAME = "android_appname";
+	public static final String INTENT_DATE = "date";
+	
 	private Context mContext = null;
 	private Account mAccount = null;
 	private SharedPreferences mPrefs;
