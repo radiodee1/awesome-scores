@@ -399,7 +399,7 @@ public class WebAuthActivity extends Activity {
 				        }
 	    		}.execute(mRec);
 				
-				finish();
+				//finish();
 				break;
 			}
 		}

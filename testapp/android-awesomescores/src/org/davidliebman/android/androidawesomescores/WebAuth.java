@@ -49,7 +49,7 @@ public class WebAuth {
 	
 	public static final String AUTH_WEB_PREFIX = new String ("audience:server:client_id:");
 	public static final String AUTH_MY_TOKEN = new String ("");
-	public static final String AUTH_WEB_TOKEN = new String ("459132469396-99er3ba7o4ukn0ttdm5pil6au9h4fvid.apps.googleusercontent.com");
+	public static final String AUTH_WEB_TOKEN = new String ("459132469396.apps.googleusercontent.com");
 	
 	public static final String PREFS_USRENAME = "user_name_chosen";
 	public static final String PREFS_CONNECTION_WORKS = "connection_works";
