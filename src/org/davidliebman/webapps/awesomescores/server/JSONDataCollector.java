@@ -2,9 +2,11 @@ package org.davidliebman.webapps.awesomescores.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+//import java.util.logging.Logger;
 
 import org.davidliebman.webapps.awesomescores.shared.Record;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.gson.Gson;
 
 public class JSONDataCollector {
@@ -13,14 +15,20 @@ public class JSONDataCollector {
 	public static final String ERROR = new String("ERROR");
 	
 	ScoreManagerJDO manageJDO;// = new ScoreManagerJDO();
-
+	WebAuthServer auth;
+	
+	private String[] games;
+	
 	private String jsonIn = new String();
 	private String jsonOut = new String();
-	 //private static final Logger log = Logger.getLogger(JsonCmdHandler.class);
+	//private static final Logger log = Logger.getLogger(JSONDataCollector.class);
 	private Record rec = new Record();
      
 	public JSONDataCollector () {
-		
+		games = new String[2];
+		games[0] = new String(WebAuthServer.AUTH_CLIENT_1);
+		games[1] = new String(WebAuthServer.AUTH_CLIENT_2);
+		auth = new WebAuthServer(games, WebAuthServer.AUTH_AUDIENCE);
 	}
 	
 	
@@ -38,6 +46,17 @@ public class JSONDataCollector {
              catch(NullPointerException e) {
             	 e.printStackTrace();
             	 return new String(ERROR+"1");
+             }
+             
+             GoogleIdToken.Payload payload = auth.check(rec.getAuthToken());
+             
+             if (payload == null ) {
+            	 return null;
+             }
+             else {
+            	 rec.setEmail(payload.getIssuer());
+            	 System.err.println(payload.getIssuer() + " email?");
+            	 System.err.println(payload.getIssuee() + " me?");
              }
              
              Long keyReturned = new Long(0);

@@ -16,12 +16,16 @@ import com.google.api.client.json.gson.GsonFactory;
 
 public class WebAuthServer {
 
+	public static final String AUTH_AUDIENCE = "459132469396-99er3ba7o4ukn0ttdm5pil6au9h4fvid.apps.googleusercontent.com";
+	public static final String AUTH_CLIENT_1 = "459132469396-sgj3aegqkhfagm8n9ao08987jgpvel61.apps.googleusercontent.com";//ag
+	public static final String AUTH_CLIENT_2 = "459132469396-mcgf7k5skam676uf2tp3b9hj0sa4p5nd.apps.googleusercontent.com";//af
+	
     private final List mClientIDs;
     private final String mAudience;
     private final GoogleIdTokenVerifier mVerifier;
     private final JsonFactory mJFactory;
     private String mProblem = "Verification failed. (Time-out?)";
-
+    
     public WebAuthServer(String[] clientIDs, String audience) {
         mClientIDs = Arrays.asList(clientIDs);
         mAudience = audience;
