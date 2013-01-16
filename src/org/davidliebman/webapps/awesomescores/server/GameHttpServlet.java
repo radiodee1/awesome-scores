@@ -17,6 +17,8 @@ public class GameHttpServlet extends HttpServlet {
 		scores.setJsonIn(request.getReader());
 		scores.executeRequest();
 		
+		if (scores.getJsonOut() == null ) return;
+		
 		response.getOutputStream().println(scores.getJsonOut());
 	}
 	
@@ -26,6 +28,8 @@ public class GameHttpServlet extends HttpServlet {
 		JSONDataCollector scores = new JSONDataCollector();
 		scores.setJsonIn(request.getReader());
 		scores.executeRequest();
+		
+		if (scores.getJsonOut() == null) return;
 		
 		response.getOutputStream().println(scores.getJsonOut());
 	}
