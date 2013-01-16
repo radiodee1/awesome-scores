@@ -62,7 +62,7 @@ public class JSONDataCollector {
              }
              
              Long keyReturned = new Long(0);
-             //do some thing with the cmd on server
+             //do some thing with the stuff on server
              manageJDO = new ScoreManagerJDO();
              
              try {
