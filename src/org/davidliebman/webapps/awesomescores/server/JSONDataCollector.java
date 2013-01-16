@@ -56,8 +56,8 @@ public class JSONDataCollector {
             	 return null;
              }
              else {
-            	 rec.setEmail(payload.getIssuer());
-            	 System.err.println(payload.getIssuer() + " email?");
+            	 rec.setEmail(payload.getEmail());
+            	 System.err.println(payload.getEmail() + " email?");
             	 //System.err.println(payload.getIssuee() + " me?");
              }
              
