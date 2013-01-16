@@ -51,6 +51,8 @@ public class JSONDataCollector {
              GoogleIdToken.Payload payload = auth.check(rec.getAuthToken());
              
              if (payload == null ) {
+            	 System.err.println("detected problem: " + auth.problem());
+            	 
             	 return null;
              }
              else {
@@ -65,7 +67,7 @@ public class JSONDataCollector {
              
              try {
              
-             keyReturned = manageJDO.saveRecord(new RecordSaver(rec,null));
+            	 keyReturned = manageJDO.saveRecord(new RecordSaver(rec,null));
 
              }
              catch (Exception e) {
