@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jpa_2.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jta-1.1.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine/v2"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-client-1.13.2-beta.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-client-appengine-1.13.2-beta.jar"/>
@@ -34,5 +33,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-1.13.1-beta.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-appengine-1.13.1-beta.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-servlet-1.13.1-beta.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine/v2"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
