@@ -14,7 +14,7 @@ public class ScoreManagerJDO {
 
 	PersistenceManager pm ;
 	
-	public static final int STORE_LIMIT = 100;
+	public static final int STORE_LIMIT = 150;
 	
 	public ScoreManagerJDO() {
 		pm = PMF.get().getPersistenceManager();
