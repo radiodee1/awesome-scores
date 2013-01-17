@@ -57,8 +57,6 @@ public class JSONDataCollector {
              }
              else {
             	 rec.setEmail(payload.getEmail());
-            	 System.err.println(payload.getEmail() + " email?");
-            	 //System.err.println(payload.getIssuee() + " me?");
              }
              
              Long keyReturned = new Long(0);
