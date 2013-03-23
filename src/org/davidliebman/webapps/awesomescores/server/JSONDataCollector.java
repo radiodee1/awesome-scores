@@ -56,12 +56,12 @@ public class JSONDataCollector {
             	 return null;
              }
              else {
-//            	 try {
-//            		 //rec.setEmail(payload.getEmail());
-//            	 }
-//            	 catch (Exception e ) {
-//            		 System.err.println("No getEmail() method...");
-//            	 }
+            	 try {
+            		 rec.setEmail(payload.getEmail());
+            	 }
+            	 catch (Exception e ) {
+            		 System.err.println("No getEmail() method...");
+            	 }
              }
              
              Long keyReturned = new Long(0);
