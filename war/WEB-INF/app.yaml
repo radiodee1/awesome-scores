@@ -1,12 +1,12 @@
 application: awesomescores
-version: 15
+version: 16
 runtime: java
 
 welcome_files:
 - index.html
 - awesome.css
 - handheld.css 
-
+- admin.html
 
 precompilation_enabled: true
 
@@ -15,8 +15,15 @@ handlers:
   secure: always
   servlet: org.davidliebman.webapps.awesomescores.server.GameHttpServlet
 
+- url: /admin.html
+  secure: always
+  login: required
+  servlet: org.davidliebman.webapps.awesomescores.server.GameHttpServlet
+
 - url: /
   secure: always
   servlet: org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl
 
+inbound_services:
+- warmup
 

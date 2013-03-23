@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated from app.yaml. Do not edit. --><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<!-- Generated from app.yaml. Do not edit. -->
+<web-app version='2.5' xmlns='http://java.sun.com/xml/ns/javaee' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'>
   <servlet>
     <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
     <servlet-class>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-class>
@@ -21,6 +22,22 @@
     </user-data-constraint>
   </security-constraint>
   <servlet-mapping>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
+    <url-pattern>/admin.html</url-pattern>
+  </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/admin.html</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  <servlet-mapping>
     <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
@@ -37,19 +54,6 @@
     <welcome-file>index.html</welcome-file>
     <welcome-file>awesome.css</welcome-file>
     <welcome-file>handheld.css</welcome-file>
+    <welcome-file>admin.html</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
-    <init-param>
-      <param-name>services</param-name>
-      <param-value/>
-    </init-param>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>SystemServiceServlet</servlet-name>
-    <url-pattern>/_ah/spi/*</url-pattern>
-  </servlet-mapping>
-
 </web-app>
