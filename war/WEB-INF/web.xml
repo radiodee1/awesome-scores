@@ -22,7 +22,20 @@
     </user-data-constraint>
   </security-constraint>
   <servlet-mapping>
-    <servlet-name>org.davidliebman.webapps.awesomescores.server.GameHttpServlet</servlet-name>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>aname</web-resource-name>
+      <url-pattern>/</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  <servlet-mapping>
+    <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
     <url-pattern>/admin.html</url-pattern>
   </servlet-mapping>
   <security-constraint>
@@ -37,23 +50,9 @@
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
-  <servlet-mapping>
-    <servlet-name>org.davidliebman.webapps.awesomescores.server.GreetingServiceImpl</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>aname</web-resource-name>
-      <url-pattern>/</url-pattern>
-    </web-resource-collection>
-    <user-data-constraint>
-      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-    </user-data-constraint>
-  </security-constraint>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>awesome.css</welcome-file>
     <welcome-file>handheld.css</welcome-file>
-    <welcome-file>admin.html</welcome-file>
   </welcome-file-list>
 </web-app>
