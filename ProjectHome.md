@@ -1,0 +1,1 @@
+This app uses app engine to display game scores. It is still in its development stage.
